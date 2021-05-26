@@ -13,7 +13,7 @@ import { VectorSource } from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON";
 import Stamen from "ol/source/Stamen";
 import fromLonLat from "ol/proj";
-import From
+
 
 var iconStyle = [
   new Style({
