@@ -7,10 +7,13 @@ import VectorSource from "ol/source/Vector";
 import View from "ol/View";
 import { Icon, Style } from "ol/style";
 import { Modify } from "ol/interaction";
-import { Tile as TileLayer } from "ol/layer";
+import { Tile } from "ol/layer";
 import { Vector } from "ol/layer";
 import { VectorSource } from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON";
+import Stamen from "ol/source/Stamen";
+import fromLonLat from "ol/proj";
+import From
 
 var iconStyle = [
   new Style({
@@ -30,3 +33,25 @@ var entidades = new Vector({
   }),
   style: iconStyle,
 });
+
+new map = new Map({
+  target: "map",
+  layers: [
+    new Tile({
+      source: new Stamen({
+        layer: "toner"
+      })
+    }),
+    new Tile({
+      source: new Stamen({
+        layer: "terrain-labels"
+      })
+    })
+  ],
+  view: new View({
+    center: fromLonLat([-8.6189, 40.5954]),
+    zoom: 11
+  })
+});
+
+
