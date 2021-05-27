@@ -1,0 +1,3223 @@
+{
+  "type": "FeatureCollection",
+  "name": "entidades",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Cais da Fonte Nova - Nº 1",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua José Afonso",
+        "COD_POSTAL": "3800-438",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43310.402524717108,
+        "COORD_Y": 108025.026443189,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'9'' N; 8º38'31'' W",
+        "id": 0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.645103210321324, 40.639992138347338]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Cais da Fonte Nova - Nº 2",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua José Afonso",
+        "COD_POSTAL": "3800-438",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43320.686087707028,
+        "COORD_Y": 108025.56290445672,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'9'' N; 8º38'31'' W",
+        "id": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.645224809988214, 40.639996430068983]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Cais da Fonte Nova - Nº 3",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua José Afonso",
+        "COD_POSTAL": "3800-438",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43330.96271764017,
+        "COORD_Y": 108027.29083964502,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'9'' N; 8º38'31'' W",
+        "id": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.64534640972683, 40.640011451056687]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB 2,3 de Aradas",
+        "MODALIDADE": "Futsal, Andebol, Voleibol, Basquetebol",
+        "MORADA": "Rua da Maurícia",
+        "COD_POSTAL": "3810-433",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -42817.562270639843,
+        "COORD_Y": 104762.46611362453,
+        "DATA_INFO": "02-05-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'38.3\" N; 8°38'20.6\" W",
+        "id": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.639055555555553, 40.610638887956455]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "FC Bom-Sucesso",
+        "MODALIDADE": "Futebol, Futebol de 7",
+        "MORADA": "Rua do Futebol Clube Bom-Sucesso",
+        "COD_POSTAL": "3810-461",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -43306.614669568728,
+        "COORD_Y": 103941.66680677616,
+        "DATA_INFO": "02-05-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'11.6\" N; 8°38'41.2\" W",
+        "id": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.644777777777783, 40.603222221289855]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "FC Bom-Sucesso",
+        "MODALIDADE": "Futsal, Andebol, Hóquei em patins, Basquetebol, Voleibol",
+        "MORADA": "Rua do Futebol Clube Bom-Sucesso",
+        "COD_POSTAL": "3810-461",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -43243.547747786259,
+        "COORD_Y": 103870.35148258976,
+        "DATA_INFO": "02-05-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'09.3\" N; 8°38'38.5\" W",
+        "id": 5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.644027777777795, 40.602583332400933]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2,3 de Aradas",
+        "MODALIDADE": "Futsal, Basquetebol, Voleibol",
+        "MORADA": "Rua da Maurícia",
+        "COD_POSTAL": "3810-433",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -42836.120344993506,
+        "COORD_Y": 104805.75920646652,
+        "DATA_INFO": "02-05-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'39.7\" N; 8°38'21.4\" W",
+        "id": 6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.63927777777779, 40.61102777684534]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Secundária Jaime Magalhães Lima",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42264.280015389755,
+        "COORD_Y": 108633.75085672135,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'43.9\" N; 8°37'58.0\" W",
+        "id": 7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.63277777777779, 40.645527776845199]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Parque Desportivo de Eirol",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua do Parque Desportivo",
+        "COD_POSTAL": "3800-698",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -34503.451010586403,
+        "COORD_Y": 105083.3111248629,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'50.1\" N; 8°32'27.0\" W",
+        "id": 8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.540833333333341, 40.613916665734244]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Grupo Desportivo Eixense",
+        "MODALIDADE": "Futebol de 7",
+        "MORADA": "Rua do Forno",
+        "COD_POSTAL": "3800-778",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -37463.98391259685,
+        "COORD_Y": 105828.69197896244,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'13.8\" N; 8°34'33.1\" W",
+        "id": 9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.575861111111122, 40.620499999067519]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB Integrada de Eixo",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol, Voleibol",
+        "MORADA": "Rua do Forno",
+        "COD_POSTAL": "3800-501",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -36823.508638058134,
+        "COORD_Y": 106550.86896354993,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'37.4\" N; 8°34'05.8\" W",
+        "id": 10
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.568334335795182, 40.627031945599398]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB Integrada de Eixo - Nº 1",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol, Voleibol",
+        "MORADA": "Rua do Forno",
+        "COD_POSTAL": "3800-501",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -36785.761570672796,
+        "COORD_Y": 106562.55829472066,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'37.7\" N; 8°34'04.4\" W",
+        "id": 11
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.5678888888889, 40.627138887956391]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Instalação especial",
+        "NOME": "Grupo Desportivo de Azurva",
+        "MODALIDADE": "Pista de Automodelismo",
+        "MORADA": "Rua do Cabeço Serrano",
+        "COD_POSTAL": "3800-745",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -39427.089912110714,
+        "COORD_Y": 107967.29412766786,
+        "DATA_INFO": "03-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'22.8\" N; 8°35'57.1\" W",
+        "id": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.599194444444445, 40.639666665734076]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Parque da Balsa",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua do Dr. Rei Lima",
+        "COD_POSTAL": "3800-795",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -36027.393612801519,
+        "COORD_Y": 106888.91444270534,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'48.4\" N; 8°33'32.2\" W",
+        "id": 13
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.558944444444451, 40.630111110178582]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola Jaime Magalhães Lima",
+        "MODALIDADE": "Andebol, Futsal, Basquetebol, Voleibol, Badminton",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42231.123279998763,
+        "COORD_Y": 108679.83394807501,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'45.4\" N; 8°37'56.6\" W",
+        "id": 14
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.632388888888903, 40.645944443511866]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Quinta do Carramona",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua Doutor Artur Alves Moreira",
+        "COD_POSTAL": "3800-091",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42036.105982803776,
+        "COORD_Y": 109095.17186911315,
+        "DATA_INFO": "02-08-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'58.9\" N; 8°37'48.4\" W",
+        "id": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.630111111111104, 40.649694443511827]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Instalação especial",
+        "NOME": "Centro de Alto Rendimento de Surf",
+        "MODALIDADE": "Centro de Estágio - Surf",
+        "MORADA": null,
+        "COD_POSTAL": null,
+        "FREGUESIA": "S. Jacinto",
+        "COORD_X": -51274.910783657266,
+        "COORD_Y": 111080.69052572569,
+        "DATA_INFO": "2015",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": null,
+        "id": 16
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.739500257059321, 40.667051600317265]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Esc. Sec. Dr. Mário Sacramento",
+        "MODALIDADE": null,
+        "MORADA": null,
+        "COD_POSTAL": null,
+        "FREGUESIA": "Glória e Vera Cruz",
+        "COORD_X": -43309.533384452559,
+        "COORD_Y": 107518.38458252388,
+        "DATA_INFO": "2015",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": null,
+        "id": 17
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.64505808332969, 40.635429953564397]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Gimnodesportivo IDP",
+        "MODALIDADE": null,
+        "MORADA": null,
+        "COD_POSTAL": null,
+        "FREGUESIA": "Glória e Vera Cruz",
+        "COORD_X": -43470.765671417044,
+        "COORD_Y": 107868.40967116537,
+        "DATA_INFO": "2015",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": null,
+        "id": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.646988059500616, 40.638573409541799]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Instalação especial",
+        "NOME": "Clube dos Galitos",
+        "MODALIDADE": "Posto Náutico",
+        "MORADA": null,
+        "COD_POSTAL": null,
+        "FREGUESIA": "Glória e Vera Cruz",
+        "COORD_X": -44870.42046402429,
+        "COORD_Y": 109123.03099848202,
+        "DATA_INFO": "2015",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": null,
+        "id": 19
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.663622542221361, 40.649796222530597]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Parque dos Amores",
+        "MODALIDADE": "Futebol",
+        "MORADA": null,
+        "COD_POSTAL": null,
+        "FREGUESIA": "Glória e Vera Cruz",
+        "COORD_X": -43834.554279603923,
+        "COORD_Y": 107344.6872338315,
+        "DATA_INFO": "2015",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": null,
+        "id": 20
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.651251875092299, 40.633838158781245]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Quinta da Bela Vista",
+        "MODALIDADE": "Andebol, Futsal, Ténis",
+        "MORADA": "Rua Carlos Alberto Moreira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -40592.659849165007,
+        "COORD_Y": 108390.00175286004,
+        "DATA_INFO": "07-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'36.3\" N; 8°36'46.8\" W",
+        "id": 21
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.613, 40.643416665734101]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Quinta do Olho de Água",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua das Andorinhas",
+        "COD_POSTAL": "3800-371",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -41780.045611068424,
+        "COORD_Y": 109507.0869828713,
+        "DATA_INFO": "02-08-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'12.3\" N; 8°37'37.6\" W",
+        "id": 22
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.627111111111123, 40.653416665734042]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB 2, 3 Aires Barbosa",
+        "MODALIDADE": "Basquetebol, Voleibol",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42348.724359866814,
+        "COORD_Y": 108658.90911099053,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'44.7\" N; 8°38'01.6\" W",
+        "id": 23
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.633777777777773, 40.645749999067412]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Casa do Povo de Oliveirinha",
+        "MODALIDADE": "Ténis, Voleibol, Andebol, Futsal, Hóquei em patins",
+        "MORADA": "Rua da Casa do Povo",
+        "COD_POSTAL": "3810-855",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -40003.562705311058,
+        "COORD_Y": 103773.00342571268,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'06.7\" N; 8°36'19.9\" W",
+        "id": 24
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.605742698228498, 40.60186969851113]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de Oliveirinha - Nº 1",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol, Voleibol",
+        "MORADA": "Rua da Peneireira",
+        "COD_POSTAL": "3810-875",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -39830.434742291676,
+        "COORD_Y": 103727.9361519294,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'05.3\" N; 8°36'13.3\" W",
+        "id": 25
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.60369444444445, 40.601472221289846]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de Oliveirinha - Nº 2",
+        "MODALIDADE": "Basquetebol, Futsal, Voleibol",
+        "MORADA": "Rua da Peneireira",
+        "COD_POSTAL": "3810-875",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -39802.386056711483,
+        "COORD_Y": 103696.93906614938,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'04.3\" N; 8°36'12.1\" W",
+        "id": 26
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.603361111111107, 40.601194443512078]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pista de atletismo",
+        "NOME": "Escola EB 2, 3 de Oliveirinha",
+        "MODALIDADE": "Atletismo",
+        "MORADA": "Rua da Peneireira",
+        "COD_POSTAL": "3810-875",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -39832.86830889601,
+        "COORD_Y": 103712.52555402846,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'04.8\" N; 8°36'13.4\" W",
+        "id": 27
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.603722222222235, 40.601333332400955]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB 2, 3 de Oliveirinha",
+        "MODALIDADE": "Futsal, Basquetebol, Voleibol",
+        "MORADA": "Rua da Peneireira",
+        "COD_POSTAL": "3810-875",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -39849.507643810692,
+        "COORD_Y": 103678.68258569113,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'03.7\" N; 8°36'14.1\" W",
+        "id": 28
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.603916666666663, 40.601027776845385]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB 2, 3 de Oliveirinha",
+        "MODALIDADE": "Sala de ginástica",
+        "MORADA": "Rua da Peneireira",
+        "COD_POSTAL": "3810-875",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -39856.643546820116,
+        "COORD_Y": 103663.29714431052,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'03.2\" N; 8°36'14.4\" W",
+        "id": 29
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.604, 40.600888887956536]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de São Bernardo - Nº 1",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua Doutor José Girão Pereira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42571.152276715096,
+        "COORD_Y": 106107.61394404831,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'20.6\" N; 8°38'10.7\" W",
+        "id": 30
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.636234858069065, 40.62276451120816]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de São Bernardo - Nº 2",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua Doutor José Girão Pereira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42551.002916929945,
+        "COORD_Y": 106074.36650948726,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'20.6\" N; 8°38'10.7\" W",
+        "id": 31
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.635994486491443, 40.622466159209985]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Centro Desportivo de São Bernardo - Nº 2",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Rua Aldeia Desportiva",
+        "COD_POSTAL": "3810-206",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41877.528788054893,
+        "COORD_Y": 105124.2059346889,
+        "DATA_INFO": "18-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'50.2\" N; 8°37'40.7\" W",
+        "id": 32
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.627972222222217, 40.613944443511997]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Centro Desportivo de São Bernardo",
+        "MODALIDADE": "Andebol, Futsal",
+        "MORADA": "Rua Aldeia Desportiva",
+        "COD_POSTAL": "3810-206",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41802.514611348233,
+        "COORD_Y": 105086.76768483872,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'49.0\" N; 8°37'37.5\" W",
+        "id": 33
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.627083333333342, 40.613611110178695]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB 1 de São Bernardo",
+        "MODALIDADE": "Sala de ginástica",
+        "MORADA": "Rua António Farela",
+        "COD_POSTAL": "3810-089",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41553.451398468373,
+        "COORD_Y": 105232.24479960738,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'55.5\" N; 8°37'26.4\" W",
+        "id": 34
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.62414987865616, 40.614933668071103]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB 2, 3 de São Bernardo",
+        "MODALIDADE": "Sala de ginástica, Sala de dança",
+        "MORADA": "Rua Doutor José Girão Pereira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42585.929585317579,
+        "COORD_Y": 106075.99635466051,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'20.6\" N; 8°38'10.7\" W",
+        "id": 35
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.636407359989594, 40.622479037723636]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 1 de São Jacinto",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua de Nª Sra. das Areias",
+        "COD_POSTAL": "3800-901",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -50639.155935838215,
+        "COORD_Y": 110614.04896599677,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'46.4\" N; 8°43'55.0\" W",
+        "id": 36
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.731944444444446, 40.662888887956193]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Parque de Campismo Municipal de Aveiro",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Estrada Nacional 327",
+        "COD_POSTAL": "3800-901",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -49533.478151236675,
+        "COORD_Y": 112617.90111409749,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'51.6\" N; 8°43'08.5\" W",
+        "id": 37
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.719027777777791, 40.680999999067218]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Colégio D. José I",
+        "MODALIDADE": "Futsal, Andebol, Voleibol, Basquetebol",
+        "MORADA": "Rua Luís de Camões",
+        "COD_POSTAL": "3810-284",
+        "FREGUESIA": "Stª Joana",
+        "COORD_X": -39974.147295813906,
+        "COORD_Y": 107177.43433088968,
+        "DATA_INFO": "05-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'57.1\" N; 8°36'20.2\" W",
+        "id": 38
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.605611111111122, 40.632527776845244]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Sol Posto",
+        "MODALIDADE": "Sala de ginástica, Sala de spinning, Sala de dança",
+        "MORADA": "Rua da Quinta do Torto",
+        "COD_POSTAL": "3810-319",
+        "FREGUESIA": "Stª Joana",
+        "COORD_X": -40602.940419032129,
+        "COORD_Y": 106505.27961809293,
+        "DATA_INFO": "05-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'35.2\" N; 8°36'46.8\" W",
+        "id": 39
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.613, 40.626444443511964]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Sol Posto",
+        "MODALIDADE": "Basquetebol, Futsal",
+        "MORADA": "Rua da Quinta do Torto",
+        "COD_POSTAL": "3810-319",
+        "FREGUESIA": "Stª Joana",
+        "COORD_X": -40631.109703368624,
+        "COORD_Y": 106511.60277752217,
+        "DATA_INFO": "05-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'35.4\" N; 8°36'48.0\" W",
+        "id": 40
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.613333333333323, 40.626499999067505]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Parque Desportivo de S. Brás - FIDEC",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua da FIDEC",
+        "COD_POSTAL": "3810-027",
+        "FREGUESIA": "Stª Joana",
+        "COORD_X": -40624.042139149809,
+        "COORD_Y": 106514.64894835479,
+        "DATA_INFO": "05-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'35.5\" N; 8°36'47.7\" W",
+        "id": 41
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.61325, 40.626527776845286]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Caião",
+        "MODALIDADE": "Futsal, Basquetebol, Andebol",
+        "MORADA": "Rua Vasco da Gama",
+        "COD_POSTAL": "3800-118",
+        "FREGUESIA": "Stª Joana",
+        "COORD_X": -41530.265704469173,
+        "COORD_Y": 107957.14128457381,
+        "DATA_INFO": "05-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'22.1\" N; 8°37'26.6\" W",
+        "id": 42
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.624055555555554, 40.639472221289672]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Clube de Ténis de Aveiro - Nº 1",
+        "MODALIDADE": "Paddle Tennis",
+        "MORADA": "Parque de Santo António, Aveiro",
+        "COD_POSTAL": "3810-100",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44188.860565880277,
+        "COORD_Y": 107842.74794172449,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'19\" N; 8º39'20.33\" W",
+        "id": 43
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.655474720274634, 40.638304245323098]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 João Afonso - Nº 3",
+        "MODALIDADE": "Basquetebol, Futsal",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44071.53479980681,
+        "COORD_Y": 107281.24734331142,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 44
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654048538354525, 40.633254291215771]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Universidade de Aveiro",
+        "MODALIDADE": "Futebol, Rugby",
+        "MORADA": "Campus Universitário de Santiago",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44050.834572353735,
+        "COORD_Y": 106732.23477197318,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'42.2\" N; 8°39'13.8\" W",
+        "id": 45
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.653765463736599, 40.628311623573083]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Cais da Fonte Nova",
+        "MODALIDADE": "Futebol de 5",
+        "MORADA": "Rua José Afonso",
+        "COD_POSTAL": "3800-438",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43230.61507626353,
+        "COORD_Y": 108048.57543511069,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'22'' N; 8º38'40'' W",
+        "id": 46
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.644161654175912, 40.640208371071594]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Instalação especial",
+        "NOME": "Parque dos Amores",
+        "MODALIDADE": "Skate",
+        "MORADA": "Parque dos Amores, Rua das Pombas",
+        "COD_POSTAL": "3800-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43815.119279280341,
+        "COORD_Y": 107313.37036870427,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'3'' N; 8º39'3'' W",
+        "id": 47
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.651019974787852, 40.633557185863936]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Parque dos Amores",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Parque dos Amores, Rua das Pombas",
+        "COD_POSTAL": "3800-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43788.338388607757,
+        "COORD_Y": 107310.82953430987,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'3'' N; 8º39'3'' W",
+        "id": 48
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.650703249913333, 40.633535725242155]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Clube de Ténis de Aveiro - Nº 2",
+        "MODALIDADE": "Paddle Tennis",
+        "MORADA": "Parque de Santo António, Aveiro",
+        "COD_POSTAL": "3810-100",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44176.428026296511,
+        "COORD_Y": 107841.48259438699,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'19\" N; 8º39'20.33\" W",
+        "id": 49
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.655327669463725, 40.638293515761262]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Clube de Ténis de Aveiro - Nº 1",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Parque de Santo António, Aveiro",
+        "COD_POSTAL": "3810-100",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44121.547450047707,
+        "COORD_Y": 107741.94095351174,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'16'' N; 8º39'18'' W",
+        "id": 50
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654671963515931, 40.637400092114937]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Clube de Ténis de Aveiro - Nº 2",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Parque de Santo António, Aveiro",
+        "COD_POSTAL": "3810-100",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44201.596039856893,
+        "COORD_Y": 107873.56511103935,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'19\" N; 8º39'20.33\" W",
+        "id": 51
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.655627426916906, 40.638581067530147]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Clube de Ténis de Aveiro - Nº 3",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Parque de Santo António, Aveiro",
+        "COD_POSTAL": "3810-100",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44182.465323488184,
+        "COORD_Y": 107872.25997591499,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'19\" N; 8º39'20.33\" W",
+        "id": 52
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.655401194854321, 40.63857033801419]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB 2, 3 João Afonso",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol, Badminton, Voleibol",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44148.186747466047,
+        "COORD_Y": 107265.73382424194,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 53
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654953466555504, 40.633110504006666]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Instalação especial",
+        "NOME": "Escola EB 2, 3 João Afonso",
+        "MODALIDADE": "Minigolfe",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44055.931918433256,
+        "COORD_Y": 107289.97298295153,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 54
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.653864724811932, 40.63333369595486]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Seminário de Santa Joana Princesa",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Avenida do Padre Fernão de Oliveira",
+        "COD_POSTAL": "3800-184",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44344.36953548545,
+        "COORD_Y": 107352.44117758895,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'01.6\" N; 8°39'27.2\" W",
+        "id": 55
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.657278421306064, 40.633880787585191]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Estabelecimento de Ensino de Santa Joana",
+        "MODALIDADE": "Sala de ginástica, Futsal, Basquetebol",
+        "MORADA": "Largo Maia Magalhães n.º 19",
+        "COD_POSTAL": "3800-124",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43816.346115686938,
+        "COORD_Y": 108414.45690216016,
+        "DATA_INFO": "29-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'36.5\" N; 8°39'04.0\" W",
+        "id": 56
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.651111111111112, 40.643472221289635]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Secundária José Estevão",
+        "MODALIDADE": "Futsal, Andebol, Ténis, Basquetebol, Voleibol",
+        "MORADA": "Avenida 25 de Abril",
+        "COD_POSTAL": "3811-901",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43524.417045302922,
+        "COORD_Y": 107902.37904170988,
+        "DATA_INFO": "29-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'15.2\" N; 8°38'54.6\" W",
+        "id": 57
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.647624611187259, 40.63887647432756]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola Secundária José Estevão",
+        "MODALIDADE": "Sala de ginástica, Sala de dança",
+        "MORADA": "Avenida 25 de Abril",
+        "COD_POSTAL": "3811-901",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43511.30582647003,
+        "COORD_Y": 107884.7594808624,
+        "DATA_INFO": "29-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'15.2\" N; 8°38'54.6\" W",
+        "id": 58
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.647468407353799, 40.638718503464261]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Piscina",
+        "NOME": "Carocho",
+        "MODALIDADE": null,
+        "MORADA": "Travessa do Carocho, Quinta do Picado",
+        "COD_POSTAL": "3800-000",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -42540.924835163438,
+        "COORD_Y": 102980.98811693421,
+        "DATA_INFO": "03-07-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°35'40.6\" N; 8°38'08.4\" W",
+        "id": 59
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.635666666666662, 40.594611110178754]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Piscina",
+        "NOME": "Cacia",
+        "MODALIDADE": null,
+        "MORADA": "Av. Fernando Augusto de Oliveira",
+        "COD_POSTAL": "3800-504",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -39573.334675397848,
+        "COORD_Y": 112718.58859442823,
+        "DATA_INFO": "19-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'56.8\" N; 8°36'04.4\" W",
+        "id": 60
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.601222222222223, 40.682444443511677]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Básica do 1º Ciclo de Azurva",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua Vitorino Nemésio",
+        "COD_POSTAL": "3800-733",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -39272.307735877883,
+        "COORD_Y": 107463.66340521688,
+        "DATA_INFO": "03-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'06.5\" N; 8°35'50.4\" W",
+        "id": 61
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.597333333333339, 40.635138887956337]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Estádio Municipal de Aveiro",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua da Taboeira",
+        "COD_POSTAL": "3804-508",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -38961.88043364873,
+        "COORD_Y": 108853.24885051695,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'51.6\" N; 8°35'37.5\" W",
+        "id": 62
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.59375, 40.647666665734064]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "ACREMA",
+        "MODALIDADE": "Sala de artes marciais, Sala de dança, Sala de ginástica",
+        "MORADA": "Rua Primeiro de Maio, Mataduços",
+        "COD_POSTAL": "3800-025",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -41708.59029136657,
+        "COORD_Y": 110518.48782873685,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'45.1\" N; 8°37'34.8\" W",
+        "id": 63
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.626333333333328, 40.662527776845081]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Instalação especial",
+        "NOME": "Grupo Desportivo Azurva",
+        "MODALIDADE": "Ténis de Mesa",
+        "MORADA": "Rua do Cabeço Serrano",
+        "COD_POSTAL": "3800-745",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -39426.910134977661,
+        "COORD_Y": 108001.22531363161,
+        "DATA_INFO": "03-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'23.9\" N; 8°35'57.1\" W",
+        "id": 64
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.599194444444445, 40.639972221289668]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB 2, 3 de São Bernardo",
+        "MODALIDADE": "Andebol, Futsal, Basquetebol, Voleibol",
+        "MORADA": "Rua Doutor José Girão Pereira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42599.225613768598,
+        "COORD_Y": 106094.18791181977,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'20.6\" N; 8°38'10.7\" W",
+        "id": 65
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.636565722437831, 40.622642165609157]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Galitos",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Avenida Dr. Francisco Sá Carneiro",
+        "COD_POSTAL": "3800-265",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -42969.477823533889,
+        "COORD_Y": 107689.10022851179,
+        "DATA_INFO": "21-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'15'' N; 8º38'30'' W",
+        "id": 66
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.641050184234444, 40.636984971653476]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Gimnodesportivo de Esgueira",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Rua Jose Falcão",
+        "COD_POSTAL": "3800-310",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -41941.624339103357,
+        "COORD_Y": 109184.09657132637,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'01.8\" N; 8°37'44.4\" W",
+        "id": 67
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.629, 40.650499999067357]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Quintãs",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol",
+        "MORADA": "Rua da Capela Nova",
+        "COD_POSTAL": "3810-407",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -40561.457879806578,
+        "COORD_Y": 101603.4227301799,
+        "DATA_INFO": "18-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°34'56.3\" N; 8°36'43.9\" W",
+        "id": 68
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.61219444444445, 40.582305554623289]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Piscina",
+        "NOME": "Galitos",
+        "MODALIDADE": null,
+        "MORADA": "Rua Jaime Moniz",
+        "COD_POSTAL": "3810-123",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43430.701014613049,
+        "COORD_Y": 107829.23137689437,
+        "DATA_INFO": "21-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'10'' N; 8º38'27'' W",
+        "id": 69
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.646511759621866, 40.638222721768678]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Parque Desportivo da Gândara Oliveirinha",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua Justa Ferreira Dias",
+        "COD_POSTAL": "3810-867",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -40115.219283666171,
+        "COORD_Y": 103673.93883657559,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'03.5\" N; 8°36'25.4\" W",
+        "id": 70
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.60705555555556, 40.600972221289858]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Complexo Desportivo Dr. Girão Pereira",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Avenida Riamar",
+        "COD_POSTAL": "3800-903",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -51139.417796320282,
+        "COORD_Y": 110969.14271639677,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'57.8\" N; 8°44'16.4\" W",
+        "id": 71
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.737888888888888, 40.666055554622879]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Departamento de Educação da Universidade de Aveiro",
+        "MODALIDADE": "Desportos de Academia, Ginástica de Solo, Ginástica de Aparelhos",
+        "MORADA": "Avenida Padre Fernão de Oliveira",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44462.840991325604,
+        "COORD_Y": 107181.3007312039,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'56.4\" N; 8°39'31.2\" W",
+        "id": 72
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.658666666666665, 40.63233333240079]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pista de atletismo",
+        "NOME": "Universidade de Aveiro",
+        "MODALIDADE": "Atletismo",
+        "MORADA": "Campus Universitário de Santiago",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44093.014729190225,
+        "COORD_Y": 106720.56735893889,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'42.2\" N; 8°39'13.8\" W",
+        "id": 73
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654263174109701, 40.628204311722151]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB 2, 3 de Aradas",
+        "MODALIDADE": "Sala de dança, Sala de ginástica",
+        "MORADA": "Rua da Maurícia",
+        "COD_POSTAL": "3810-433",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -42848.122690979035,
+        "COORD_Y": 104762.64183825698,
+        "DATA_INFO": "02-05-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'38.3\" N; 8°38'21.9\" W",
+        "id": 74
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.639416666666682, 40.610638887956455]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Clube Estrela Azul",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Av. Fernando Augusto de Oliveira",
+        "COD_POSTAL": "3800-540",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -39644.062896571988,
+        "COORD_Y": 112666.52464068898,
+        "DATA_INFO": "19-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'55.1\" N; 8°36'07.4\" W",
+        "id": 75
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.602055555555561, 40.681972221289449]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Escola EB 2, 3 de Cacia",
+        "MODALIDADE": "Basquetebol, Badminton, Voleibol",
+        "MORADA": "Avenida Manuel Álvaro Lopes Pereira",
+        "COD_POSTAL": "3800-625",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -39330.3543012788,
+        "COORD_Y": 112482.85657218512,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'49.2\" N; 8°35'54.0\" W",
+        "id": 76
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.598333333333324, 40.680333332400558]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB 2, 3 de Cacia",
+        "MODALIDADE": "Sala de ginástica, Sala de dança",
+        "MORADA": "Avenida Manuel Álvaro Lopes Pereira",
+        "COD_POSTAL": "3800-625",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -39342.177734694851,
+        "COORD_Y": 112467.49535517721,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'48.7\" N; 8°35'54.5\" W",
+        "id": 77
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.598472222222213, 40.680194443511667]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de Cacia",
+        "MODALIDADE": "Futsal, Andebol, Voleibol, Basquetebol",
+        "MORADA": "Avenida Manuel Álvaro Lopes Pereira",
+        "COD_POSTAL": "3800-625",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -39311.371632704089,
+        "COORD_Y": 112519.77325823085,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'50.4\" N; 8°35'53.2\" W",
+        "id": 78
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.598111111111109, 40.680666665733902]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "CENAP",
+        "MODALIDADE": "Futsal, Andebol, Hóquei em patins, Basquetebol, Badminton",
+        "MORADA": "Travessa do CENAP",
+        "COD_POSTAL": "3800-638",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -41234.367031470101,
+        "COORD_Y": 111737.40965494663,
+        "DATA_INFO": "19-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'24.7\" N; 8°37'14.9\" W",
+        "id": 79
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.620805555555553, 40.673527776845056]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "APROCRED",
+        "MODALIDADE": "Futsal, Ténis",
+        "MORADA": "Rua Ecos de Cacia",
+        "COD_POSTAL": "3800-000",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -38623.555869009906,
+        "COORD_Y": 112016.43574134799,
+        "DATA_INFO": "19-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'34.2\" N; 8°35'23.8\" W",
+        "id": 80
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.589944444444459, 40.676166665733923]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Casa de Oração Evangélica",
+        "MODALIDADE": "Futsal, Badminton",
+        "MORADA": "Avenida Fernando Augusto de Oliveira",
+        "COD_POSTAL": "3800-000",
+        "FREGUESIA": "Cacia",
+        "COORD_X": -39785.472769583022,
+        "COORD_Y": 112571.65277084349,
+        "DATA_INFO": "19-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'52.0\" N; 8°36'13.4\" W",
+        "id": 81
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.603722222222235, 40.681111110178357]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Parque Desportivo de Eirol",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua do Parque Desportivo",
+        "COD_POSTAL": "3800-698",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -34578.830349693664,
+        "COORD_Y": 105049.72896858263,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'49.0\" N; 8°32'30.2\" W",
+        "id": 82
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.541722222222219, 40.613611110178695]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Grupo Desportivo Azurva",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua do Cabeço Serrano",
+        "COD_POSTAL": "3800-745",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -39488.086027164223,
+        "COORD_Y": 107986.1259923789,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'23.4\" N; 8°35'59.7\" W",
+        "id": 83
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.599916666666676, 40.639833332400777]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Grupo Desportivo Eixense",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua do Forno",
+        "COD_POSTAL": "3800-778",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -37404.974682293374,
+        "COORD_Y": 105877.75084382099,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'15.4\" N; 8°34'30.6\" W",
+        "id": 84
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.575166666666671, 40.620944443512002]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "ACREMA",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua Primeiro de Maio, Mataduços",
+        "COD_POSTAL": "3800-025",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -41696.637804971768,
+        "COORD_Y": 110555.43796391816,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'46.3\" N; 8°37'34.3\" W",
+        "id": 85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.626194444444437, 40.662861110178426]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Associação Desportiva de Taboeira",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua Condessa de Tabueira",
+        "COD_POSTAL": "3800-053",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -38200.536330479445,
+        "COORD_Y": 109327.4350191148,
+        "DATA_INFO": "03-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'07.1\" N; 8°35'05.2\" W",
+        "id": 86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.584777777777786, 40.65197222128959]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Escola Secundária Jaime Magalhães Lima",
+        "MODALIDADE": "Futebol de 7",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42276.203184811035,
+        "COORD_Y": 108602.97101669565,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'42.9\" N; 8°37'58.5\" W",
+        "id": 87
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.632916666666677, 40.645249999067381]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Secundária Jaime Magalhães Lima",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42297.735278616143,
+        "COORD_Y": 108535.22872168393,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'40.7\" N; 8°37'59.4\" W",
+        "id": 88
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.633166666666675, 40.644638887956283]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 Aires Barbosa - Nº 1",
+        "MODALIDADE": "Basquetebol, Futsal, Andebol",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42318.197491750339,
+        "COORD_Y": 108655.65065236292,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'44.6\" N; 8°38'00.3\" W",
+        "id": 89
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.633416666666671, 40.645722221289624]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 Aires Barbosa - Nº 2",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol, Voleibol",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42325.439238419822,
+        "COORD_Y": 108621.75950291977,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'43.5\" N; 8°38'00.6\" W",
+        "id": 90
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.6335, 40.645416665734061]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB 2, 3 Aires Barbosa",
+        "MODALIDADE": "Sala de ginástica, Sala de dança",
+        "MORADA": "Rua Padre José Maria Taborda",
+        "COD_POSTAL": "3804-506",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42369.852925553183,
+        "COORD_Y": 108662.1141662736,
+        "DATA_INFO": "08-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'44.8\" N; 8°38'02.5\" W",
+        "id": 91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.634027777777771, 40.645777776845193]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Quinta do Carramona",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua Doutor Artur Alves Moreira",
+        "COD_POSTAL": "3800-091",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42045.660624091041,
+        "COORD_Y": 109067.46303500276,
+        "DATA_INFO": "02-08-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'58.0\" N; 8°37'48.8\" W",
+        "id": 92
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.630222222222237, 40.64944444351184]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Parque Desportivo da Gândara Oliveirinha",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua Justa Ferreira Dias",
+        "COD_POSTAL": "3810-867",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -40186.036234791456,
+        "COORD_Y": 103621.88012159651,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'01.8\" N; 8°36'28.4\" W",
+        "id": 93
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.607888888888896, 40.600499999067623]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Parque Desportivo da Gândara Oliveirinha",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Rua Justa Ferreira Dias",
+        "COD_POSTAL": "3810-867",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -40144.081020980295,
+        "COORD_Y": 103553.79009355178,
+        "DATA_INFO": "01-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°35'59.6\" N; 8°36'26.6\" W",
+        "id": 94
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.607388888888879, 40.599888887956517]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Porto de Ílhavo",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua Dr. Manuel Seabra",
+        "COD_POSTAL": "3810-570",
+        "FREGUESIA": "Requeixo, Nª Srª de Fátima e Nariz",
+        "COORD_X": -39473.782711083186,
+        "COORD_Y": 97812.65861899528,
+        "DATA_INFO": "22-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°32'53.6\" N; 8°35'56.8\" W",
+        "id": 95
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.599111111111121, 40.548222221290111]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Associação Desportiva de Nariz",
+        "MODALIDADE": "Futsal, Andebol",
+        "MORADA": "Rua Professor Belarmino Nunes",
+        "COD_POSTAL": "3810-581",
+        "FREGUESIA": "Requeixo, Nª Srª de Fátima e Nariz",
+        "COORD_X": -38925.440086114017,
+        "COORD_Y": 96474.110943444874,
+        "DATA_INFO": "22-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°32'10.3\" N; 8°35'33.2\" W",
+        "id": 96
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.592555555555553, 40.5361944435124]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Parque Desportivo da Barroca",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua da Barroca",
+        "COD_POSTAL": "3810-760",
+        "FREGUESIA": "Requeixo, Nª Srª de Fátima e Nariz",
+        "COORD_X": -38333.840451448094,
+        "COORD_Y": 100768.0226750952,
+        "DATA_INFO": "22-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°34'29.6\" N; 8°35'09.0\" W",
+        "id": 97
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.585833333333337, 40.574888887956654]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Nª. Sr.ª de Fátima",
+        "MODALIDADE": "Futsal, Andebol",
+        "MORADA": "Rua da Igreja",
+        "COD_POSTAL": "3810-744",
+        "FREGUESIA": "Requeixo, Nª Srª de Fátima e Nariz",
+        "COORD_X": -38367.68025857646,
+        "COORD_Y": 101505.44027356074,
+        "DATA_INFO": "22-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°34'53.5\" N; 8°35'10.6\" W",
+        "id": 98
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.586277777777788, 40.581527776845512]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Associação Desportiva Requeixo",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Estrada N584",
+        "COD_POSTAL": "3800-000",
+        "FREGUESIA": "Requeixo, Nª Srª de Fátima e Nariz",
+        "COORD_X": -34401.568384653416,
+        "COORD_Y": 102710.70882272112,
+        "DATA_INFO": "22-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°35'33.2\" N; 8°32'22.2\" W",
+        "id": 99
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.5395, 40.592555554623218]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Patela - Vilar",
+        "MODALIDADE": "Futsal, Andebol",
+        "MORADA": "Rua das Areias de Vilar",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42042.413292453595,
+        "COORD_Y": 106546.834955984,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'35.5\" N; 8°37'46.6\" W",
+        "id": 100
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.630015500923273, 40.626746698222142]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Centro Desportivo de São Bernardo",
+        "MODALIDADE": "Parede \"bate-bolas\"",
+        "MORADA": "Rua Aldeia Desportiva",
+        "COD_POSTAL": "3810-206",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41912.980001142598,
+        "COORD_Y": 105090.4732122196,
+        "DATA_INFO": "18-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'49.1\" N; 8°37'42.2\" W",
+        "id": 101
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.628388888888889, 40.613638887956434]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Centro Desportivo de São Bernardo",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua Aldeia Desportiva",
+        "COD_POSTAL": "3810-206",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41945.594426714662,
+        "COORD_Y": 105143.09737978168,
+        "DATA_INFO": "18-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'50.8\" N; 8°37'43.6\" W",
+        "id": 102
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.628777777777774, 40.614111110178662]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Centro Desportivo de São Bernardo - Nº 1",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Rua Aldeia Desportiva",
+        "COD_POSTAL": "3810-206",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41893.914183071902,
+        "COORD_Y": 105136.63703576179,
+        "DATA_INFO": "18-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'50.6\" N; 8°37'41.4\" W",
+        "id": 103
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.628166666666674, 40.6140555546231]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Centro Paroquial de São Bernardo",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua Cónego Maio",
+        "COD_POSTAL": "3810-089",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41543.191451088591,
+        "COORD_Y": 105640.56969353436,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'07.0\" N; 8°37'26.6\" W",
+        "id": 104
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.624055555555554, 40.618611110178648]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 1 de São Bernardo",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua António Farela",
+        "COD_POSTAL": "3810-089",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41543.28883867168,
+        "COORD_Y": 105252.21269536264,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'55.5\" N; 8°37'26.4\" W",
+        "id": 105
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.624031106911273, 40.615113987624845]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de São Bernardo - Nº 1",
+        "MODALIDADE": "Andebol, Futebol",
+        "MORADA": "Rua Doutor José Girão Pereira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42551.249920156573,
+        "COORD_Y": 106114.88937115557,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'20.6\" N; 8°38'10.7\" W",
+        "id": 106
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.636000142342244, 40.622831049968156]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 de São Bernardo - Nº 2",
+        "MODALIDADE": "Andebol, Futsal",
+        "MORADA": "Rua Doutor José Girão Pereira",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -42560.665729020111,
+        "COORD_Y": 106142.11627189269,
+        "DATA_INFO": "27-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'20.6\" N; 8°38'10.7\" W",
+        "id": 107
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.636113258212921, 40.623075740304571]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Complexo Desportivo Dr. Girão Pereira",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Avenida Riamar",
+        "COD_POSTAL": "3800-903",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -51238.027579189897,
+        "COORD_Y": 110975.9913248643,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'58.0\" N; 8°44'20.6\" W",
+        "id": 108
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.739055555555572, 40.666111110178406]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Complexo Desportivo Dr. Girão pereira",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Avenida Riamar",
+        "COD_POSTAL": "3800-903",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -51169.549637457494,
+        "COORD_Y": 111027.96170477026,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'59.7\" N; 8°44'17.7\" W",
+        "id": 109
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.73825, 40.666583332400641]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Complexo Desportivo Dr. Girão Pereira",
+        "MODALIDADE": "Basquetebol, Futsal, Voleibol, Ténis",
+        "MORADA": "Avenida Riamar",
+        "COD_POSTAL": "3800-903",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -51216.420299014251,
+        "COORD_Y": 111043.70858042271,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'00.2\" N; 8°44'19.7\" W",
+        "id": 110
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.738805555555576, 40.666722221289504]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Piscina",
+        "NOME": "Complexo Desportivo Dr. Girão Pereira",
+        "MODALIDADE": null,
+        "MORADA": "Avenida Riamar",
+        "COD_POSTAL": "3800-903",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -51246.848913259761,
+        "COORD_Y": 111059.3423965054,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'00.7\" N; 8°44'21.0\" W",
+        "id": 111
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.739166666666678, 40.666861110178402]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Bairro de Santiago - Nº 1",
+        "MODALIDADE": "Andebol, Basquetebol, Futsal",
+        "MORADA": "Rua de Santa Maria da Feira",
+        "COD_POSTAL": "3810-166",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43718.925185449487,
+        "COORD_Y": 106912.42885851389,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º37'47'' N; 8º38'59'' W",
+        "id": 112
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.649855133557427, 40.629951863094114]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Bairro de Santiago - Nº 2",
+        "MODALIDADE": "Futsal, Andebol, Hóquei em patins",
+        "MORADA": "Rua de Santa Maria da Feira",
+        "COD_POSTAL": "3810-166",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43701.685034025977,
+        "COORD_Y": 106732.5877384788,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'42.0\" N; 8°38'58.7\" W",
+        "id": 113
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.649638888888893, 40.628333332400821]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Bairro de Santiago - Nº 3",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua de São João da Madeira",
+        "COD_POSTAL": "3810-000",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43796.236717569525,
+        "COORD_Y": 106640.60067200559,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'39.0\" N; 8°39'02.7\" W",
+        "id": 114
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.65075, 40.627499999067489]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Bairro de Santiago - Nº 4",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua de Oliveira de Azeméis",
+        "COD_POSTAL": "3810-000",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43833.919819160954,
+        "COORD_Y": 107026.4172405344,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'51.5\" N; 8°39'04.4\" W",
+        "id": 115
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.651222222222218, 40.630972221289703]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Galitos",
+        "MODALIDADE": "Parede \"bate-bolas\"",
+        "MORADA": "Avenida Dr. Francisco Sá Carneiro",
+        "COD_POSTAL": "3800-265",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43045.154343884358,
+        "COORD_Y": 107685.03685040202,
+        "DATA_INFO": "21-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'13'' N; 8º38'31'' W",
+        "id": 116
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.641944444444452, 40.636944443511908]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola Secundária Homem Cristo",
+        "MODALIDADE": "Badminton, Sala de ginástica, Sala de dança",
+        "MORADA": "Rua de Belém do Pará",
+        "COD_POSTAL": "3810-066",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44109.1112420602,
+        "COORD_Y": 108043.0312970423,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'26.2\" N; 8°39'14.8\" W",
+        "id": 117
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654546056140868, 40.640112022636842]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Parque dos Talentos - Escola Profissional de Aveiro",
+        "MODALIDADE": "Basquetebol, Futsal",
+        "MORADA": "Rua Dr. Francisco Ferreira",
+        "COD_POSTAL": "3800-351",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43373.113833162322,
+        "COORD_Y": 108765.41644068962,
+        "DATA_INFO": "20-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'48'' N; 8º38'45'' W",
+        "id": 118
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.645895547143621, 40.646655937511049]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Estádio Mário Duarte",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua do Sport Clube Beira-Mar",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43930.857600012663,
+        "COORD_Y": 107326.21047860829,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'01.2\" N; 8°39'08.6\" W",
+        "id": 119
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.652388888888902, 40.633666665734118]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Básica de Santiago",
+        "MODALIDADE": "Basquetebol, Futsal",
+        "MORADA": "Rua de Vagos",
+        "COD_POSTAL": "3810-342",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43657.700884696889,
+        "COORD_Y": 106618.19367373108,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'38.3\" N; 8°38'56.8\" W",
+        "id": 120
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.649111111111116, 40.627305554623064]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Pavilhão Prof. Dr. Aristides Hall - Universidade de Aveiro",
+        "MODALIDADE": "Sala de artes marciais, Sala de dança, Sala de ginástica",
+        "MORADA": "Campus Universitário de Santiago",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44096.912510565176,
+        "COORD_Y": 106917.42309014614,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'47.7\" N; 8°39'15.4\" W",
+        "id": 121
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.65432302419307, 40.629976758818763]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Prof. Dr. Aristides Hall - Universidade de Aveiro",
+        "MODALIDADE": "Futsal, Andebol, Voleibol, Basquetebol, Ténis",
+        "MORADA": "Campus Universitário de Santiago",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44099.862613644807,
+        "COORD_Y": 106904.09372198668,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'47.7\" N; 8°39'15.4\" W",
+        "id": 122
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654356958997051, 40.629856572593837]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Secundária Homem Cristo",
+        "MODALIDADE": "Futsal, Andebol, Basquetebol, Voleibol",
+        "MORADA": "Rua de Belém do Pará",
+        "COD_POSTAL": "3810-066",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44119.689051647969,
+        "COORD_Y": 108075.27598872609,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'26.2\" N; 8°39'14.8\" W",
+        "id": 123
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654673357189955, 40.640401815773387]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Galitos - Nº 1",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Avenida Dr. Francisco Sá Carneiro",
+        "COD_POSTAL": "3800-265",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43023.122753022144,
+        "COORD_Y": 107679.40108212428,
+        "DATA_INFO": "21-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'15'' N; 8º38'30'' W",
+        "id": 124
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.641683633988753, 40.636894841458862]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Galitos - Nº 2",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Avenida Dr. Francisco Sá Carneiro",
+        "COD_POSTAL": "3800-265",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43024.920855637843,
+        "COORD_Y": 107699.42962194234,
+        "DATA_INFO": "21-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40º38'15'' N; 8º38'30'' W",
+        "id": 125
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.641706257216265, 40.637075101824493]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Piscina",
+        "NOME": "Sporting Clube de Aveiro",
+        "MODALIDADE": null,
+        "MORADA": "Travessa da Rua do Carril",
+        "COD_POSTAL": "3800-129",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43758.974808837971,
+        "COORD_Y": 108580.69662952733,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'41.9\" N; 8°39'01.6\" W",
+        "id": 126
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.650444444444446, 40.644972221289642]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Universidade de Aveiro",
+        "MODALIDADE": "Sala de squash",
+        "MORADA": "Campus Universitário de Santiago",
+        "COD_POSTAL": "3810-193",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44086.028252261916,
+        "COORD_Y": 106896.86167333237,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'47.7\" N; 8°39'15.4\" W",
+        "id": 127
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654192940737753, 40.629792187033559]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola Básica de Santiago",
+        "MODALIDADE": "Sala de ginástica",
+        "MORADA": "Rua de Vagos",
+        "COD_POSTAL": "3810-342",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43696.437687785387,
+        "COORD_Y": 106663.22976867938,
+        "DATA_INFO": "22-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'38.3\" N; 8°38'56.8\" W",
+        "id": 128
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.649572058912991, 40.62770905154045]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 João Afonso - Nº 1",
+        "MODALIDADE": "Andebol, Futsal, Basquetebol",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44108.182510548613,
+        "COORD_Y": 107274.0763580335,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 129
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654481207153806, 40.633187762854767]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 João Afonso - Nº 2",
+        "MODALIDADE": "Andebol, Futsal, Basquetebol",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44094.504795817622,
+        "COORD_Y": 107280.90673717002,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 130
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654320016820227, 40.63324999906969]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB 2, 3 João Afonso - Nº 4",
+        "MODALIDADE": "Basquetebol, Futsal",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44076.509476213054,
+        "COORD_Y": 107289.61816293553,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 131
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654107924284816, 40.63332940382454]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pista de atletismo",
+        "NOME": "Escola EB 2, 3 João Afonso",
+        "MODALIDADE": "Atletismo",
+        "MORADA": "Rua das Pombas",
+        "COD_POSTAL": "3810-150",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44091.741191816953,
+        "COORD_Y": 107262.77766244469,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'59.7\" N; 8°39'16.0\" W",
+        "id": 132
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.654286082022228, 40.633086897132408]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Seminário de Santa Joana Princesa - Nº 1",
+        "MODALIDADE": "Futebol de 7",
+        "MORADA": "Avenida do Padre Fernão de Oliveira",
+        "COD_POSTAL": "3800-184",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44419.914456824226,
+        "COORD_Y": 107281.87115941902,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'01.6\" N; 8°39'27.2\" W",
+        "id": 133
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.658166382046849, 40.633241260107674]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Seminário de Santa Joana Princesa - Nº 2",
+        "MODALIDADE": "Futebol de 7",
+        "MORADA": "Avenida do Padre Fernão de Oliveira",
+        "COD_POSTAL": "3800-184",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -44391.977678103198,
+        "COORD_Y": 107312.68666040491,
+        "DATA_INFO": "26-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'01.6\" N; 8°39'27.2\" W",
+        "id": 134
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.657838345637693, 40.633520249346454]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pista de atletismo",
+        "NOME": "Escola Secundária José Estevão",
+        "MODALIDADE": "Atletismo",
+        "MORADA": "Avenida 25 de Abril",
+        "COD_POSTAL": "3811-901",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43461.866372952354,
+        "COORD_Y": 107812.72954727765,
+        "DATA_INFO": "29-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'15.2\" N; 8°38'54.6\" W",
+        "id": 135
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.646879018571356, 40.638072487039793]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola Básica de Vera Cruz",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua do Primeiro Visconde da Granja",
+        "COD_POSTAL": "3800-244",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43811.877738100688,
+        "COORD_Y": 108618.95249846649,
+        "DATA_INFO": "29-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'43.3\" N; 8°39'03.8\" W",
+        "id": 136
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.651072522962155, 40.645313905065464]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola Básica de Vera Cruz",
+        "MODALIDADE": "Sala de ginástica",
+        "MORADA": "Rua do Primeiro Visconde da Granja",
+        "COD_POSTAL": "3800-244",
+        "FREGUESIA": "Vera Cruz e Glória",
+        "COORD_X": -43846.824562162321,
+        "COORD_Y": 108615.10757475649,
+        "DATA_INFO": "29-01-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°38'43.3\" N; 8°39'03.8\" W",
+        "id": 137
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.651485396448422, 40.64527742835709]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Pavilhão",
+        "NOME": "Centro Desportivo de São Bernardo",
+        "MODALIDADE": "Andebol, Futsal",
+        "MORADA": "Rua Aldeia Desportiva",
+        "COD_POSTAL": "3810-206",
+        "FREGUESIA": "São Bernardo",
+        "COORD_X": -41856.597970791096,
+        "COORD_Y": 105083.98667660187,
+        "DATA_INFO": "18-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'48.9\" N; 8°37'39.8\" W",
+        "id": 138
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.627722222222223, 40.613583332400893]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Carregal",
+        "MODALIDADE": "Futsal, Andebol, Ténis, Basquetebol, Voleibol",
+        "MORADA": "Rua da Capela",
+        "COD_POSTAL": "3800-000",
+        "FREGUESIA": "Requeixo, Nª Srª de Fátima e Nariz",
+        "COORD_X": -34935.546943180161,
+        "COORD_Y": 100661.87521651947,
+        "DATA_INFO": "22-02-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°34'26.7\" N; 8°32'44.5\" W",
+        "id": 139
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.54569444444445, 40.574083332401088]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Complexo Desportivo Quinta da Condessa - Nº 1",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua Condessa de Taboeira",
+        "COD_POSTAL": "3800-050",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -37918.409977096861,
+        "COORD_Y": 109366.09306805809,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'08.4\" N; 8°34'53.2\" W",
+        "id": 140
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.581444444444436, 40.652333332400715]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Complexo Desportivo Quinta da Condessa - Nº 2",
+        "MODALIDADE": "Futebol",
+        "MORADA": "Rua Condessa de Taboeira",
+        "COD_POSTAL": "3800-050",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -37998.303182562049,
+        "COORD_Y": 109363.41603735324,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'08.3\" N; 8°34'56.6\" W",
+        "id": 141
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.582388888888881, 40.652305554622927]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "Complexo Desportivo Quinta da Condessa",
+        "MODALIDADE": "Futebol de 7",
+        "MORADA": "Rua Condessa de Taboeira",
+        "COD_POSTAL": "3800-050",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -37988.417447561391,
+        "COORD_Y": 109458.99246652362,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'11.4\" N; 8°34'56.2\" W",
+        "id": 142
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.582277777777774, 40.65316666573402]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de Futebol",
+        "NOME": "ACREMA",
+        "MODALIDADE": "Futebol de 7",
+        "MORADA": "Rua da Pedreira",
+        "COD_POSTAL": "3800-292",
+        "FREGUESIA": "Esgueira",
+        "COORD_X": -42484.111437913001,
+        "COORD_Y": 110871.45742410953,
+        "DATA_INFO": "01-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'56.4\" N; 8°38'07.9\" W",
+        "id": 143
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.635527777777773, 40.665666665733987]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Escola EB Integrada de Eixo - Nº 2",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Rua do Forno",
+        "COD_POSTAL": "3800-501",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -36775.903781669469,
+        "COORD_Y": 106620.66513280393,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'37.7\" N; 8°34'04.4\" W",
+        "id": 144
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.567775772795686, 40.62766257624385]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Escola EB Integrada de Eixo",
+        "MODALIDADE": "Sala de dança, Sala de ginástica",
+        "MORADA": "Rua do Forno",
+        "COD_POSTAL": "3800-501",
+        "FREGUESIA": "Eixo e Eirol",
+        "COORD_X": -36811.231841470631,
+        "COORD_Y": 106540.75657061179,
+        "DATA_INFO": "02-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'37.7\" N; 8°34'04.4\" W",
+        "id": 145
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.568188646372613, 40.626941430627568]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Sala de desporto",
+        "NOME": "Complexo Desportivo Dr. Girão Pereira",
+        "MODALIDADE": "Sala de artes marciais, Sala de musculação, Sala de dança",
+        "MORADA": "Avenida Riamar",
+        "COD_POSTAL": "3800-901",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -51202.475968876592,
+        "COORD_Y": 111022.01875602432,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'59.5\" N; 8°44'19.1\" W",
+        "id": 146
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.738638888888902, 40.666527776845079]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Lomba da Mata",
+        "MODALIDADE": "Futsal, Ténis",
+        "MORADA": "Rua da Esperança",
+        "COD_POSTAL": "3800-901",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -50814.570118432064,
+        "COORD_Y": 110726.29924461558,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°39'50.0\" N; 8°44'02.5\" W",
+        "id": 147
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.73402777777779, 40.663888887956197]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Quinta do Major",
+        "MODALIDADE": "Futsal, Andebol",
+        "MORADA": "Travessa Riamar",
+        "COD_POSTAL": "3800-901",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -50574.913981050071,
+        "COORD_Y": 111079.41946025818,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'01.5\" N; 8°43'52.4\" W",
+        "id": 148
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.731222222222238, 40.667083332400644]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Campo de ténis",
+        "NOME": "Quinta do Major",
+        "MODALIDADE": "Ténis",
+        "MORADA": "Travessa Riamar",
+        "COD_POSTAL": "3800-901",
+        "FREGUESIA": "São Jacinto",
+        "COORD_X": -50591.313791860892,
+        "COORD_Y": 111085.70068766913,
+        "DATA_INFO": "03-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°40'01.7\" N; 8°43'53.1\" W",
+        "id": 149
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.731416666666668, 40.667138887956177]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Associação Desportiva Amigos do Carocho (ADAC)",
+        "MODALIDADE": "Futsal",
+        "MORADA": "Travessa do Carocho, Quinta do Picado",
+        "COD_POSTAL": "3800-000",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -42543.980469642913,
+        "COORD_Y": 102857.61627841018,
+        "DATA_INFO": "03-07-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°35'36.6\" N; 8°38'08.5\" W",
+        "id": 150
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.635694444444443, 40.593499999067653]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Piscina",
+        "NOME": "Parque Desportivo da Gândara de Oliveirinha",
+        "MODALIDADE": null,
+        "MORADA": "Rua Justa Ferreira Dias",
+        "COD_POSTAL": "3810-867",
+        "FREGUESIA": "Oliveirinha",
+        "COORD_X": -40039.783953907485,
+        "COORD_Y": 103710.54978684742,
+        "DATA_INFO": null,
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°36'04.7\" N; 8°36'22.2\" W",
+        "id": 151
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.606166666666681, 40.601305554623167]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "TIPOLOGIA": "Polidesportivo",
+        "NOME": "Largo da Torre do Canha",
+        "MODALIDADE": "Basquetebol",
+        "MORADA": "Largo da Torre do Canha",
+        "COD_POSTAL": "3810-164",
+        "FREGUESIA": "Aradas",
+        "COORD_X": -43579.346260353566,
+        "COORD_Y": 106352.44565195074,
+        "DATA_INFO": "07-03-2016",
+        "AUTOR": "Div. Educação e Desporto",
+        "COORD_GPS": "40°37'29.7\" N; 8°38'53.4\" W",
+        "id": 152
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.648166666666674, 40.624916665734176]
+      }
+    }
+  ]
+}
