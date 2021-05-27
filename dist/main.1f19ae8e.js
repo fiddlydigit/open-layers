@@ -86089,21 +86089,23 @@ var _Map = _interopRequireDefault(require("ol/Map"));
 
 var _View = _interopRequireDefault(require("ol/View"));
 
-var _style = _interopRequireDefault(require("ol/style"));
+var _style = require("ol/style");
 
 var _GeoJSON = _interopRequireDefault(require("ol/format/GeoJSON"));
 
 var _Stamen = _interopRequireDefault(require("ol/source/Stamen"));
 
-var _proj = _interopRequireDefault(require("ol/proj"));
+var _proj = require("ol/proj");
 
 var _layer = require("ol/layer");
+
+var _Feature = _interopRequireDefault(require("ol/Feature"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function init() {
-  var iconStyle = [new _style.default({
-    image: new _style.default({
+  var iconStyle = [new _style.Style({
+    image: new _style.Icon({
       anchor: [0.5, 0.5],
       scale: 0.05,
       src: "./imagens/icon.png"
@@ -86120,11 +86122,11 @@ function init() {
     }
   }
 
-  var entidades = new Vector({
+  var entidades = new _layer.Vector({
     title: "Titulo teste",
     source: new Source({
       url: "./dados/entidades.geojson",
-      format: (0, _GeoJSON.default)()
+      format: new _GeoJSON.default()
     }),
     style: estilos
   });
@@ -86132,7 +86134,7 @@ function init() {
     target: "map",
     layers: [new _layer.Tile({
       source: new _Stamen.default({
-        layer: "toner"
+        layer: "watercolor"
       })
     }), new _layer.Tile({
       source: new _Stamen.default({
@@ -86140,15 +86142,15 @@ function init() {
       })
     })],
     view: new _View.default({
-      center: (0, _proj.default)([-8.6189, 40.5954]),
+      center: (0, _proj.fromLonLat)([-8.6189, 40.5954]),
       zoom: 11
     })
   });
   map.addLayer(entidades);
 }
 
-window.load = init;
-},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/style":"node_modules/ol/style.js","ol/format/GeoJSON":"node_modules/ol/format/GeoJSON.js","ol/source/Stamen":"node_modules/ol/source/Stamen.js","ol/proj":"node_modules/ol/proj.js","ol/layer":"node_modules/ol/layer.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+window.onload = init;
+},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/style":"node_modules/ol/style.js","ol/format/GeoJSON":"node_modules/ol/format/GeoJSON.js","ol/source/Stamen":"node_modules/ol/source/Stamen.js","ol/proj":"node_modules/ol/proj.js","ol/layer":"node_modules/ol/layer.js","ol/Feature":"node_modules/ol/Feature.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -86176,7 +86178,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50737" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52220" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

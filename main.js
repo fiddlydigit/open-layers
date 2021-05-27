@@ -1,13 +1,12 @@
 import "ol/ol.css";
 import Map from "ol/Map";
 import View from "ol/View";
-import Icon from "ol/style";
-import Style from "ol/style";
-
+import { Icon, Style } from "ol/style";
 import GeoJSON from "ol/format/GeoJSON";
 import Stamen from "ol/source/Stamen";
-import fromLonLat from "ol/proj";
+import { fromLonLat } from "ol/proj";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
+import Feature from "ol/Feature";
 
 function init() {
   var iconStyle = [
@@ -30,11 +29,11 @@ function init() {
     }
   }
 
-  var entidades = new Vector({
+  var entidades = new VectorLayer({
     title: "Titulo teste",
     source: new Source({
       url: "./dados/entidades.geojson",
-      format: GeoJSON(),
+      format: new GeoJSON(),
     }),
     style: estilos,
   });
@@ -44,7 +43,7 @@ function init() {
     layers: [
       new TileLayer({
         source: new Stamen({
-          layer: "toner",
+          layer: "watercolor",
         }),
       }),
       new TileLayer({
@@ -61,4 +60,5 @@ function init() {
 
   map.addLayer(entidades);
 }
-window.load = init;
+
+window.onload = init;
