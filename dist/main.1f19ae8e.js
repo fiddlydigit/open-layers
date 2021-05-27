@@ -86101,6 +86101,8 @@ var _layer = require("ol/layer");
 
 var _Feature = _interopRequireDefault(require("ol/Feature"));
 
+var _Vector = _interopRequireDefault(require("ol/source/Vector"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function init() {
@@ -86124,7 +86126,7 @@ function init() {
 
   var entidades = new _layer.Vector({
     title: "Titulo teste",
-    source: new Source({
+    source: new _Vector.default({
       url: "./dados/entidades.geojson",
       format: new _GeoJSON.default()
     }),
@@ -86143,14 +86145,14 @@ function init() {
     })],
     view: new _View.default({
       center: (0, _proj.fromLonLat)([-8.6189, 40.5954]),
-      zoom: 11
+      zoom: 4
     })
   });
   map.addLayer(entidades);
 }
 
 window.onload = init;
-},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/style":"node_modules/ol/style.js","ol/format/GeoJSON":"node_modules/ol/format/GeoJSON.js","ol/source/Stamen":"node_modules/ol/source/Stamen.js","ol/proj":"node_modules/ol/proj.js","ol/layer":"node_modules/ol/layer.js","ol/Feature":"node_modules/ol/Feature.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/style":"node_modules/ol/style.js","ol/format/GeoJSON":"node_modules/ol/format/GeoJSON.js","ol/source/Stamen":"node_modules/ol/source/Stamen.js","ol/proj":"node_modules/ol/proj.js","ol/layer":"node_modules/ol/layer.js","ol/Feature":"node_modules/ol/Feature.js","ol/source/Vector":"node_modules/ol/source/Vector.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -86178,7 +86180,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52220" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52871" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -7,6 +7,7 @@ import Stamen from "ol/source/Stamen";
 import { fromLonLat } from "ol/proj";
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 import Feature from "ol/Feature";
+import VectorSource from "ol/source/Vector";
 
 function init() {
   var iconStyle = [
@@ -31,7 +32,7 @@ function init() {
 
   var entidades = new VectorLayer({
     title: "Titulo teste",
-    source: new Source({
+    source: new VectorSource({
       url: "./dados/entidades.geojson",
       format: new GeoJSON(),
     }),
@@ -54,7 +55,7 @@ function init() {
     ],
     view: new View({
       center: fromLonLat([-8.6189, 40.5954]),
-      zoom: 11,
+      zoom: 4,
     }),
   });
 
