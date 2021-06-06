@@ -190,7 +190,121 @@ module.exports = reloadCSS;
         module.hot.dispose(reloadCSS);
         module.hot.accept(reloadCSS);
       
-},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/ol/Disposable.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"node_modules/ol/events/Event.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.stopPropagation = stopPropagation;
+exports.preventDefault = preventDefault;
+exports.default = void 0;
+
+/**
+ * @module ol/events/Event
+ */
+
+/**
+ * @classdesc
+ * Stripped down implementation of the W3C DOM Level 2 Event interface.
+ * See https://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-interface.
+ *
+ * This implementation only provides `type` and `target` properties, and
+ * `stopPropagation` and `preventDefault` methods. It is meant as base class
+ * for higher level events defined in the library, and works with
+ * {@link module:ol/events/Target~Target}.
+ */
+var BaseEvent =
+/** @class */
+function () {
+  /**
+   * @param {string} type Type.
+   */
+  function BaseEvent(type) {
+    /**
+     * @type {boolean}
+     */
+    this.propagationStopped;
+    /**
+     * The event type.
+     * @type {string}
+     * @api
+     */
+
+    this.type = type;
+    /**
+     * The event target.
+     * @type {Object}
+     * @api
+     */
+
+    this.target = null;
+  }
+  /**
+   * Stop event propagation.
+   * @api
+   */
+
+
+  BaseEvent.prototype.preventDefault = function () {
+    this.propagationStopped = true;
+  };
+  /**
+   * Stop event propagation.
+   * @api
+   */
+
+
+  BaseEvent.prototype.stopPropagation = function () {
+    this.propagationStopped = true;
+  };
+
+  return BaseEvent;
+}();
+/**
+ * @param {Event|import("./Event.js").default} evt Event
+ */
+
+
+function stopPropagation(evt) {
+  evt.stopPropagation();
+}
+/**
+ * @param {Event|import("./Event.js").default} evt Event
+ */
+
+
+function preventDefault(evt) {
+  evt.preventDefault();
+}
+
+var _default = BaseEvent;
+exports.default = _default;
+},{}],"node_modules/ol/ObjectEventType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * @module ol/ObjectEventType
+ */
+
+/**
+ * @enum {string}
+ */
+var _default = {
+  /**
+   * Triggered when a property is changed.
+   * @event module:ol/Object.ObjectEvent#propertychange
+   * @api
+   */
+  PROPERTYCHANGE: 'propertychange'
+};
+exports.default = _default;
+},{}],"node_modules/ol/Disposable.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -602,7 +716,723 @@ function memoizeOne(fn) {
     return lastResult;
   };
 }
-},{"./array.js":"node_modules/ol/array.js"}],"node_modules/ol/util.js":[function(require,module,exports) {
+},{"./array.js":"node_modules/ol/array.js"}],"node_modules/ol/obj.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.clear = clear;
+exports.isEmpty = isEmpty;
+exports.getValues = exports.assign = void 0;
+
+/**
+ * @module ol/obj
+ */
+
+/**
+ * Polyfill for Object.assign().  Assigns enumerable and own properties from
+ * one or more source objects to a target object.
+ * See https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign.
+ *
+ * @param {!Object} target The target object.
+ * @param {...Object} var_sources The source object(s).
+ * @return {!Object} The modified target object.
+ */
+var assign = typeof Object.assign === 'function' ? Object.assign : function (target, var_sources) {
+  if (target === undefined || target === null) {
+    throw new TypeError('Cannot convert undefined or null to object');
+  }
+
+  var output = Object(target);
+
+  for (var i = 1, ii = arguments.length; i < ii; ++i) {
+    var source = arguments[i];
+
+    if (source !== undefined && source !== null) {
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          output[key] = source[key];
+        }
+      }
+    }
+  }
+
+  return output;
+};
+/**
+ * Removes all properties from an object.
+ * @param {Object} object The object to clear.
+ */
+
+exports.assign = assign;
+
+function clear(object) {
+  for (var property in object) {
+    delete object[property];
+  }
+}
+/**
+ * Polyfill for Object.values().  Get an array of property values from an object.
+ * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
+ *
+ * @param {!Object<K,V>} object The object from which to get the values.
+ * @return {!Array<V>} The property values.
+ * @template K,V
+ */
+
+
+var getValues = typeof Object.values === 'function' ? Object.values : function (object) {
+  var values = [];
+
+  for (var property in object) {
+    values.push(object[property]);
+  }
+
+  return values;
+};
+/**
+ * Determine if an object has any properties.
+ * @param {Object} object The object to check.
+ * @return {boolean} The object is empty.
+ */
+
+exports.getValues = getValues;
+
+function isEmpty(object) {
+  var property;
+
+  for (property in object) {
+    return false;
+  }
+
+  return !property;
+}
+},{}],"node_modules/ol/events/Target.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Disposable = _interopRequireDefault(require("../Disposable.js"));
+
+var _Event = _interopRequireDefault(require("./Event.js"));
+
+var _functions = require("../functions.js");
+
+var _obj = require("../obj.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+/**
+ * @module ol/events/Target
+ */
+
+
+/**
+ * @typedef {EventTarget|Target} EventTargetLike
+ */
+
+/**
+ * @classdesc
+ * A simplified implementation of the W3C DOM Level 2 EventTarget interface.
+ * See https://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-EventTarget.
+ *
+ * There are two important simplifications compared to the specification:
+ *
+ * 1. The handling of `useCapture` in `addEventListener` and
+ *    `removeEventListener`. There is no real capture model.
+ * 2. The handling of `stopPropagation` and `preventDefault` on `dispatchEvent`.
+ *    There is no event target hierarchy. When a listener calls
+ *    `stopPropagation` or `preventDefault` on an event object, it means that no
+ *    more listeners after this one will be called. Same as when the listener
+ *    returns false.
+ */
+var Target =
+/** @class */
+function (_super) {
+  __extends(Target, _super);
+  /**
+   * @param {*=} opt_target Default event target for dispatched events.
+   */
+
+
+  function Target(opt_target) {
+    var _this = _super.call(this) || this;
+    /**
+     * @private
+     * @type {*}
+     */
+
+
+    _this.eventTarget_ = opt_target;
+    /**
+     * @private
+     * @type {Object<string, number>}
+     */
+
+    _this.pendingRemovals_ = null;
+    /**
+     * @private
+     * @type {Object<string, number>}
+     */
+
+    _this.dispatching_ = null;
+    /**
+     * @private
+     * @type {Object<string, Array<import("../events.js").Listener>>}
+     */
+
+    _this.listeners_ = null;
+    return _this;
+  }
+  /**
+   * @param {string} type Type.
+   * @param {import("../events.js").Listener} listener Listener.
+   */
+
+
+  Target.prototype.addEventListener = function (type, listener) {
+    if (!type || !listener) {
+      return;
+    }
+
+    var listeners = this.listeners_ || (this.listeners_ = {});
+    var listenersForType = listeners[type] || (listeners[type] = []);
+
+    if (listenersForType.indexOf(listener) === -1) {
+      listenersForType.push(listener);
+    }
+  };
+  /**
+   * Dispatches an event and calls all listeners listening for events
+   * of this type. The event parameter can either be a string or an
+   * Object with a `type` property.
+   *
+   * @param {import("./Event.js").default|string} event Event object.
+   * @return {boolean|undefined} `false` if anyone called preventDefault on the
+   *     event object or if any of the listeners returned false.
+   * @api
+   */
+
+
+  Target.prototype.dispatchEvent = function (event) {
+    /** @type {import("./Event.js").default|Event} */
+    var evt = typeof event === 'string' ? new _Event.default(event) : event;
+    var type = evt.type;
+
+    if (!evt.target) {
+      evt.target = this.eventTarget_ || this;
+    }
+
+    var listeners = this.listeners_ && this.listeners_[type];
+    var propagate;
+
+    if (listeners) {
+      var dispatching = this.dispatching_ || (this.dispatching_ = {});
+      var pendingRemovals = this.pendingRemovals_ || (this.pendingRemovals_ = {});
+
+      if (!(type in dispatching)) {
+        dispatching[type] = 0;
+        pendingRemovals[type] = 0;
+      }
+
+      ++dispatching[type];
+
+      for (var i = 0, ii = listeners.length; i < ii; ++i) {
+        if ('handleEvent' in listeners[i]) {
+          propagate =
+          /** @type {import("../events.js").ListenerObject} */
+          listeners[i].handleEvent(evt);
+        } else {
+          propagate =
+          /** @type {import("../events.js").ListenerFunction} */
+          listeners[i].call(this, evt);
+        }
+
+        if (propagate === false || evt.propagationStopped) {
+          propagate = false;
+          break;
+        }
+      }
+
+      --dispatching[type];
+
+      if (dispatching[type] === 0) {
+        var pr = pendingRemovals[type];
+        delete pendingRemovals[type];
+
+        while (pr--) {
+          this.removeEventListener(type, _functions.VOID);
+        }
+
+        delete dispatching[type];
+      }
+
+      return propagate;
+    }
+  };
+  /**
+   * Clean up.
+   */
+
+
+  Target.prototype.disposeInternal = function () {
+    this.listeners_ && (0, _obj.clear)(this.listeners_);
+  };
+  /**
+   * Get the listeners for a specified event type. Listeners are returned in the
+   * order that they will be called in.
+   *
+   * @param {string} type Type.
+   * @return {Array<import("../events.js").Listener>|undefined} Listeners.
+   */
+
+
+  Target.prototype.getListeners = function (type) {
+    return this.listeners_ && this.listeners_[type] || undefined;
+  };
+  /**
+   * @param {string=} opt_type Type. If not provided,
+   *     `true` will be returned if this event target has any listeners.
+   * @return {boolean} Has listeners.
+   */
+
+
+  Target.prototype.hasListener = function (opt_type) {
+    if (!this.listeners_) {
+      return false;
+    }
+
+    return opt_type ? opt_type in this.listeners_ : Object.keys(this.listeners_).length > 0;
+  };
+  /**
+   * @param {string} type Type.
+   * @param {import("../events.js").Listener} listener Listener.
+   */
+
+
+  Target.prototype.removeEventListener = function (type, listener) {
+    var listeners = this.listeners_ && this.listeners_[type];
+
+    if (listeners) {
+      var index = listeners.indexOf(listener);
+
+      if (index !== -1) {
+        if (this.pendingRemovals_ && type in this.pendingRemovals_) {
+          // make listener a no-op, and remove later in #dispatchEvent()
+          listeners[index] = _functions.VOID;
+          ++this.pendingRemovals_[type];
+        } else {
+          listeners.splice(index, 1);
+
+          if (listeners.length === 0) {
+            delete this.listeners_[type];
+          }
+        }
+      }
+    }
+  };
+
+  return Target;
+}(_Disposable.default);
+
+var _default = Target;
+exports.default = _default;
+},{"../Disposable.js":"node_modules/ol/Disposable.js","./Event.js":"node_modules/ol/events/Event.js","../functions.js":"node_modules/ol/functions.js","../obj.js":"node_modules/ol/obj.js"}],"node_modules/ol/events/EventType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * @module ol/events/EventType
+ */
+
+/**
+ * @enum {string}
+ * @const
+ */
+var _default = {
+  /**
+   * Generic change event. Triggered when the revision counter is increased.
+   * @event module:ol/events/Event~BaseEvent#change
+   * @api
+   */
+  CHANGE: 'change',
+
+  /**
+   * Generic error event. Triggered when an error occurs.
+   * @event module:ol/events/Event~BaseEvent#error
+   * @api
+   */
+  ERROR: 'error',
+  BLUR: 'blur',
+  CLEAR: 'clear',
+  CONTEXTMENU: 'contextmenu',
+  CLICK: 'click',
+  DBLCLICK: 'dblclick',
+  DRAGENTER: 'dragenter',
+  DRAGOVER: 'dragover',
+  DROP: 'drop',
+  FOCUS: 'focus',
+  KEYDOWN: 'keydown',
+  KEYPRESS: 'keypress',
+  LOAD: 'load',
+  RESIZE: 'resize',
+  TOUCHMOVE: 'touchmove',
+  WHEEL: 'wheel'
+};
+exports.default = _default;
+},{}],"node_modules/ol/events.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.listen = listen;
+exports.listenOnce = listenOnce;
+exports.unlistenByKey = unlistenByKey;
+
+var _obj = require("./obj.js");
+
+/**
+ * @module ol/events
+ */
+
+/**
+ * Key to use with {@link module:ol/Observable~Observable#unByKey}.
+ * @typedef {Object} EventsKey
+ * @property {ListenerFunction} listener
+ * @property {import("./events/Target.js").EventTargetLike} target
+ * @property {string} type
+ * @api
+ */
+
+/**
+ * Listener function. This function is called with an event object as argument.
+ * When the function returns `false`, event propagation will stop.
+ *
+ * @typedef {function((Event|import("./events/Event.js").default)): (void|boolean)} ListenerFunction
+ * @api
+ */
+
+/**
+ * @typedef {Object} ListenerObject
+ * @property {ListenerFunction} handleEvent
+ */
+
+/**
+ * @typedef {ListenerFunction|ListenerObject} Listener
+ */
+
+/**
+ * Registers an event listener on an event target. Inspired by
+ * https://google.github.io/closure-library/api/source/closure/goog/events/events.js.src.html
+ *
+ * This function efficiently binds a `listener` to a `this` object, and returns
+ * a key for use with {@link module:ol/events~unlistenByKey}.
+ *
+ * @param {import("./events/Target.js").EventTargetLike} target Event target.
+ * @param {string} type Event type.
+ * @param {ListenerFunction} listener Listener.
+ * @param {Object=} opt_this Object referenced by the `this` keyword in the
+ *     listener. Default is the `target`.
+ * @param {boolean=} opt_once If true, add the listener as one-off listener.
+ * @return {EventsKey} Unique key for the listener.
+ */
+function listen(target, type, listener, opt_this, opt_once) {
+  if (opt_this && opt_this !== target) {
+    listener = listener.bind(opt_this);
+  }
+
+  if (opt_once) {
+    var originalListener_1 = listener;
+
+    listener = function () {
+      target.removeEventListener(type, listener);
+      originalListener_1.apply(this, arguments);
+    };
+  }
+
+  var eventsKey = {
+    target: target,
+    type: type,
+    listener: listener
+  };
+  target.addEventListener(type, listener);
+  return eventsKey;
+}
+/**
+ * Registers a one-off event listener on an event target. Inspired by
+ * https://google.github.io/closure-library/api/source/closure/goog/events/events.js.src.html
+ *
+ * This function efficiently binds a `listener` as self-unregistering listener
+ * to a `this` object, and returns a key for use with
+ * {@link module:ol/events~unlistenByKey} in case the listener needs to be
+ * unregistered before it is called.
+ *
+ * When {@link module:ol/events~listen} is called with the same arguments after this
+ * function, the self-unregistering listener will be turned into a permanent
+ * listener.
+ *
+ * @param {import("./events/Target.js").EventTargetLike} target Event target.
+ * @param {string} type Event type.
+ * @param {ListenerFunction} listener Listener.
+ * @param {Object=} opt_this Object referenced by the `this` keyword in the
+ *     listener. Default is the `target`.
+ * @return {EventsKey} Key for unlistenByKey.
+ */
+
+
+function listenOnce(target, type, listener, opt_this) {
+  return listen(target, type, listener, opt_this, true);
+}
+/**
+ * Unregisters event listeners on an event target. Inspired by
+ * https://google.github.io/closure-library/api/source/closure/goog/events/events.js.src.html
+ *
+ * The argument passed to this function is the key returned from
+ * {@link module:ol/events~listen} or {@link module:ol/events~listenOnce}.
+ *
+ * @param {EventsKey} key The key.
+ */
+
+
+function unlistenByKey(key) {
+  if (key && key.target) {
+    key.target.removeEventListener(key.type, key.listener);
+    (0, _obj.clear)(key);
+  }
+}
+},{"./obj.js":"node_modules/ol/obj.js"}],"node_modules/ol/Observable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.unByKey = unByKey;
+exports.default = void 0;
+
+var _Target = _interopRequireDefault(require("./events/Target.js"));
+
+var _EventType = _interopRequireDefault(require("./events/EventType.js"));
+
+var _events = require("./events.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+/**
+ * @module ol/Observable
+ */
+
+
+/**
+ * @classdesc
+ * Abstract base class; normally only used for creating subclasses and not
+ * instantiated in apps.
+ * An event target providing convenient methods for listener registration
+ * and unregistration. A generic `change` event is always available through
+ * {@link module:ol/Observable~Observable#changed}.
+ *
+ * @fires import("./events/Event.js").default
+ * @api
+ */
+var Observable =
+/** @class */
+function (_super) {
+  __extends(Observable, _super);
+
+  function Observable() {
+    var _this = _super.call(this) || this;
+    /**
+     * @private
+     * @type {number}
+     */
+
+
+    _this.revision_ = 0;
+    return _this;
+  }
+  /**
+   * Increases the revision counter and dispatches a 'change' event.
+   * @api
+   */
+
+
+  Observable.prototype.changed = function () {
+    ++this.revision_;
+    this.dispatchEvent(_EventType.default.CHANGE);
+  };
+  /**
+   * Get the version number for this object.  Each time the object is modified,
+   * its version number will be incremented.
+   * @return {number} Revision.
+   * @api
+   */
+
+
+  Observable.prototype.getRevision = function () {
+    return this.revision_;
+  };
+  /**
+   * Listen for a certain type of event.
+   * @param {string|Array<string>} type The event type or array of event types.
+   * @param {function(?): ?} listener The listener function.
+   * @return {import("./events.js").EventsKey|Array<import("./events.js").EventsKey>} Unique key for the listener. If
+   *     called with an array of event types as the first argument, the return
+   *     will be an array of keys.
+   * @api
+   */
+
+
+  Observable.prototype.on = function (type, listener) {
+    if (Array.isArray(type)) {
+      var len = type.length;
+      var keys = new Array(len);
+
+      for (var i = 0; i < len; ++i) {
+        keys[i] = (0, _events.listen)(this, type[i], listener);
+      }
+
+      return keys;
+    } else {
+      return (0, _events.listen)(this,
+      /** @type {string} */
+      type, listener);
+    }
+  };
+  /**
+   * Listen once for a certain type of event.
+   * @param {string|Array<string>} type The event type or array of event types.
+   * @param {function(?): ?} listener The listener function.
+   * @return {import("./events.js").EventsKey|Array<import("./events.js").EventsKey>} Unique key for the listener. If
+   *     called with an array of event types as the first argument, the return
+   *     will be an array of keys.
+   * @api
+   */
+
+
+  Observable.prototype.once = function (type, listener) {
+    var key;
+
+    if (Array.isArray(type)) {
+      var len = type.length;
+      key = new Array(len);
+
+      for (var i = 0; i < len; ++i) {
+        key[i] = (0, _events.listenOnce)(this, type[i], listener);
+      }
+    } else {
+      key = (0, _events.listenOnce)(this,
+      /** @type {string} */
+      type, listener);
+    }
+    /** @type {Object} */
+
+
+    listener.ol_key = key;
+    return key;
+  };
+  /**
+   * Unlisten for a certain type of event.
+   * @param {string|Array<string>} type The event type or array of event types.
+   * @param {function(?): ?} listener The listener function.
+   * @api
+   */
+
+
+  Observable.prototype.un = function (type, listener) {
+    var key =
+    /** @type {Object} */
+    listener.ol_key;
+
+    if (key) {
+      unByKey(key);
+    } else if (Array.isArray(type)) {
+      for (var i = 0, ii = type.length; i < ii; ++i) {
+        this.removeEventListener(type[i], listener);
+      }
+    } else {
+      this.removeEventListener(type, listener);
+    }
+  };
+
+  return Observable;
+}(_Target.default);
+/**
+ * Removes an event listener using the key returned by `on()` or `once()`.
+ * @param {import("./events.js").EventsKey|Array<import("./events.js").EventsKey>} key The key returned by `on()`
+ *     or `once()` (or an array of keys).
+ * @api
+ */
+
+
+function unByKey(key) {
+  if (Array.isArray(key)) {
+    for (var i = 0, ii = key.length; i < ii; ++i) {
+      (0, _events.unlistenByKey)(key[i]);
+    }
+  } else {
+    (0, _events.unlistenByKey)(
+    /** @type {import("./events.js").EventsKey} */
+    key);
+  }
+}
+
+var _default = Observable;
+exports.default = _default;
+},{"./events/Target.js":"node_modules/ol/events/Target.js","./events/EventType.js":"node_modules/ol/events/EventType.js","./events.js":"node_modules/ol/events.js"}],"node_modules/ol/util.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -656,7 +1486,321 @@ function getUid(obj) {
 
 var VERSION = '6.5.0';
 exports.VERSION = VERSION;
-},{}],"node_modules/ol/AssertionError.js":[function(require,module,exports) {
+},{}],"node_modules/ol/Object.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getChangeEventType = getChangeEventType;
+exports.default = exports.ObjectEvent = void 0;
+
+var _Event = _interopRequireDefault(require("./events/Event.js"));
+
+var _ObjectEventType = _interopRequireDefault(require("./ObjectEventType.js"));
+
+var _Observable = _interopRequireDefault(require("./Observable.js"));
+
+var _obj = require("./obj.js");
+
+var _util = require("./util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+/**
+ * @module ol/Object
+ */
+
+
+/**
+ * @classdesc
+ * Events emitted by {@link module:ol/Object~BaseObject} instances are instances of this type.
+ */
+var ObjectEvent =
+/** @class */
+function (_super) {
+  __extends(ObjectEvent, _super);
+  /**
+   * @param {string} type The event type.
+   * @param {string} key The property name.
+   * @param {*} oldValue The old value for `key`.
+   */
+
+
+  function ObjectEvent(type, key, oldValue) {
+    var _this = _super.call(this, type) || this;
+    /**
+     * The name of the property whose value is changing.
+     * @type {string}
+     * @api
+     */
+
+
+    _this.key = key;
+    /**
+     * The old value. To get the new value use `e.target.get(e.key)` where
+     * `e` is the event object.
+     * @type {*}
+     * @api
+     */
+
+    _this.oldValue = oldValue;
+    return _this;
+  }
+
+  return ObjectEvent;
+}(_Event.default);
+
+exports.ObjectEvent = ObjectEvent;
+
+/**
+ * @classdesc
+ * Abstract base class; normally only used for creating subclasses and not
+ * instantiated in apps.
+ * Most non-trivial classes inherit from this.
+ *
+ * This extends {@link module:ol/Observable} with observable
+ * properties, where each property is observable as well as the object as a
+ * whole.
+ *
+ * Classes that inherit from this have pre-defined properties, to which you can
+ * add your owns. The pre-defined properties are listed in this documentation as
+ * 'Observable Properties', and have their own accessors; for example,
+ * {@link module:ol/Map~Map} has a `target` property, accessed with
+ * `getTarget()` and changed with `setTarget()`. Not all properties are however
+ * settable. There are also general-purpose accessors `get()` and `set()`. For
+ * example, `get('target')` is equivalent to `getTarget()`.
+ *
+ * The `set` accessors trigger a change event, and you can monitor this by
+ * registering a listener. For example, {@link module:ol/View~View} has a
+ * `center` property, so `view.on('change:center', function(evt) {...});` would
+ * call the function whenever the value of the center property changes. Within
+ * the function, `evt.target` would be the view, so `evt.target.getCenter()`
+ * would return the new center.
+ *
+ * You can add your own observable properties with
+ * `object.set('prop', 'value')`, and retrieve that with `object.get('prop')`.
+ * You can listen for changes on that property value with
+ * `object.on('change:prop', listener)`. You can get a list of all
+ * properties with {@link module:ol/Object~BaseObject#getProperties}.
+ *
+ * Note that the observable properties are separate from standard JS properties.
+ * You can, for example, give your map object a title with
+ * `map.title='New title'` and with `map.set('title', 'Another title')`. The
+ * first will be a `hasOwnProperty`; the second will appear in
+ * `getProperties()`. Only the second is observable.
+ *
+ * Properties can be deleted by using the unset method. E.g.
+ * object.unset('foo').
+ *
+ * @fires ObjectEvent
+ * @api
+ */
+var BaseObject =
+/** @class */
+function (_super) {
+  __extends(BaseObject, _super);
+  /**
+   * @param {Object<string, *>=} opt_values An object with key-value pairs.
+   */
+
+
+  function BaseObject(opt_values) {
+    var _this = _super.call(this) || this; // Call {@link module:ol/util~getUid} to ensure that the order of objects' ids is
+    // the same as the order in which they were created.  This also helps to
+    // ensure that object properties are always added in the same order, which
+    // helps many JavaScript engines generate faster code.
+
+
+    (0, _util.getUid)(_this);
+    /**
+     * @private
+     * @type {Object<string, *>}
+     */
+
+    _this.values_ = null;
+
+    if (opt_values !== undefined) {
+      _this.setProperties(opt_values);
+    }
+
+    return _this;
+  }
+  /**
+   * Gets a value.
+   * @param {string} key Key name.
+   * @return {*} Value.
+   * @api
+   */
+
+
+  BaseObject.prototype.get = function (key) {
+    var value;
+
+    if (this.values_ && this.values_.hasOwnProperty(key)) {
+      value = this.values_[key];
+    }
+
+    return value;
+  };
+  /**
+   * Get a list of object property names.
+   * @return {Array<string>} List of property names.
+   * @api
+   */
+
+
+  BaseObject.prototype.getKeys = function () {
+    return this.values_ && Object.keys(this.values_) || [];
+  };
+  /**
+   * Get an object of all property names and values.
+   * @return {Object<string, *>} Object.
+   * @api
+   */
+
+
+  BaseObject.prototype.getProperties = function () {
+    return this.values_ && (0, _obj.assign)({}, this.values_) || {};
+  };
+  /**
+   * @return {boolean} The object has properties.
+   */
+
+
+  BaseObject.prototype.hasProperties = function () {
+    return !!this.values_;
+  };
+  /**
+   * @param {string} key Key name.
+   * @param {*} oldValue Old value.
+   */
+
+
+  BaseObject.prototype.notify = function (key, oldValue) {
+    var eventType;
+    eventType = getChangeEventType(key);
+    this.dispatchEvent(new ObjectEvent(eventType, key, oldValue));
+    eventType = _ObjectEventType.default.PROPERTYCHANGE;
+    this.dispatchEvent(new ObjectEvent(eventType, key, oldValue));
+  };
+  /**
+   * Sets a value.
+   * @param {string} key Key name.
+   * @param {*} value Value.
+   * @param {boolean=} opt_silent Update without triggering an event.
+   * @api
+   */
+
+
+  BaseObject.prototype.set = function (key, value, opt_silent) {
+    var values = this.values_ || (this.values_ = {});
+
+    if (opt_silent) {
+      values[key] = value;
+    } else {
+      var oldValue = values[key];
+      values[key] = value;
+
+      if (oldValue !== value) {
+        this.notify(key, oldValue);
+      }
+    }
+  };
+  /**
+   * Sets a collection of key-value pairs.  Note that this changes any existing
+   * properties and adds new ones (it does not remove any existing properties).
+   * @param {Object<string, *>} values Values.
+   * @param {boolean=} opt_silent Update without triggering an event.
+   * @api
+   */
+
+
+  BaseObject.prototype.setProperties = function (values, opt_silent) {
+    for (var key in values) {
+      this.set(key, values[key], opt_silent);
+    }
+  };
+  /**
+   * Apply any properties from another object without triggering events.
+   * @param {BaseObject} source The source object.
+   * @protected
+   */
+
+
+  BaseObject.prototype.applyProperties = function (source) {
+    if (!source.values_) {
+      return;
+    }
+
+    (0, _obj.assign)(this.values_ || (this.values_ = {}), source.values_);
+  };
+  /**
+   * Unsets a property.
+   * @param {string} key Key name.
+   * @param {boolean=} opt_silent Unset without triggering an event.
+   * @api
+   */
+
+
+  BaseObject.prototype.unset = function (key, opt_silent) {
+    if (this.values_ && key in this.values_) {
+      var oldValue = this.values_[key];
+      delete this.values_[key];
+
+      if ((0, _obj.isEmpty)(this.values_)) {
+        this.values_ = null;
+      }
+
+      if (!opt_silent) {
+        this.notify(key, oldValue);
+      }
+    }
+  };
+
+  return BaseObject;
+}(_Observable.default);
+/**
+ * @type {Object<string, string>}
+ */
+
+
+var changeEventTypeCache = {};
+/**
+ * @param {string} key Key name.
+ * @return {string} Change name.
+ */
+
+function getChangeEventType(key) {
+  return changeEventTypeCache.hasOwnProperty(key) ? changeEventTypeCache[key] : changeEventTypeCache[key] = 'change:' + key;
+}
+
+var _default = BaseObject;
+exports.default = _default;
+},{"./events/Event.js":"node_modules/ol/events/Event.js","./ObjectEventType.js":"node_modules/ol/ObjectEventType.js","./Observable.js":"node_modules/ol/Observable.js","./obj.js":"node_modules/ol/obj.js","./util.js":"node_modules/ol/util.js"}],"node_modules/ol/AssertionError.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -764,7 +1908,394 @@ function assert(assertion, errorCode) {
     throw new _AssertionError.default(errorCode);
   }
 }
-},{"./AssertionError.js":"node_modules/ol/AssertionError.js"}],"node_modules/ol/transform.js":[function(require,module,exports) {
+},{"./AssertionError.js":"node_modules/ol/AssertionError.js"}],"node_modules/ol/Feature.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.createStyleFunction = createStyleFunction;
+exports.default = void 0;
+
+var _Object = _interopRequireWildcard(require("./Object.js"));
+
+var _EventType = _interopRequireDefault(require("./events/EventType.js"));
+
+var _asserts = require("./asserts.js");
+
+var _events = require("./events.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+/**
+ * @module ol/Feature
+ */
+
+
+/**
+ * @typedef {typeof Feature|typeof import("./render/Feature.js").default} FeatureClass
+ */
+
+/**
+ * @typedef {Feature|import("./render/Feature.js").default} FeatureLike
+ */
+
+/**
+ * @classdesc
+ * A vector object for geographic features with a geometry and other
+ * attribute properties, similar to the features in vector file formats like
+ * GeoJSON.
+ *
+ * Features can be styled individually with `setStyle`; otherwise they use the
+ * style of their vector layer.
+ *
+ * Note that attribute properties are set as {@link module:ol/Object} properties on
+ * the feature object, so they are observable, and have get/set accessors.
+ *
+ * Typically, a feature has a single geometry property. You can set the
+ * geometry using the `setGeometry` method and get it with `getGeometry`.
+ * It is possible to store more than one geometry on a feature using attribute
+ * properties. By default, the geometry used for rendering is identified by
+ * the property name `geometry`. If you want to use another geometry property
+ * for rendering, use the `setGeometryName` method to change the attribute
+ * property associated with the geometry for the feature.  For example:
+ *
+ * ```js
+ *
+ * import Feature from 'ol/Feature';
+ * import Polygon from 'ol/geom/Polygon';
+ * import Point from 'ol/geom/Point';
+ *
+ * var feature = new Feature({
+ *   geometry: new Polygon(polyCoords),
+ *   labelPoint: new Point(labelCoords),
+ *   name: 'My Polygon'
+ * });
+ *
+ * // get the polygon geometry
+ * var poly = feature.getGeometry();
+ *
+ * // Render the feature as a point using the coordinates from labelPoint
+ * feature.setGeometryName('labelPoint');
+ *
+ * // get the point geometry
+ * var point = feature.getGeometry();
+ * ```
+ *
+ * @api
+ * @template {import("./geom/Geometry.js").default} Geometry
+ */
+var Feature =
+/** @class */
+function (_super) {
+  __extends(Feature, _super);
+  /**
+   * @param {Geometry|Object<string, *>=} opt_geometryOrProperties
+   *     You may pass a Geometry object directly, or an object literal containing
+   *     properties. If you pass an object literal, you may include a Geometry
+   *     associated with a `geometry` key.
+   */
+
+
+  function Feature(opt_geometryOrProperties) {
+    var _this = _super.call(this) || this;
+    /**
+     * @private
+     * @type {number|string|undefined}
+     */
+
+
+    _this.id_ = undefined;
+    /**
+     * @type {string}
+     * @private
+     */
+
+    _this.geometryName_ = 'geometry';
+    /**
+     * User provided style.
+     * @private
+     * @type {import("./style/Style.js").StyleLike}
+     */
+
+    _this.style_ = null;
+    /**
+     * @private
+     * @type {import("./style/Style.js").StyleFunction|undefined}
+     */
+
+    _this.styleFunction_ = undefined;
+    /**
+     * @private
+     * @type {?import("./events.js").EventsKey}
+     */
+
+    _this.geometryChangeKey_ = null;
+
+    _this.addEventListener((0, _Object.getChangeEventType)(_this.geometryName_), _this.handleGeometryChanged_);
+
+    if (opt_geometryOrProperties) {
+      if (typeof
+      /** @type {?} */
+      opt_geometryOrProperties.getSimplifiedGeometry === 'function') {
+        var geometry =
+        /** @type {Geometry} */
+        opt_geometryOrProperties;
+
+        _this.setGeometry(geometry);
+      } else {
+        /** @type {Object<string, *>} */
+        var properties = opt_geometryOrProperties;
+
+        _this.setProperties(properties);
+      }
+    }
+
+    return _this;
+  }
+  /**
+   * Clone this feature. If the original feature has a geometry it
+   * is also cloned. The feature id is not set in the clone.
+   * @return {Feature} The clone.
+   * @api
+   */
+
+
+  Feature.prototype.clone = function () {
+    var clone = new Feature(this.hasProperties() ? this.getProperties() : null);
+    clone.setGeometryName(this.getGeometryName());
+    var geometry = this.getGeometry();
+
+    if (geometry) {
+      clone.setGeometry(geometry.clone());
+    }
+
+    var style = this.getStyle();
+
+    if (style) {
+      clone.setStyle(style);
+    }
+
+    return clone;
+  };
+  /**
+   * Get the feature's default geometry.  A feature may have any number of named
+   * geometries.  The "default" geometry (the one that is rendered by default) is
+   * set when calling {@link module:ol/Feature~Feature#setGeometry}.
+   * @return {Geometry|undefined} The default geometry for the feature.
+   * @api
+   * @observable
+   */
+
+
+  Feature.prototype.getGeometry = function () {
+    return (
+      /** @type {Geometry|undefined} */
+      this.get(this.geometryName_)
+    );
+  };
+  /**
+   * Get the feature identifier.  This is a stable identifier for the feature and
+   * is either set when reading data from a remote source or set explicitly by
+   * calling {@link module:ol/Feature~Feature#setId}.
+   * @return {number|string|undefined} Id.
+   * @api
+   */
+
+
+  Feature.prototype.getId = function () {
+    return this.id_;
+  };
+  /**
+   * Get the name of the feature's default geometry.  By default, the default
+   * geometry is named `geometry`.
+   * @return {string} Get the property name associated with the default geometry
+   *     for this feature.
+   * @api
+   */
+
+
+  Feature.prototype.getGeometryName = function () {
+    return this.geometryName_;
+  };
+  /**
+   * Get the feature's style. Will return what was provided to the
+   * {@link module:ol/Feature~Feature#setStyle} method.
+   * @return {import("./style/Style.js").StyleLike|undefined} The feature style.
+   * @api
+   */
+
+
+  Feature.prototype.getStyle = function () {
+    return this.style_;
+  };
+  /**
+   * Get the feature's style function.
+   * @return {import("./style/Style.js").StyleFunction|undefined} Return a function
+   * representing the current style of this feature.
+   * @api
+   */
+
+
+  Feature.prototype.getStyleFunction = function () {
+    return this.styleFunction_;
+  };
+  /**
+   * @private
+   */
+
+
+  Feature.prototype.handleGeometryChange_ = function () {
+    this.changed();
+  };
+  /**
+   * @private
+   */
+
+
+  Feature.prototype.handleGeometryChanged_ = function () {
+    if (this.geometryChangeKey_) {
+      (0, _events.unlistenByKey)(this.geometryChangeKey_);
+      this.geometryChangeKey_ = null;
+    }
+
+    var geometry = this.getGeometry();
+
+    if (geometry) {
+      this.geometryChangeKey_ = (0, _events.listen)(geometry, _EventType.default.CHANGE, this.handleGeometryChange_, this);
+    }
+
+    this.changed();
+  };
+  /**
+   * Set the default geometry for the feature.  This will update the property
+   * with the name returned by {@link module:ol/Feature~Feature#getGeometryName}.
+   * @param {Geometry|undefined} geometry The new geometry.
+   * @api
+   * @observable
+   */
+
+
+  Feature.prototype.setGeometry = function (geometry) {
+    this.set(this.geometryName_, geometry);
+  };
+  /**
+   * Set the style for the feature to override the layer style.  This can be a
+   * single style object, an array of styles, or a function that takes a
+   * resolution and returns an array of styles. To unset the feature style, call
+   * `setStyle()` without arguments or a falsey value.
+   * @param {import("./style/Style.js").StyleLike=} opt_style Style for this feature.
+   * @api
+   * @fires module:ol/events/Event~BaseEvent#event:change
+   */
+
+
+  Feature.prototype.setStyle = function (opt_style) {
+    this.style_ = opt_style;
+    this.styleFunction_ = !opt_style ? undefined : createStyleFunction(opt_style);
+    this.changed();
+  };
+  /**
+   * Set the feature id.  The feature id is considered stable and may be used when
+   * requesting features or comparing identifiers returned from a remote source.
+   * The feature id can be used with the
+   * {@link module:ol/source/Vector~VectorSource#getFeatureById} method.
+   * @param {number|string|undefined} id The feature id.
+   * @api
+   * @fires module:ol/events/Event~BaseEvent#event:change
+   */
+
+
+  Feature.prototype.setId = function (id) {
+    this.id_ = id;
+    this.changed();
+  };
+  /**
+   * Set the property name to be used when getting the feature's default geometry.
+   * When calling {@link module:ol/Feature~Feature#getGeometry}, the value of the property with
+   * this name will be returned.
+   * @param {string} name The property name of the default geometry.
+   * @api
+   */
+
+
+  Feature.prototype.setGeometryName = function (name) {
+    this.removeEventListener((0, _Object.getChangeEventType)(this.geometryName_), this.handleGeometryChanged_);
+    this.geometryName_ = name;
+    this.addEventListener((0, _Object.getChangeEventType)(this.geometryName_), this.handleGeometryChanged_);
+    this.handleGeometryChanged_();
+  };
+
+  return Feature;
+}(_Object.default);
+/**
+ * Convert the provided object into a feature style function.  Functions passed
+ * through unchanged.  Arrays of Style or single style objects wrapped
+ * in a new feature style function.
+ * @param {!import("./style/Style.js").StyleFunction|!Array<import("./style/Style.js").default>|!import("./style/Style.js").default} obj
+ *     A feature style function, a single style, or an array of styles.
+ * @return {import("./style/Style.js").StyleFunction} A style function.
+ */
+
+
+function createStyleFunction(obj) {
+  if (typeof obj === 'function') {
+    return obj;
+  } else {
+    /**
+     * @type {Array<import("./style/Style.js").default>}
+     */
+    var styles_1;
+
+    if (Array.isArray(obj)) {
+      styles_1 = obj;
+    } else {
+      (0, _asserts.assert)(typeof
+      /** @type {?} */
+      obj.getZIndex === 'function', 41); // Expected an `import("./style/Style.js").Style` or an array of `import("./style/Style.js").Style`
+
+      var style =
+      /** @type {import("./style/Style.js").default} */
+      obj;
+      styles_1 = [style];
+    }
+
+    return function () {
+      return styles_1;
+    };
+  }
+}
+
+var _default = Feature;
+exports.default = _default;
+},{"./Object.js":"node_modules/ol/Object.js","./events/EventType.js":"node_modules/ol/events/EventType.js","./asserts.js":"node_modules/ol/asserts.js","./events.js":"node_modules/ol/events.js"}],"node_modules/ol/transform.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2711,1151 +4242,7 @@ var _default = IconImageCache;
 exports.default = _default;
 var shared = new IconImageCache();
 exports.shared = shared;
-},{"../color.js":"node_modules/ol/color.js"}],"node_modules/ol/events/Event.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.stopPropagation = stopPropagation;
-exports.preventDefault = preventDefault;
-exports.default = void 0;
-
-/**
- * @module ol/events/Event
- */
-
-/**
- * @classdesc
- * Stripped down implementation of the W3C DOM Level 2 Event interface.
- * See https://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-interface.
- *
- * This implementation only provides `type` and `target` properties, and
- * `stopPropagation` and `preventDefault` methods. It is meant as base class
- * for higher level events defined in the library, and works with
- * {@link module:ol/events/Target~Target}.
- */
-var BaseEvent =
-/** @class */
-function () {
-  /**
-   * @param {string} type Type.
-   */
-  function BaseEvent(type) {
-    /**
-     * @type {boolean}
-     */
-    this.propagationStopped;
-    /**
-     * The event type.
-     * @type {string}
-     * @api
-     */
-
-    this.type = type;
-    /**
-     * The event target.
-     * @type {Object}
-     * @api
-     */
-
-    this.target = null;
-  }
-  /**
-   * Stop event propagation.
-   * @api
-   */
-
-
-  BaseEvent.prototype.preventDefault = function () {
-    this.propagationStopped = true;
-  };
-  /**
-   * Stop event propagation.
-   * @api
-   */
-
-
-  BaseEvent.prototype.stopPropagation = function () {
-    this.propagationStopped = true;
-  };
-
-  return BaseEvent;
-}();
-/**
- * @param {Event|import("./Event.js").default} evt Event
- */
-
-
-function stopPropagation(evt) {
-  evt.stopPropagation();
-}
-/**
- * @param {Event|import("./Event.js").default} evt Event
- */
-
-
-function preventDefault(evt) {
-  evt.preventDefault();
-}
-
-var _default = BaseEvent;
-exports.default = _default;
-},{}],"node_modules/ol/ObjectEventType.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-/**
- * @module ol/ObjectEventType
- */
-
-/**
- * @enum {string}
- */
-var _default = {
-  /**
-   * Triggered when a property is changed.
-   * @event module:ol/Object.ObjectEvent#propertychange
-   * @api
-   */
-  PROPERTYCHANGE: 'propertychange'
-};
-exports.default = _default;
-},{}],"node_modules/ol/obj.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.clear = clear;
-exports.isEmpty = isEmpty;
-exports.getValues = exports.assign = void 0;
-
-/**
- * @module ol/obj
- */
-
-/**
- * Polyfill for Object.assign().  Assigns enumerable and own properties from
- * one or more source objects to a target object.
- * See https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign.
- *
- * @param {!Object} target The target object.
- * @param {...Object} var_sources The source object(s).
- * @return {!Object} The modified target object.
- */
-var assign = typeof Object.assign === 'function' ? Object.assign : function (target, var_sources) {
-  if (target === undefined || target === null) {
-    throw new TypeError('Cannot convert undefined or null to object');
-  }
-
-  var output = Object(target);
-
-  for (var i = 1, ii = arguments.length; i < ii; ++i) {
-    var source = arguments[i];
-
-    if (source !== undefined && source !== null) {
-      for (var key in source) {
-        if (source.hasOwnProperty(key)) {
-          output[key] = source[key];
-        }
-      }
-    }
-  }
-
-  return output;
-};
-/**
- * Removes all properties from an object.
- * @param {Object} object The object to clear.
- */
-
-exports.assign = assign;
-
-function clear(object) {
-  for (var property in object) {
-    delete object[property];
-  }
-}
-/**
- * Polyfill for Object.values().  Get an array of property values from an object.
- * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
- *
- * @param {!Object<K,V>} object The object from which to get the values.
- * @return {!Array<V>} The property values.
- * @template K,V
- */
-
-
-var getValues = typeof Object.values === 'function' ? Object.values : function (object) {
-  var values = [];
-
-  for (var property in object) {
-    values.push(object[property]);
-  }
-
-  return values;
-};
-/**
- * Determine if an object has any properties.
- * @param {Object} object The object to check.
- * @return {boolean} The object is empty.
- */
-
-exports.getValues = getValues;
-
-function isEmpty(object) {
-  var property;
-
-  for (property in object) {
-    return false;
-  }
-
-  return !property;
-}
-},{}],"node_modules/ol/events/Target.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Disposable = _interopRequireDefault(require("../Disposable.js"));
-
-var _Event = _interopRequireDefault(require("./Event.js"));
-
-var _functions = require("../functions.js");
-
-var _obj = require("../obj.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * @module ol/events/Target
- */
-
-
-/**
- * @typedef {EventTarget|Target} EventTargetLike
- */
-
-/**
- * @classdesc
- * A simplified implementation of the W3C DOM Level 2 EventTarget interface.
- * See https://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-EventTarget.
- *
- * There are two important simplifications compared to the specification:
- *
- * 1. The handling of `useCapture` in `addEventListener` and
- *    `removeEventListener`. There is no real capture model.
- * 2. The handling of `stopPropagation` and `preventDefault` on `dispatchEvent`.
- *    There is no event target hierarchy. When a listener calls
- *    `stopPropagation` or `preventDefault` on an event object, it means that no
- *    more listeners after this one will be called. Same as when the listener
- *    returns false.
- */
-var Target =
-/** @class */
-function (_super) {
-  __extends(Target, _super);
-  /**
-   * @param {*=} opt_target Default event target for dispatched events.
-   */
-
-
-  function Target(opt_target) {
-    var _this = _super.call(this) || this;
-    /**
-     * @private
-     * @type {*}
-     */
-
-
-    _this.eventTarget_ = opt_target;
-    /**
-     * @private
-     * @type {Object<string, number>}
-     */
-
-    _this.pendingRemovals_ = null;
-    /**
-     * @private
-     * @type {Object<string, number>}
-     */
-
-    _this.dispatching_ = null;
-    /**
-     * @private
-     * @type {Object<string, Array<import("../events.js").Listener>>}
-     */
-
-    _this.listeners_ = null;
-    return _this;
-  }
-  /**
-   * @param {string} type Type.
-   * @param {import("../events.js").Listener} listener Listener.
-   */
-
-
-  Target.prototype.addEventListener = function (type, listener) {
-    if (!type || !listener) {
-      return;
-    }
-
-    var listeners = this.listeners_ || (this.listeners_ = {});
-    var listenersForType = listeners[type] || (listeners[type] = []);
-
-    if (listenersForType.indexOf(listener) === -1) {
-      listenersForType.push(listener);
-    }
-  };
-  /**
-   * Dispatches an event and calls all listeners listening for events
-   * of this type. The event parameter can either be a string or an
-   * Object with a `type` property.
-   *
-   * @param {import("./Event.js").default|string} event Event object.
-   * @return {boolean|undefined} `false` if anyone called preventDefault on the
-   *     event object or if any of the listeners returned false.
-   * @api
-   */
-
-
-  Target.prototype.dispatchEvent = function (event) {
-    /** @type {import("./Event.js").default|Event} */
-    var evt = typeof event === 'string' ? new _Event.default(event) : event;
-    var type = evt.type;
-
-    if (!evt.target) {
-      evt.target = this.eventTarget_ || this;
-    }
-
-    var listeners = this.listeners_ && this.listeners_[type];
-    var propagate;
-
-    if (listeners) {
-      var dispatching = this.dispatching_ || (this.dispatching_ = {});
-      var pendingRemovals = this.pendingRemovals_ || (this.pendingRemovals_ = {});
-
-      if (!(type in dispatching)) {
-        dispatching[type] = 0;
-        pendingRemovals[type] = 0;
-      }
-
-      ++dispatching[type];
-
-      for (var i = 0, ii = listeners.length; i < ii; ++i) {
-        if ('handleEvent' in listeners[i]) {
-          propagate =
-          /** @type {import("../events.js").ListenerObject} */
-          listeners[i].handleEvent(evt);
-        } else {
-          propagate =
-          /** @type {import("../events.js").ListenerFunction} */
-          listeners[i].call(this, evt);
-        }
-
-        if (propagate === false || evt.propagationStopped) {
-          propagate = false;
-          break;
-        }
-      }
-
-      --dispatching[type];
-
-      if (dispatching[type] === 0) {
-        var pr = pendingRemovals[type];
-        delete pendingRemovals[type];
-
-        while (pr--) {
-          this.removeEventListener(type, _functions.VOID);
-        }
-
-        delete dispatching[type];
-      }
-
-      return propagate;
-    }
-  };
-  /**
-   * Clean up.
-   */
-
-
-  Target.prototype.disposeInternal = function () {
-    this.listeners_ && (0, _obj.clear)(this.listeners_);
-  };
-  /**
-   * Get the listeners for a specified event type. Listeners are returned in the
-   * order that they will be called in.
-   *
-   * @param {string} type Type.
-   * @return {Array<import("../events.js").Listener>|undefined} Listeners.
-   */
-
-
-  Target.prototype.getListeners = function (type) {
-    return this.listeners_ && this.listeners_[type] || undefined;
-  };
-  /**
-   * @param {string=} opt_type Type. If not provided,
-   *     `true` will be returned if this event target has any listeners.
-   * @return {boolean} Has listeners.
-   */
-
-
-  Target.prototype.hasListener = function (opt_type) {
-    if (!this.listeners_) {
-      return false;
-    }
-
-    return opt_type ? opt_type in this.listeners_ : Object.keys(this.listeners_).length > 0;
-  };
-  /**
-   * @param {string} type Type.
-   * @param {import("../events.js").Listener} listener Listener.
-   */
-
-
-  Target.prototype.removeEventListener = function (type, listener) {
-    var listeners = this.listeners_ && this.listeners_[type];
-
-    if (listeners) {
-      var index = listeners.indexOf(listener);
-
-      if (index !== -1) {
-        if (this.pendingRemovals_ && type in this.pendingRemovals_) {
-          // make listener a no-op, and remove later in #dispatchEvent()
-          listeners[index] = _functions.VOID;
-          ++this.pendingRemovals_[type];
-        } else {
-          listeners.splice(index, 1);
-
-          if (listeners.length === 0) {
-            delete this.listeners_[type];
-          }
-        }
-      }
-    }
-  };
-
-  return Target;
-}(_Disposable.default);
-
-var _default = Target;
-exports.default = _default;
-},{"../Disposable.js":"node_modules/ol/Disposable.js","./Event.js":"node_modules/ol/events/Event.js","../functions.js":"node_modules/ol/functions.js","../obj.js":"node_modules/ol/obj.js"}],"node_modules/ol/events/EventType.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-/**
- * @module ol/events/EventType
- */
-
-/**
- * @enum {string}
- * @const
- */
-var _default = {
-  /**
-   * Generic change event. Triggered when the revision counter is increased.
-   * @event module:ol/events/Event~BaseEvent#change
-   * @api
-   */
-  CHANGE: 'change',
-
-  /**
-   * Generic error event. Triggered when an error occurs.
-   * @event module:ol/events/Event~BaseEvent#error
-   * @api
-   */
-  ERROR: 'error',
-  BLUR: 'blur',
-  CLEAR: 'clear',
-  CONTEXTMENU: 'contextmenu',
-  CLICK: 'click',
-  DBLCLICK: 'dblclick',
-  DRAGENTER: 'dragenter',
-  DRAGOVER: 'dragover',
-  DROP: 'drop',
-  FOCUS: 'focus',
-  KEYDOWN: 'keydown',
-  KEYPRESS: 'keypress',
-  LOAD: 'load',
-  RESIZE: 'resize',
-  TOUCHMOVE: 'touchmove',
-  WHEEL: 'wheel'
-};
-exports.default = _default;
-},{}],"node_modules/ol/events.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.listen = listen;
-exports.listenOnce = listenOnce;
-exports.unlistenByKey = unlistenByKey;
-
-var _obj = require("./obj.js");
-
-/**
- * @module ol/events
- */
-
-/**
- * Key to use with {@link module:ol/Observable~Observable#unByKey}.
- * @typedef {Object} EventsKey
- * @property {ListenerFunction} listener
- * @property {import("./events/Target.js").EventTargetLike} target
- * @property {string} type
- * @api
- */
-
-/**
- * Listener function. This function is called with an event object as argument.
- * When the function returns `false`, event propagation will stop.
- *
- * @typedef {function((Event|import("./events/Event.js").default)): (void|boolean)} ListenerFunction
- * @api
- */
-
-/**
- * @typedef {Object} ListenerObject
- * @property {ListenerFunction} handleEvent
- */
-
-/**
- * @typedef {ListenerFunction|ListenerObject} Listener
- */
-
-/**
- * Registers an event listener on an event target. Inspired by
- * https://google.github.io/closure-library/api/source/closure/goog/events/events.js.src.html
- *
- * This function efficiently binds a `listener` to a `this` object, and returns
- * a key for use with {@link module:ol/events~unlistenByKey}.
- *
- * @param {import("./events/Target.js").EventTargetLike} target Event target.
- * @param {string} type Event type.
- * @param {ListenerFunction} listener Listener.
- * @param {Object=} opt_this Object referenced by the `this` keyword in the
- *     listener. Default is the `target`.
- * @param {boolean=} opt_once If true, add the listener as one-off listener.
- * @return {EventsKey} Unique key for the listener.
- */
-function listen(target, type, listener, opt_this, opt_once) {
-  if (opt_this && opt_this !== target) {
-    listener = listener.bind(opt_this);
-  }
-
-  if (opt_once) {
-    var originalListener_1 = listener;
-
-    listener = function () {
-      target.removeEventListener(type, listener);
-      originalListener_1.apply(this, arguments);
-    };
-  }
-
-  var eventsKey = {
-    target: target,
-    type: type,
-    listener: listener
-  };
-  target.addEventListener(type, listener);
-  return eventsKey;
-}
-/**
- * Registers a one-off event listener on an event target. Inspired by
- * https://google.github.io/closure-library/api/source/closure/goog/events/events.js.src.html
- *
- * This function efficiently binds a `listener` as self-unregistering listener
- * to a `this` object, and returns a key for use with
- * {@link module:ol/events~unlistenByKey} in case the listener needs to be
- * unregistered before it is called.
- *
- * When {@link module:ol/events~listen} is called with the same arguments after this
- * function, the self-unregistering listener will be turned into a permanent
- * listener.
- *
- * @param {import("./events/Target.js").EventTargetLike} target Event target.
- * @param {string} type Event type.
- * @param {ListenerFunction} listener Listener.
- * @param {Object=} opt_this Object referenced by the `this` keyword in the
- *     listener. Default is the `target`.
- * @return {EventsKey} Key for unlistenByKey.
- */
-
-
-function listenOnce(target, type, listener, opt_this) {
-  return listen(target, type, listener, opt_this, true);
-}
-/**
- * Unregisters event listeners on an event target. Inspired by
- * https://google.github.io/closure-library/api/source/closure/goog/events/events.js.src.html
- *
- * The argument passed to this function is the key returned from
- * {@link module:ol/events~listen} or {@link module:ol/events~listenOnce}.
- *
- * @param {EventsKey} key The key.
- */
-
-
-function unlistenByKey(key) {
-  if (key && key.target) {
-    key.target.removeEventListener(key.type, key.listener);
-    (0, _obj.clear)(key);
-  }
-}
-},{"./obj.js":"node_modules/ol/obj.js"}],"node_modules/ol/Observable.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.unByKey = unByKey;
-exports.default = void 0;
-
-var _Target = _interopRequireDefault(require("./events/Target.js"));
-
-var _EventType = _interopRequireDefault(require("./events/EventType.js"));
-
-var _events = require("./events.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * @module ol/Observable
- */
-
-
-/**
- * @classdesc
- * Abstract base class; normally only used for creating subclasses and not
- * instantiated in apps.
- * An event target providing convenient methods for listener registration
- * and unregistration. A generic `change` event is always available through
- * {@link module:ol/Observable~Observable#changed}.
- *
- * @fires import("./events/Event.js").default
- * @api
- */
-var Observable =
-/** @class */
-function (_super) {
-  __extends(Observable, _super);
-
-  function Observable() {
-    var _this = _super.call(this) || this;
-    /**
-     * @private
-     * @type {number}
-     */
-
-
-    _this.revision_ = 0;
-    return _this;
-  }
-  /**
-   * Increases the revision counter and dispatches a 'change' event.
-   * @api
-   */
-
-
-  Observable.prototype.changed = function () {
-    ++this.revision_;
-    this.dispatchEvent(_EventType.default.CHANGE);
-  };
-  /**
-   * Get the version number for this object.  Each time the object is modified,
-   * its version number will be incremented.
-   * @return {number} Revision.
-   * @api
-   */
-
-
-  Observable.prototype.getRevision = function () {
-    return this.revision_;
-  };
-  /**
-   * Listen for a certain type of event.
-   * @param {string|Array<string>} type The event type or array of event types.
-   * @param {function(?): ?} listener The listener function.
-   * @return {import("./events.js").EventsKey|Array<import("./events.js").EventsKey>} Unique key for the listener. If
-   *     called with an array of event types as the first argument, the return
-   *     will be an array of keys.
-   * @api
-   */
-
-
-  Observable.prototype.on = function (type, listener) {
-    if (Array.isArray(type)) {
-      var len = type.length;
-      var keys = new Array(len);
-
-      for (var i = 0; i < len; ++i) {
-        keys[i] = (0, _events.listen)(this, type[i], listener);
-      }
-
-      return keys;
-    } else {
-      return (0, _events.listen)(this,
-      /** @type {string} */
-      type, listener);
-    }
-  };
-  /**
-   * Listen once for a certain type of event.
-   * @param {string|Array<string>} type The event type or array of event types.
-   * @param {function(?): ?} listener The listener function.
-   * @return {import("./events.js").EventsKey|Array<import("./events.js").EventsKey>} Unique key for the listener. If
-   *     called with an array of event types as the first argument, the return
-   *     will be an array of keys.
-   * @api
-   */
-
-
-  Observable.prototype.once = function (type, listener) {
-    var key;
-
-    if (Array.isArray(type)) {
-      var len = type.length;
-      key = new Array(len);
-
-      for (var i = 0; i < len; ++i) {
-        key[i] = (0, _events.listenOnce)(this, type[i], listener);
-      }
-    } else {
-      key = (0, _events.listenOnce)(this,
-      /** @type {string} */
-      type, listener);
-    }
-    /** @type {Object} */
-
-
-    listener.ol_key = key;
-    return key;
-  };
-  /**
-   * Unlisten for a certain type of event.
-   * @param {string|Array<string>} type The event type or array of event types.
-   * @param {function(?): ?} listener The listener function.
-   * @api
-   */
-
-
-  Observable.prototype.un = function (type, listener) {
-    var key =
-    /** @type {Object} */
-    listener.ol_key;
-
-    if (key) {
-      unByKey(key);
-    } else if (Array.isArray(type)) {
-      for (var i = 0, ii = type.length; i < ii; ++i) {
-        this.removeEventListener(type[i], listener);
-      }
-    } else {
-      this.removeEventListener(type, listener);
-    }
-  };
-
-  return Observable;
-}(_Target.default);
-/**
- * Removes an event listener using the key returned by `on()` or `once()`.
- * @param {import("./events.js").EventsKey|Array<import("./events.js").EventsKey>} key The key returned by `on()`
- *     or `once()` (or an array of keys).
- * @api
- */
-
-
-function unByKey(key) {
-  if (Array.isArray(key)) {
-    for (var i = 0, ii = key.length; i < ii; ++i) {
-      (0, _events.unlistenByKey)(key[i]);
-    }
-  } else {
-    (0, _events.unlistenByKey)(
-    /** @type {import("./events.js").EventsKey} */
-    key);
-  }
-}
-
-var _default = Observable;
-exports.default = _default;
-},{"./events/Target.js":"node_modules/ol/events/Target.js","./events/EventType.js":"node_modules/ol/events/EventType.js","./events.js":"node_modules/ol/events.js"}],"node_modules/ol/Object.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getChangeEventType = getChangeEventType;
-exports.default = exports.ObjectEvent = void 0;
-
-var _Event = _interopRequireDefault(require("./events/Event.js"));
-
-var _ObjectEventType = _interopRequireDefault(require("./ObjectEventType.js"));
-
-var _Observable = _interopRequireDefault(require("./Observable.js"));
-
-var _obj = require("./obj.js");
-
-var _util = require("./util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * @module ol/Object
- */
-
-
-/**
- * @classdesc
- * Events emitted by {@link module:ol/Object~BaseObject} instances are instances of this type.
- */
-var ObjectEvent =
-/** @class */
-function (_super) {
-  __extends(ObjectEvent, _super);
-  /**
-   * @param {string} type The event type.
-   * @param {string} key The property name.
-   * @param {*} oldValue The old value for `key`.
-   */
-
-
-  function ObjectEvent(type, key, oldValue) {
-    var _this = _super.call(this, type) || this;
-    /**
-     * The name of the property whose value is changing.
-     * @type {string}
-     * @api
-     */
-
-
-    _this.key = key;
-    /**
-     * The old value. To get the new value use `e.target.get(e.key)` where
-     * `e` is the event object.
-     * @type {*}
-     * @api
-     */
-
-    _this.oldValue = oldValue;
-    return _this;
-  }
-
-  return ObjectEvent;
-}(_Event.default);
-
-exports.ObjectEvent = ObjectEvent;
-
-/**
- * @classdesc
- * Abstract base class; normally only used for creating subclasses and not
- * instantiated in apps.
- * Most non-trivial classes inherit from this.
- *
- * This extends {@link module:ol/Observable} with observable
- * properties, where each property is observable as well as the object as a
- * whole.
- *
- * Classes that inherit from this have pre-defined properties, to which you can
- * add your owns. The pre-defined properties are listed in this documentation as
- * 'Observable Properties', and have their own accessors; for example,
- * {@link module:ol/Map~Map} has a `target` property, accessed with
- * `getTarget()` and changed with `setTarget()`. Not all properties are however
- * settable. There are also general-purpose accessors `get()` and `set()`. For
- * example, `get('target')` is equivalent to `getTarget()`.
- *
- * The `set` accessors trigger a change event, and you can monitor this by
- * registering a listener. For example, {@link module:ol/View~View} has a
- * `center` property, so `view.on('change:center', function(evt) {...});` would
- * call the function whenever the value of the center property changes. Within
- * the function, `evt.target` would be the view, so `evt.target.getCenter()`
- * would return the new center.
- *
- * You can add your own observable properties with
- * `object.set('prop', 'value')`, and retrieve that with `object.get('prop')`.
- * You can listen for changes on that property value with
- * `object.on('change:prop', listener)`. You can get a list of all
- * properties with {@link module:ol/Object~BaseObject#getProperties}.
- *
- * Note that the observable properties are separate from standard JS properties.
- * You can, for example, give your map object a title with
- * `map.title='New title'` and with `map.set('title', 'Another title')`. The
- * first will be a `hasOwnProperty`; the second will appear in
- * `getProperties()`. Only the second is observable.
- *
- * Properties can be deleted by using the unset method. E.g.
- * object.unset('foo').
- *
- * @fires ObjectEvent
- * @api
- */
-var BaseObject =
-/** @class */
-function (_super) {
-  __extends(BaseObject, _super);
-  /**
-   * @param {Object<string, *>=} opt_values An object with key-value pairs.
-   */
-
-
-  function BaseObject(opt_values) {
-    var _this = _super.call(this) || this; // Call {@link module:ol/util~getUid} to ensure that the order of objects' ids is
-    // the same as the order in which they were created.  This also helps to
-    // ensure that object properties are always added in the same order, which
-    // helps many JavaScript engines generate faster code.
-
-
-    (0, _util.getUid)(_this);
-    /**
-     * @private
-     * @type {Object<string, *>}
-     */
-
-    _this.values_ = null;
-
-    if (opt_values !== undefined) {
-      _this.setProperties(opt_values);
-    }
-
-    return _this;
-  }
-  /**
-   * Gets a value.
-   * @param {string} key Key name.
-   * @return {*} Value.
-   * @api
-   */
-
-
-  BaseObject.prototype.get = function (key) {
-    var value;
-
-    if (this.values_ && this.values_.hasOwnProperty(key)) {
-      value = this.values_[key];
-    }
-
-    return value;
-  };
-  /**
-   * Get a list of object property names.
-   * @return {Array<string>} List of property names.
-   * @api
-   */
-
-
-  BaseObject.prototype.getKeys = function () {
-    return this.values_ && Object.keys(this.values_) || [];
-  };
-  /**
-   * Get an object of all property names and values.
-   * @return {Object<string, *>} Object.
-   * @api
-   */
-
-
-  BaseObject.prototype.getProperties = function () {
-    return this.values_ && (0, _obj.assign)({}, this.values_) || {};
-  };
-  /**
-   * @return {boolean} The object has properties.
-   */
-
-
-  BaseObject.prototype.hasProperties = function () {
-    return !!this.values_;
-  };
-  /**
-   * @param {string} key Key name.
-   * @param {*} oldValue Old value.
-   */
-
-
-  BaseObject.prototype.notify = function (key, oldValue) {
-    var eventType;
-    eventType = getChangeEventType(key);
-    this.dispatchEvent(new ObjectEvent(eventType, key, oldValue));
-    eventType = _ObjectEventType.default.PROPERTYCHANGE;
-    this.dispatchEvent(new ObjectEvent(eventType, key, oldValue));
-  };
-  /**
-   * Sets a value.
-   * @param {string} key Key name.
-   * @param {*} value Value.
-   * @param {boolean=} opt_silent Update without triggering an event.
-   * @api
-   */
-
-
-  BaseObject.prototype.set = function (key, value, opt_silent) {
-    var values = this.values_ || (this.values_ = {});
-
-    if (opt_silent) {
-      values[key] = value;
-    } else {
-      var oldValue = values[key];
-      values[key] = value;
-
-      if (oldValue !== value) {
-        this.notify(key, oldValue);
-      }
-    }
-  };
-  /**
-   * Sets a collection of key-value pairs.  Note that this changes any existing
-   * properties and adds new ones (it does not remove any existing properties).
-   * @param {Object<string, *>} values Values.
-   * @param {boolean=} opt_silent Update without triggering an event.
-   * @api
-   */
-
-
-  BaseObject.prototype.setProperties = function (values, opt_silent) {
-    for (var key in values) {
-      this.set(key, values[key], opt_silent);
-    }
-  };
-  /**
-   * Apply any properties from another object without triggering events.
-   * @param {BaseObject} source The source object.
-   * @protected
-   */
-
-
-  BaseObject.prototype.applyProperties = function (source) {
-    if (!source.values_) {
-      return;
-    }
-
-    (0, _obj.assign)(this.values_ || (this.values_ = {}), source.values_);
-  };
-  /**
-   * Unsets a property.
-   * @param {string} key Key name.
-   * @param {boolean=} opt_silent Unset without triggering an event.
-   * @api
-   */
-
-
-  BaseObject.prototype.unset = function (key, opt_silent) {
-    if (this.values_ && key in this.values_) {
-      var oldValue = this.values_[key];
-      delete this.values_[key];
-
-      if ((0, _obj.isEmpty)(this.values_)) {
-        this.values_ = null;
-      }
-
-      if (!opt_silent) {
-        this.notify(key, oldValue);
-      }
-    }
-  };
-
-  return BaseObject;
-}(_Observable.default);
-/**
- * @type {Object<string, string>}
- */
-
-
-var changeEventTypeCache = {};
-/**
- * @param {string} key Key name.
- * @return {string} Change name.
- */
-
-function getChangeEventType(key) {
-  return changeEventTypeCache.hasOwnProperty(key) ? changeEventTypeCache[key] : changeEventTypeCache[key] = 'change:' + key;
-}
-
-var _default = BaseObject;
-exports.default = _default;
-},{"./events/Event.js":"node_modules/ol/events/Event.js","./ObjectEventType.js":"node_modules/ol/ObjectEventType.js","./Observable.js":"node_modules/ol/Observable.js","./obj.js":"node_modules/ol/obj.js","./util.js":"node_modules/ol/util.js"}],"node_modules/ol/layer/Property.js":[function(require,module,exports) {
+},{"../color.js":"node_modules/ol/color.js"}],"node_modules/ol/layer/Property.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26908,394 +27295,7 @@ function (_super) {
 Circle.prototype.transform;
 var _default = Circle;
 exports.default = _default;
-},{"./GeometryType.js":"node_modules/ol/geom/GeometryType.js","./SimpleGeometry.js":"node_modules/ol/geom/SimpleGeometry.js","../extent.js":"node_modules/ol/extent.js","./flat/deflate.js":"node_modules/ol/geom/flat/deflate.js","./flat/transform.js":"node_modules/ol/geom/flat/transform.js"}],"node_modules/ol/Feature.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.createStyleFunction = createStyleFunction;
-exports.default = void 0;
-
-var _Object = _interopRequireWildcard(require("./Object.js"));
-
-var _EventType = _interopRequireDefault(require("./events/EventType.js"));
-
-var _asserts = require("./asserts.js");
-
-var _events = require("./events.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * @module ol/Feature
- */
-
-
-/**
- * @typedef {typeof Feature|typeof import("./render/Feature.js").default} FeatureClass
- */
-
-/**
- * @typedef {Feature|import("./render/Feature.js").default} FeatureLike
- */
-
-/**
- * @classdesc
- * A vector object for geographic features with a geometry and other
- * attribute properties, similar to the features in vector file formats like
- * GeoJSON.
- *
- * Features can be styled individually with `setStyle`; otherwise they use the
- * style of their vector layer.
- *
- * Note that attribute properties are set as {@link module:ol/Object} properties on
- * the feature object, so they are observable, and have get/set accessors.
- *
- * Typically, a feature has a single geometry property. You can set the
- * geometry using the `setGeometry` method and get it with `getGeometry`.
- * It is possible to store more than one geometry on a feature using attribute
- * properties. By default, the geometry used for rendering is identified by
- * the property name `geometry`. If you want to use another geometry property
- * for rendering, use the `setGeometryName` method to change the attribute
- * property associated with the geometry for the feature.  For example:
- *
- * ```js
- *
- * import Feature from 'ol/Feature';
- * import Polygon from 'ol/geom/Polygon';
- * import Point from 'ol/geom/Point';
- *
- * var feature = new Feature({
- *   geometry: new Polygon(polyCoords),
- *   labelPoint: new Point(labelCoords),
- *   name: 'My Polygon'
- * });
- *
- * // get the polygon geometry
- * var poly = feature.getGeometry();
- *
- * // Render the feature as a point using the coordinates from labelPoint
- * feature.setGeometryName('labelPoint');
- *
- * // get the point geometry
- * var point = feature.getGeometry();
- * ```
- *
- * @api
- * @template {import("./geom/Geometry.js").default} Geometry
- */
-var Feature =
-/** @class */
-function (_super) {
-  __extends(Feature, _super);
-  /**
-   * @param {Geometry|Object<string, *>=} opt_geometryOrProperties
-   *     You may pass a Geometry object directly, or an object literal containing
-   *     properties. If you pass an object literal, you may include a Geometry
-   *     associated with a `geometry` key.
-   */
-
-
-  function Feature(opt_geometryOrProperties) {
-    var _this = _super.call(this) || this;
-    /**
-     * @private
-     * @type {number|string|undefined}
-     */
-
-
-    _this.id_ = undefined;
-    /**
-     * @type {string}
-     * @private
-     */
-
-    _this.geometryName_ = 'geometry';
-    /**
-     * User provided style.
-     * @private
-     * @type {import("./style/Style.js").StyleLike}
-     */
-
-    _this.style_ = null;
-    /**
-     * @private
-     * @type {import("./style/Style.js").StyleFunction|undefined}
-     */
-
-    _this.styleFunction_ = undefined;
-    /**
-     * @private
-     * @type {?import("./events.js").EventsKey}
-     */
-
-    _this.geometryChangeKey_ = null;
-
-    _this.addEventListener((0, _Object.getChangeEventType)(_this.geometryName_), _this.handleGeometryChanged_);
-
-    if (opt_geometryOrProperties) {
-      if (typeof
-      /** @type {?} */
-      opt_geometryOrProperties.getSimplifiedGeometry === 'function') {
-        var geometry =
-        /** @type {Geometry} */
-        opt_geometryOrProperties;
-
-        _this.setGeometry(geometry);
-      } else {
-        /** @type {Object<string, *>} */
-        var properties = opt_geometryOrProperties;
-
-        _this.setProperties(properties);
-      }
-    }
-
-    return _this;
-  }
-  /**
-   * Clone this feature. If the original feature has a geometry it
-   * is also cloned. The feature id is not set in the clone.
-   * @return {Feature} The clone.
-   * @api
-   */
-
-
-  Feature.prototype.clone = function () {
-    var clone = new Feature(this.hasProperties() ? this.getProperties() : null);
-    clone.setGeometryName(this.getGeometryName());
-    var geometry = this.getGeometry();
-
-    if (geometry) {
-      clone.setGeometry(geometry.clone());
-    }
-
-    var style = this.getStyle();
-
-    if (style) {
-      clone.setStyle(style);
-    }
-
-    return clone;
-  };
-  /**
-   * Get the feature's default geometry.  A feature may have any number of named
-   * geometries.  The "default" geometry (the one that is rendered by default) is
-   * set when calling {@link module:ol/Feature~Feature#setGeometry}.
-   * @return {Geometry|undefined} The default geometry for the feature.
-   * @api
-   * @observable
-   */
-
-
-  Feature.prototype.getGeometry = function () {
-    return (
-      /** @type {Geometry|undefined} */
-      this.get(this.geometryName_)
-    );
-  };
-  /**
-   * Get the feature identifier.  This is a stable identifier for the feature and
-   * is either set when reading data from a remote source or set explicitly by
-   * calling {@link module:ol/Feature~Feature#setId}.
-   * @return {number|string|undefined} Id.
-   * @api
-   */
-
-
-  Feature.prototype.getId = function () {
-    return this.id_;
-  };
-  /**
-   * Get the name of the feature's default geometry.  By default, the default
-   * geometry is named `geometry`.
-   * @return {string} Get the property name associated with the default geometry
-   *     for this feature.
-   * @api
-   */
-
-
-  Feature.prototype.getGeometryName = function () {
-    return this.geometryName_;
-  };
-  /**
-   * Get the feature's style. Will return what was provided to the
-   * {@link module:ol/Feature~Feature#setStyle} method.
-   * @return {import("./style/Style.js").StyleLike|undefined} The feature style.
-   * @api
-   */
-
-
-  Feature.prototype.getStyle = function () {
-    return this.style_;
-  };
-  /**
-   * Get the feature's style function.
-   * @return {import("./style/Style.js").StyleFunction|undefined} Return a function
-   * representing the current style of this feature.
-   * @api
-   */
-
-
-  Feature.prototype.getStyleFunction = function () {
-    return this.styleFunction_;
-  };
-  /**
-   * @private
-   */
-
-
-  Feature.prototype.handleGeometryChange_ = function () {
-    this.changed();
-  };
-  /**
-   * @private
-   */
-
-
-  Feature.prototype.handleGeometryChanged_ = function () {
-    if (this.geometryChangeKey_) {
-      (0, _events.unlistenByKey)(this.geometryChangeKey_);
-      this.geometryChangeKey_ = null;
-    }
-
-    var geometry = this.getGeometry();
-
-    if (geometry) {
-      this.geometryChangeKey_ = (0, _events.listen)(geometry, _EventType.default.CHANGE, this.handleGeometryChange_, this);
-    }
-
-    this.changed();
-  };
-  /**
-   * Set the default geometry for the feature.  This will update the property
-   * with the name returned by {@link module:ol/Feature~Feature#getGeometryName}.
-   * @param {Geometry|undefined} geometry The new geometry.
-   * @api
-   * @observable
-   */
-
-
-  Feature.prototype.setGeometry = function (geometry) {
-    this.set(this.geometryName_, geometry);
-  };
-  /**
-   * Set the style for the feature to override the layer style.  This can be a
-   * single style object, an array of styles, or a function that takes a
-   * resolution and returns an array of styles. To unset the feature style, call
-   * `setStyle()` without arguments or a falsey value.
-   * @param {import("./style/Style.js").StyleLike=} opt_style Style for this feature.
-   * @api
-   * @fires module:ol/events/Event~BaseEvent#event:change
-   */
-
-
-  Feature.prototype.setStyle = function (opt_style) {
-    this.style_ = opt_style;
-    this.styleFunction_ = !opt_style ? undefined : createStyleFunction(opt_style);
-    this.changed();
-  };
-  /**
-   * Set the feature id.  The feature id is considered stable and may be used when
-   * requesting features or comparing identifiers returned from a remote source.
-   * The feature id can be used with the
-   * {@link module:ol/source/Vector~VectorSource#getFeatureById} method.
-   * @param {number|string|undefined} id The feature id.
-   * @api
-   * @fires module:ol/events/Event~BaseEvent#event:change
-   */
-
-
-  Feature.prototype.setId = function (id) {
-    this.id_ = id;
-    this.changed();
-  };
-  /**
-   * Set the property name to be used when getting the feature's default geometry.
-   * When calling {@link module:ol/Feature~Feature#getGeometry}, the value of the property with
-   * this name will be returned.
-   * @param {string} name The property name of the default geometry.
-   * @api
-   */
-
-
-  Feature.prototype.setGeometryName = function (name) {
-    this.removeEventListener((0, _Object.getChangeEventType)(this.geometryName_), this.handleGeometryChanged_);
-    this.geometryName_ = name;
-    this.addEventListener((0, _Object.getChangeEventType)(this.geometryName_), this.handleGeometryChanged_);
-    this.handleGeometryChanged_();
-  };
-
-  return Feature;
-}(_Object.default);
-/**
- * Convert the provided object into a feature style function.  Functions passed
- * through unchanged.  Arrays of Style or single style objects wrapped
- * in a new feature style function.
- * @param {!import("./style/Style.js").StyleFunction|!Array<import("./style/Style.js").default>|!import("./style/Style.js").default} obj
- *     A feature style function, a single style, or an array of styles.
- * @return {import("./style/Style.js").StyleFunction} A style function.
- */
-
-
-function createStyleFunction(obj) {
-  if (typeof obj === 'function') {
-    return obj;
-  } else {
-    /**
-     * @type {Array<import("./style/Style.js").default>}
-     */
-    var styles_1;
-
-    if (Array.isArray(obj)) {
-      styles_1 = obj;
-    } else {
-      (0, _asserts.assert)(typeof
-      /** @type {?} */
-      obj.getZIndex === 'function', 41); // Expected an `import("./style/Style.js").Style` or an array of `import("./style/Style.js").Style`
-
-      var style =
-      /** @type {import("./style/Style.js").default} */
-      obj;
-      styles_1 = [style];
-    }
-
-    return function () {
-      return styles_1;
-    };
-  }
-}
-
-var _default = Feature;
-exports.default = _default;
-},{"./Object.js":"node_modules/ol/Object.js","./events/EventType.js":"node_modules/ol/events/EventType.js","./asserts.js":"node_modules/ol/asserts.js","./events.js":"node_modules/ol/events.js"}],"node_modules/ol/geom/flat/interpolate.js":[function(require,module,exports) {
+},{"./GeometryType.js":"node_modules/ol/geom/GeometryType.js","./SimpleGeometry.js":"node_modules/ol/geom/SimpleGeometry.js","../extent.js":"node_modules/ol/extent.js","./flat/deflate.js":"node_modules/ol/geom/flat/deflate.js","./flat/transform.js":"node_modules/ol/geom/flat/transform.js"}],"node_modules/ol/geom/flat/interpolate.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -48182,1699 +48182,7 @@ function (_super) {
 
 var _default = Map;
 exports.default = _default;
-},{"./renderer/Composite.js":"node_modules/ol/renderer/Composite.js","./PluggableMap.js":"node_modules/ol/PluggableMap.js","./obj.js":"node_modules/ol/obj.js","./control.js":"node_modules/ol/control.js","./interaction.js":"node_modules/ol/interaction.js"}],"node_modules/ol/geom/GeometryCollection.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _EventType = _interopRequireDefault(require("../events/EventType.js"));
-
-var _Geometry = _interopRequireDefault(require("./Geometry.js"));
-
-var _GeometryType = _interopRequireDefault(require("./GeometryType.js"));
-
-var _extent = require("../extent.js");
-
-var _events = require("../events.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * @module ol/geom/GeometryCollection
- */
-
-
-/**
- * @classdesc
- * An array of {@link module:ol/geom/Geometry} objects.
- *
- * @api
- */
-var GeometryCollection =
-/** @class */
-function (_super) {
-  __extends(GeometryCollection, _super);
-  /**
-   * @param {Array<Geometry>=} opt_geometries Geometries.
-   */
-
-
-  function GeometryCollection(opt_geometries) {
-    var _this = _super.call(this) || this;
-    /**
-     * @private
-     * @type {Array<Geometry>}
-     */
-
-
-    _this.geometries_ = opt_geometries ? opt_geometries : null;
-    /**
-     * @type {Array<import("../events.js").EventsKey>}
-     */
-
-    _this.changeEventsKeys_ = [];
-
-    _this.listenGeometriesChange_();
-
-    return _this;
-  }
-  /**
-   * @private
-   */
-
-
-  GeometryCollection.prototype.unlistenGeometriesChange_ = function () {
-    this.changeEventsKeys_.forEach(_events.unlistenByKey);
-    this.changeEventsKeys_.length = 0;
-  };
-  /**
-   * @private
-   */
-
-
-  GeometryCollection.prototype.listenGeometriesChange_ = function () {
-    if (!this.geometries_) {
-      return;
-    }
-
-    for (var i = 0, ii = this.geometries_.length; i < ii; ++i) {
-      this.changeEventsKeys_.push((0, _events.listen)(this.geometries_[i], _EventType.default.CHANGE, this.changed, this));
-    }
-  };
-  /**
-   * Make a complete copy of the geometry.
-   * @return {!GeometryCollection} Clone.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.clone = function () {
-    var geometryCollection = new GeometryCollection(null);
-    geometryCollection.setGeometries(this.geometries_);
-    geometryCollection.applyProperties(this);
-    return geometryCollection;
-  };
-  /**
-   * @param {number} x X.
-   * @param {number} y Y.
-   * @param {import("../coordinate.js").Coordinate} closestPoint Closest point.
-   * @param {number} minSquaredDistance Minimum squared distance.
-   * @return {number} Minimum squared distance.
-   */
-
-
-  GeometryCollection.prototype.closestPointXY = function (x, y, closestPoint, minSquaredDistance) {
-    if (minSquaredDistance < (0, _extent.closestSquaredDistanceXY)(this.getExtent(), x, y)) {
-      return minSquaredDistance;
-    }
-
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      minSquaredDistance = geometries[i].closestPointXY(x, y, closestPoint, minSquaredDistance);
-    }
-
-    return minSquaredDistance;
-  };
-  /**
-   * @param {number} x X.
-   * @param {number} y Y.
-   * @return {boolean} Contains (x, y).
-   */
-
-
-  GeometryCollection.prototype.containsXY = function (x, y) {
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      if (geometries[i].containsXY(x, y)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-  /**
-   * @param {import("../extent.js").Extent} extent Extent.
-   * @protected
-   * @return {import("../extent.js").Extent} extent Extent.
-   */
-
-
-  GeometryCollection.prototype.computeExtent = function (extent) {
-    (0, _extent.createOrUpdateEmpty)(extent);
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      (0, _extent.extend)(extent, geometries[i].getExtent());
-    }
-
-    return extent;
-  };
-  /**
-   * Return the geometries that make up this geometry collection.
-   * @return {Array<Geometry>} Geometries.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.getGeometries = function () {
-    return cloneGeometries(this.geometries_);
-  };
-  /**
-   * @return {Array<Geometry>} Geometries.
-   */
-
-
-  GeometryCollection.prototype.getGeometriesArray = function () {
-    return this.geometries_;
-  };
-  /**
-   * @return {Array<Geometry>} Geometries.
-   */
-
-
-  GeometryCollection.prototype.getGeometriesArrayRecursive = function () {
-    /** @type {Array<Geometry>} */
-    var geometriesArray = [];
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      if (geometries[i].getType() === this.getType()) {
-        geometriesArray = geometriesArray.concat(
-        /** @type {GeometryCollection} */
-        geometries[i].getGeometriesArrayRecursive());
-      } else {
-        geometriesArray.push(geometries[i]);
-      }
-    }
-
-    return geometriesArray;
-  };
-  /**
-   * Create a simplified version of this geometry using the Douglas Peucker algorithm.
-   * @param {number} squaredTolerance Squared tolerance.
-   * @return {GeometryCollection} Simplified GeometryCollection.
-   */
-
-
-  GeometryCollection.prototype.getSimplifiedGeometry = function (squaredTolerance) {
-    if (this.simplifiedGeometryRevision !== this.getRevision()) {
-      this.simplifiedGeometryMaxMinSquaredTolerance = 0;
-      this.simplifiedGeometryRevision = this.getRevision();
-    }
-
-    if (squaredTolerance < 0 || this.simplifiedGeometryMaxMinSquaredTolerance !== 0 && squaredTolerance < this.simplifiedGeometryMaxMinSquaredTolerance) {
-      return this;
-    }
-
-    var simplifiedGeometries = [];
-    var geometries = this.geometries_;
-    var simplified = false;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      var geometry = geometries[i];
-      var simplifiedGeometry = geometry.getSimplifiedGeometry(squaredTolerance);
-      simplifiedGeometries.push(simplifiedGeometry);
-
-      if (simplifiedGeometry !== geometry) {
-        simplified = true;
-      }
-    }
-
-    if (simplified) {
-      var simplifiedGeometryCollection = new GeometryCollection(null);
-      simplifiedGeometryCollection.setGeometriesArray(simplifiedGeometries);
-      return simplifiedGeometryCollection;
-    } else {
-      this.simplifiedGeometryMaxMinSquaredTolerance = squaredTolerance;
-      return this;
-    }
-  };
-  /**
-   * Get the type of this geometry.
-   * @return {import("./GeometryType.js").default} Geometry type.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.getType = function () {
-    return _GeometryType.default.GEOMETRY_COLLECTION;
-  };
-  /**
-   * Test if the geometry and the passed extent intersect.
-   * @param {import("../extent.js").Extent} extent Extent.
-   * @return {boolean} `true` if the geometry and the extent intersect.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.intersectsExtent = function (extent) {
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      if (geometries[i].intersectsExtent(extent)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-  /**
-   * @return {boolean} Is empty.
-   */
-
-
-  GeometryCollection.prototype.isEmpty = function () {
-    return this.geometries_.length === 0;
-  };
-  /**
-   * Rotate the geometry around a given coordinate. This modifies the geometry
-   * coordinates in place.
-   * @param {number} angle Rotation angle in radians.
-   * @param {import("../coordinate.js").Coordinate} anchor The rotation center.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.rotate = function (angle, anchor) {
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      geometries[i].rotate(angle, anchor);
-    }
-
-    this.changed();
-  };
-  /**
-   * Scale the geometry (with an optional origin).  This modifies the geometry
-   * coordinates in place.
-   * @abstract
-   * @param {number} sx The scaling factor in the x-direction.
-   * @param {number=} opt_sy The scaling factor in the y-direction (defaults to sx).
-   * @param {import("../coordinate.js").Coordinate=} opt_anchor The scale origin (defaults to the center
-   *     of the geometry extent).
-   * @api
-   */
-
-
-  GeometryCollection.prototype.scale = function (sx, opt_sy, opt_anchor) {
-    var anchor = opt_anchor;
-
-    if (!anchor) {
-      anchor = (0, _extent.getCenter)(this.getExtent());
-    }
-
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      geometries[i].scale(sx, opt_sy, anchor);
-    }
-
-    this.changed();
-  };
-  /**
-   * Set the geometries that make up this geometry collection.
-   * @param {Array<Geometry>} geometries Geometries.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.setGeometries = function (geometries) {
-    this.setGeometriesArray(cloneGeometries(geometries));
-  };
-  /**
-   * @param {Array<Geometry>} geometries Geometries.
-   */
-
-
-  GeometryCollection.prototype.setGeometriesArray = function (geometries) {
-    this.unlistenGeometriesChange_();
-    this.geometries_ = geometries;
-    this.listenGeometriesChange_();
-    this.changed();
-  };
-  /**
-   * Apply a transform function to the coordinates of the geometry.
-   * The geometry is modified in place.
-   * If you do not want the geometry modified in place, first `clone()` it and
-   * then use this function on the clone.
-   * @param {import("../proj.js").TransformFunction} transformFn Transform function.
-   * Called with a flat array of geometry coordinates.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.applyTransform = function (transformFn) {
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      geometries[i].applyTransform(transformFn);
-    }
-
-    this.changed();
-  };
-  /**
-   * Translate the geometry.  This modifies the geometry coordinates in place.  If
-   * instead you want a new geometry, first `clone()` this geometry.
-   * @param {number} deltaX Delta X.
-   * @param {number} deltaY Delta Y.
-   * @api
-   */
-
-
-  GeometryCollection.prototype.translate = function (deltaX, deltaY) {
-    var geometries = this.geometries_;
-
-    for (var i = 0, ii = geometries.length; i < ii; ++i) {
-      geometries[i].translate(deltaX, deltaY);
-    }
-
-    this.changed();
-  };
-  /**
-   * Clean up.
-   */
-
-
-  GeometryCollection.prototype.disposeInternal = function () {
-    this.unlistenGeometriesChange_();
-
-    _super.prototype.disposeInternal.call(this);
-  };
-
-  return GeometryCollection;
-}(_Geometry.default);
-/**
- * @param {Array<Geometry>} geometries Geometries.
- * @return {Array<Geometry>} Cloned geometries.
- */
-
-
-function cloneGeometries(geometries) {
-  var clonedGeometries = [];
-
-  for (var i = 0, ii = geometries.length; i < ii; ++i) {
-    clonedGeometries.push(geometries[i].clone());
-  }
-
-  return clonedGeometries;
-}
-
-var _default = GeometryCollection;
-exports.default = _default;
-},{"../events/EventType.js":"node_modules/ol/events/EventType.js","./Geometry.js":"node_modules/ol/geom/Geometry.js","./GeometryType.js":"node_modules/ol/geom/GeometryType.js","../extent.js":"node_modules/ol/extent.js","../events.js":"node_modules/ol/events.js"}],"node_modules/ol/format/Feature.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.transformGeometryWithOptions = transformGeometryWithOptions;
-exports.transformExtentWithOptions = transformExtentWithOptions;
-exports.default = void 0;
-
-var _Units = _interopRequireDefault(require("../proj/Units.js"));
-
-var _util = require("../util.js");
-
-var _obj = require("../obj.js");
-
-var _proj = require("../proj.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @module ol/format/Feature
- */
-
-/**
- * @typedef {Object} ReadOptions
- * @property {import("../proj.js").ProjectionLike} [dataProjection] Projection of the data we are reading.
- * If not provided, the projection will be derived from the data (where possible) or
- * the `dataProjection` of the format is assigned (where set). If the projection
- * can not be derived from the data and if no `dataProjection` is set for a format,
- * the features will not be reprojected.
- * @property {import("../extent.js").Extent} [extent] Tile extent in map units of the tile being read.
- * This is only required when reading data with tile pixels as geometry units. When configured,
- * a `dataProjection` with `TILE_PIXELS` as `units` and the tile's pixel extent as `extent` needs to be
- * provided.
- * @property {import("../proj.js").ProjectionLike} [featureProjection] Projection of the feature geometries
- * created by the format reader. If not provided, features will be returned in the
- * `dataProjection`.
- */
-
-/**
- * @typedef {Object} WriteOptions
- * @property {import("../proj.js").ProjectionLike} [dataProjection] Projection of the data we are writing.
- * If not provided, the `dataProjection` of the format is assigned (where set).
- * If no `dataProjection` is set for a format, the features will be returned
- * in the `featureProjection`.
- * @property {import("../proj.js").ProjectionLike} [featureProjection] Projection of the feature geometries
- * that will be serialized by the format writer. If not provided, geometries are assumed
- * to be in the `dataProjection` if that is set; in other words, they are not transformed.
- * @property {boolean} [rightHanded] When writing geometries, follow the right-hand
- * rule for linear ring orientation.  This means that polygons will have counter-clockwise
- * exterior rings and clockwise interior rings.  By default, coordinates are serialized
- * as they are provided at construction.  If `true`, the right-hand rule will
- * be applied.  If `false`, the left-hand rule will be applied (clockwise for
- * exterior and counter-clockwise for interior rings).  Note that not all
- * formats support this.  The GeoJSON format does use this property when writing
- * geometries.
- * @property {number} [decimals] Maximum number of decimal places for coordinates.
- * Coordinates are stored internally as floats, but floating-point arithmetic can create
- * coordinates with a large number of decimal places, not generally wanted on output.
- * Set a number here to round coordinates. Can also be used to ensure that
- * coordinates read in can be written back out with the same number of decimals.
- * Default is no rounding.
- */
-
-/**
- * @classdesc
- * Abstract base class; normally only used for creating subclasses and not
- * instantiated in apps.
- * Base class for feature formats.
- * {@link module:ol/format/Feature~FeatureFormat} subclasses provide the ability to decode and encode
- * {@link module:ol/Feature~Feature} objects from a variety of commonly used geospatial
- * file formats.  See the documentation for each format for more details.
- *
- * @abstract
- * @api
- */
-var FeatureFormat =
-/** @class */
-function () {
-  function FeatureFormat() {
-    /**
-     * @protected
-     * @type {import("../proj/Projection.js").default}
-     */
-    this.dataProjection = null;
-    /**
-     * @protected
-     * @type {import("../proj/Projection.js").default}
-     */
-
-    this.defaultFeatureProjection = null;
-  }
-  /**
-   * Adds the data projection to the read options.
-   * @param {Document|Element|Object|string} source Source.
-   * @param {ReadOptions=} opt_options Options.
-   * @return {ReadOptions|undefined} Options.
-   * @protected
-   */
-
-
-  FeatureFormat.prototype.getReadOptions = function (source, opt_options) {
-    var options;
-
-    if (opt_options) {
-      var dataProjection = opt_options.dataProjection ? (0, _proj.get)(opt_options.dataProjection) : this.readProjection(source);
-
-      if (opt_options.extent && dataProjection && dataProjection.getUnits() === _Units.default.TILE_PIXELS) {
-        dataProjection = (0, _proj.get)(dataProjection);
-        dataProjection.setWorldExtent(opt_options.extent);
-      }
-
-      options = {
-        dataProjection: dataProjection,
-        featureProjection: opt_options.featureProjection
-      };
-    }
-
-    return this.adaptOptions(options);
-  };
-  /**
-   * Sets the `dataProjection` on the options, if no `dataProjection`
-   * is set.
-   * @param {WriteOptions|ReadOptions|undefined} options
-   *     Options.
-   * @protected
-   * @return {WriteOptions|ReadOptions|undefined}
-   *     Updated options.
-   */
-
-
-  FeatureFormat.prototype.adaptOptions = function (options) {
-    return (0, _obj.assign)({
-      dataProjection: this.dataProjection,
-      featureProjection: this.defaultFeatureProjection
-    }, options);
-  };
-  /**
-   * @abstract
-   * @return {import("./FormatType.js").default} Format.
-   */
-
-
-  FeatureFormat.prototype.getType = function () {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Read a single feature from a source.
-   *
-   * @abstract
-   * @param {Document|Element|Object|string} source Source.
-   * @param {ReadOptions=} opt_options Read options.
-   * @return {import("../Feature.js").FeatureLike} Feature.
-   */
-
-
-  FeatureFormat.prototype.readFeature = function (source, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Read all features from a source.
-   *
-   * @abstract
-   * @param {Document|Element|ArrayBuffer|Object|string} source Source.
-   * @param {ReadOptions=} opt_options Read options.
-   * @return {Array<import("../Feature.js").FeatureLike>} Features.
-   */
-
-
-  FeatureFormat.prototype.readFeatures = function (source, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Read a single geometry from a source.
-   *
-   * @abstract
-   * @param {Document|Element|Object|string} source Source.
-   * @param {ReadOptions=} opt_options Read options.
-   * @return {import("../geom/Geometry.js").default} Geometry.
-   */
-
-
-  FeatureFormat.prototype.readGeometry = function (source, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Read the projection from a source.
-   *
-   * @abstract
-   * @param {Document|Element|Object|string} source Source.
-   * @return {import("../proj/Projection.js").default} Projection.
-   */
-
-
-  FeatureFormat.prototype.readProjection = function (source) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Encode a feature in this format.
-   *
-   * @abstract
-   * @param {import("../Feature.js").default} feature Feature.
-   * @param {WriteOptions=} opt_options Write options.
-   * @return {string} Result.
-   */
-
-
-  FeatureFormat.prototype.writeFeature = function (feature, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Encode an array of features in this format.
-   *
-   * @abstract
-   * @param {Array<import("../Feature.js").default>} features Features.
-   * @param {WriteOptions=} opt_options Write options.
-   * @return {string} Result.
-   */
-
-
-  FeatureFormat.prototype.writeFeatures = function (features, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Write a single geometry in this format.
-   *
-   * @abstract
-   * @param {import("../geom/Geometry.js").default} geometry Geometry.
-   * @param {WriteOptions=} opt_options Write options.
-   * @return {string} Result.
-   */
-
-
-  FeatureFormat.prototype.writeGeometry = function (geometry, opt_options) {
-    return (0, _util.abstract)();
-  };
-
-  return FeatureFormat;
-}();
-
-var _default = FeatureFormat;
-/**
- * @param {import("../geom/Geometry.js").default} geometry Geometry.
- * @param {boolean} write Set to true for writing, false for reading.
- * @param {(WriteOptions|ReadOptions)=} opt_options Options.
- * @return {import("../geom/Geometry.js").default} Transformed geometry.
- */
-
-exports.default = _default;
-
-function transformGeometryWithOptions(geometry, write, opt_options) {
-  var featureProjection = opt_options ? (0, _proj.get)(opt_options.featureProjection) : null;
-  var dataProjection = opt_options ? (0, _proj.get)(opt_options.dataProjection) : null;
-  var transformed;
-
-  if (featureProjection && dataProjection && !(0, _proj.equivalent)(featureProjection, dataProjection)) {
-    transformed = (write ? geometry.clone() : geometry).transform(write ? featureProjection : dataProjection, write ? dataProjection : featureProjection);
-  } else {
-    transformed = geometry;
-  }
-
-  if (write && opt_options &&
-  /** @type {WriteOptions} */
-  opt_options.decimals !== undefined) {
-    var power_1 = Math.pow(10,
-    /** @type {WriteOptions} */
-    opt_options.decimals); // if decimals option on write, round each coordinate appropriately
-
-    /**
-     * @param {Array<number>} coordinates Coordinates.
-     * @return {Array<number>} Transformed coordinates.
-     */
-
-    var transform = function (coordinates) {
-      for (var i = 0, ii = coordinates.length; i < ii; ++i) {
-        coordinates[i] = Math.round(coordinates[i] * power_1) / power_1;
-      }
-
-      return coordinates;
-    };
-
-    if (transformed === geometry) {
-      transformed = geometry.clone();
-    }
-
-    transformed.applyTransform(transform);
-  }
-
-  return transformed;
-}
-/**
- * @param {import("../extent.js").Extent} extent Extent.
- * @param {ReadOptions=} opt_options Read options.
- * @return {import("../extent.js").Extent} Transformed extent.
- */
-
-
-function transformExtentWithOptions(extent, opt_options) {
-  var featureProjection = opt_options ? (0, _proj.get)(opt_options.featureProjection) : null;
-  var dataProjection = opt_options ? (0, _proj.get)(opt_options.dataProjection) : null;
-
-  if (featureProjection && dataProjection && !(0, _proj.equivalent)(featureProjection, dataProjection)) {
-    return (0, _proj.transformExtent)(extent, dataProjection, featureProjection);
-  } else {
-    return extent;
-  }
-}
-},{"../proj/Units.js":"node_modules/ol/proj/Units.js","../util.js":"node_modules/ol/util.js","../obj.js":"node_modules/ol/obj.js","../proj.js":"node_modules/ol/proj.js"}],"node_modules/ol/format/JSONFeature.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Feature = _interopRequireDefault(require("./Feature.js"));
-
-var _FormatType = _interopRequireDefault(require("./FormatType.js"));
-
-var _util = require("../util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * @module ol/format/JSONFeature
- */
-
-
-/**
- * @classdesc
- * Abstract base class; normally only used for creating subclasses and not
- * instantiated in apps.
- * Base class for JSON feature formats.
- *
- * @abstract
- */
-var JSONFeature =
-/** @class */
-function (_super) {
-  __extends(JSONFeature, _super);
-
-  function JSONFeature() {
-    return _super.call(this) || this;
-  }
-  /**
-   * @return {import("./FormatType.js").default} Format.
-   */
-
-
-  JSONFeature.prototype.getType = function () {
-    return _FormatType.default.JSON;
-  };
-  /**
-   * Read a feature.  Only works for a single feature. Use `readFeatures` to
-   * read a feature collection.
-   *
-   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @return {import("../Feature.js").default} Feature.
-   * @api
-   */
-
-
-  JSONFeature.prototype.readFeature = function (source, opt_options) {
-    return this.readFeatureFromObject(getObject(source), this.getReadOptions(source, opt_options));
-  };
-  /**
-   * Read all features.  Works with both a single feature and a feature
-   * collection.
-   *
-   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @return {Array<import("../Feature.js").default>} Features.
-   * @api
-   */
-
-
-  JSONFeature.prototype.readFeatures = function (source, opt_options) {
-    return this.readFeaturesFromObject(getObject(source), this.getReadOptions(source, opt_options));
-  };
-  /**
-   * @abstract
-   * @param {Object} object Object.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @protected
-   * @return {import("../Feature.js").default} Feature.
-   */
-
-
-  JSONFeature.prototype.readFeatureFromObject = function (object, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * @abstract
-   * @param {Object} object Object.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @protected
-   * @return {Array<import("../Feature.js").default>} Features.
-   */
-
-
-  JSONFeature.prototype.readFeaturesFromObject = function (object, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Read a geometry.
-   *
-   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @return {import("../geom/Geometry.js").default} Geometry.
-   * @api
-   */
-
-
-  JSONFeature.prototype.readGeometry = function (source, opt_options) {
-    return this.readGeometryFromObject(getObject(source), this.getReadOptions(source, opt_options));
-  };
-  /**
-   * @abstract
-   * @param {Object} object Object.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @protected
-   * @return {import("../geom/Geometry.js").default} Geometry.
-   */
-
-
-  JSONFeature.prototype.readGeometryFromObject = function (object, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Read the projection.
-   *
-   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
-   * @return {import("../proj/Projection.js").default} Projection.
-   * @api
-   */
-
-
-  JSONFeature.prototype.readProjection = function (source) {
-    return this.readProjectionFromObject(getObject(source));
-  };
-  /**
-   * @abstract
-   * @param {Object} object Object.
-   * @protected
-   * @return {import("../proj/Projection.js").default} Projection.
-   */
-
-
-  JSONFeature.prototype.readProjectionFromObject = function (object) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Encode a feature as string.
-   *
-   * @param {import("../Feature.js").default} feature Feature.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {string} Encoded feature.
-   * @api
-   */
-
-
-  JSONFeature.prototype.writeFeature = function (feature, opt_options) {
-    return JSON.stringify(this.writeFeatureObject(feature, opt_options));
-  };
-  /**
-   * @abstract
-   * @param {import("../Feature.js").default} feature Feature.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {Object} Object.
-   */
-
-
-  JSONFeature.prototype.writeFeatureObject = function (feature, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Encode an array of features as string.
-   *
-   * @param {Array<import("../Feature.js").default>} features Features.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {string} Encoded features.
-   * @api
-   */
-
-
-  JSONFeature.prototype.writeFeatures = function (features, opt_options) {
-    return JSON.stringify(this.writeFeaturesObject(features, opt_options));
-  };
-  /**
-   * @abstract
-   * @param {Array<import("../Feature.js").default>} features Features.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {Object} Object.
-   */
-
-
-  JSONFeature.prototype.writeFeaturesObject = function (features, opt_options) {
-    return (0, _util.abstract)();
-  };
-  /**
-   * Encode a geometry as string.
-   *
-   * @param {import("../geom/Geometry.js").default} geometry Geometry.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {string} Encoded geometry.
-   * @api
-   */
-
-
-  JSONFeature.prototype.writeGeometry = function (geometry, opt_options) {
-    return JSON.stringify(this.writeGeometryObject(geometry, opt_options));
-  };
-  /**
-   * @abstract
-   * @param {import("../geom/Geometry.js").default} geometry Geometry.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {Object} Object.
-   */
-
-
-  JSONFeature.prototype.writeGeometryObject = function (geometry, opt_options) {
-    return (0, _util.abstract)();
-  };
-
-  return JSONFeature;
-}(_Feature.default);
-/**
- * @param {Document|Element|Object|string} source Source.
- * @return {Object} Object.
- */
-
-
-function getObject(source) {
-  if (typeof source === 'string') {
-    var object = JSON.parse(source);
-    return object ?
-    /** @type {Object} */
-    object : null;
-  } else if (source !== null) {
-    return source;
-  } else {
-    return null;
-  }
-}
-
-var _default = JSONFeature;
-exports.default = _default;
-},{"./Feature.js":"node_modules/ol/format/Feature.js","./FormatType.js":"node_modules/ol/format/FormatType.js","../util.js":"node_modules/ol/util.js"}],"node_modules/ol/format/GeoJSON.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _Feature = _interopRequireDefault(require("../Feature.js"));
-
-var _GeometryCollection = _interopRequireDefault(require("../geom/GeometryCollection.js"));
-
-var _GeometryType = _interopRequireDefault(require("../geom/GeometryType.js"));
-
-var _JSONFeature = _interopRequireDefault(require("./JSONFeature.js"));
-
-var _LineString = _interopRequireDefault(require("../geom/LineString.js"));
-
-var _MultiLineString = _interopRequireDefault(require("../geom/MultiLineString.js"));
-
-var _MultiPoint = _interopRequireDefault(require("../geom/MultiPoint.js"));
-
-var _MultiPolygon = _interopRequireDefault(require("../geom/MultiPolygon.js"));
-
-var _Point = _interopRequireDefault(require("../geom/Point.js"));
-
-var _Polygon = _interopRequireDefault(require("../geom/Polygon.js"));
-
-var _asserts = require("../asserts.js");
-
-var _obj = require("../obj.js");
-
-var _proj = require("../proj.js");
-
-var _Feature2 = require("./Feature.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @module ol/format/GeoJSON
- */
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-
-/**
- * @typedef {import("geojson").GeoJSON} GeoJSONObject
- * @typedef {import("geojson").Feature} GeoJSONFeature
- * @typedef {import("geojson").FeatureCollection} GeoJSONFeatureCollection
- * @typedef {import("geojson").Geometry} GeoJSONGeometry
- * @typedef {import("geojson").Point} GeoJSONPoint
- * @typedef {import("geojson").LineString} GeoJSONLineString
- * @typedef {import("geojson").Polygon} GeoJSONPolygon
- * @typedef {import("geojson").MultiPoint} GeoJSONMultiPoint
- * @typedef {import("geojson").MultiLineString} GeoJSONMultiLineString
- * @typedef {import("geojson").MultiPolygon} GeoJSONMultiPolygon
- * @typedef {import("geojson").GeometryCollection} GeoJSONGeometryCollection
- */
-
-/**
- * @typedef {Object} Options
- * @property {import("../proj.js").ProjectionLike} [dataProjection='EPSG:4326'] Default data projection.
- * @property {import("../proj.js").ProjectionLike} [featureProjection] Projection for features read or
- * written by the format.  Options passed to read or write methods will take precedence.
- * @property {string} [geometryName] Geometry name to use when creating features.
- * @property {boolean} [extractGeometryName=false] Certain GeoJSON providers include
- * the geometry_name field in the feature GeoJSON. If set to `true` the GeoJSON reader
- * will look for that field to set the geometry name. If both this field is set to `true`
- * and a `geometryName` is provided, the `geometryName` will take precedence.
- */
-
-/**
- * @classdesc
- * Feature format for reading and writing data in the GeoJSON format.
- *
- * @api
- */
-var GeoJSON =
-/** @class */
-function (_super) {
-  __extends(GeoJSON, _super);
-  /**
-   * @param {Options=} opt_options Options.
-   */
-
-
-  function GeoJSON(opt_options) {
-    var _this = this;
-
-    var options = opt_options ? opt_options : {};
-    _this = _super.call(this) || this;
-    /**
-     * @type {import("../proj/Projection.js").default}
-     */
-
-    _this.dataProjection = (0, _proj.get)(options.dataProjection ? options.dataProjection : 'EPSG:4326');
-
-    if (options.featureProjection) {
-      _this.defaultFeatureProjection = (0, _proj.get)(options.featureProjection);
-    }
-    /**
-     * Name of the geometry attribute for features.
-     * @type {string|undefined}
-     * @private
-     */
-
-
-    _this.geometryName_ = options.geometryName;
-    /**
-     * Look for the geometry name in the feature GeoJSON
-     * @type {boolean|undefined}
-     * @private
-     */
-
-    _this.extractGeometryName_ = options.extractGeometryName;
-    return _this;
-  }
-  /**
-   * @param {Object} object Object.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @protected
-   * @return {import("../Feature.js").default} Feature.
-   */
-
-
-  GeoJSON.prototype.readFeatureFromObject = function (object, opt_options) {
-    /**
-     * @type {GeoJSONFeature}
-     */
-    var geoJSONFeature = null;
-
-    if (object['type'] === 'Feature') {
-      geoJSONFeature =
-      /** @type {GeoJSONFeature} */
-      object;
-    } else {
-      geoJSONFeature = {
-        'type': 'Feature',
-        'geometry':
-        /** @type {GeoJSONGeometry} */
-        object,
-        'properties': null
-      };
-    }
-
-    var geometry = readGeometry(geoJSONFeature['geometry'], opt_options);
-    var feature = new _Feature.default();
-
-    if (this.geometryName_) {
-      feature.setGeometryName(this.geometryName_);
-    } else if (this.extractGeometryName_ && 'geometry_name' in geoJSONFeature !== undefined) {
-      feature.setGeometryName(geoJSONFeature['geometry_name']);
-    }
-
-    feature.setGeometry(geometry);
-
-    if ('id' in geoJSONFeature) {
-      feature.setId(geoJSONFeature['id']);
-    }
-
-    if (geoJSONFeature['properties']) {
-      feature.setProperties(geoJSONFeature['properties'], true);
-    }
-
-    return feature;
-  };
-  /**
-   * @param {Object} object Object.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @protected
-   * @return {Array<Feature>} Features.
-   */
-
-
-  GeoJSON.prototype.readFeaturesFromObject = function (object, opt_options) {
-    var geoJSONObject =
-    /** @type {GeoJSONObject} */
-    object;
-    /** @type {Array<import("../Feature.js").default>} */
-
-    var features = null;
-
-    if (geoJSONObject['type'] === 'FeatureCollection') {
-      var geoJSONFeatureCollection =
-      /** @type {GeoJSONFeatureCollection} */
-      object;
-      features = [];
-      var geoJSONFeatures = geoJSONFeatureCollection['features'];
-
-      for (var i = 0, ii = geoJSONFeatures.length; i < ii; ++i) {
-        features.push(this.readFeatureFromObject(geoJSONFeatures[i], opt_options));
-      }
-    } else {
-      features = [this.readFeatureFromObject(object, opt_options)];
-    }
-
-    return features;
-  };
-  /**
-   * @param {GeoJSONGeometry} object Object.
-   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
-   * @protected
-   * @return {import("../geom/Geometry.js").default} Geometry.
-   */
-
-
-  GeoJSON.prototype.readGeometryFromObject = function (object, opt_options) {
-    return readGeometry(object, opt_options);
-  };
-  /**
-   * @param {Object} object Object.
-   * @protected
-   * @return {import("../proj/Projection.js").default} Projection.
-   */
-
-
-  GeoJSON.prototype.readProjectionFromObject = function (object) {
-    var crs = object['crs'];
-    var projection;
-
-    if (crs) {
-      if (crs['type'] == 'name') {
-        projection = (0, _proj.get)(crs['properties']['name']);
-      } else if (crs['type'] === 'EPSG') {
-        projection = (0, _proj.get)('EPSG:' + crs['properties']['code']);
-      } else {
-        (0, _asserts.assert)(false, 36); // Unknown SRS type
-      }
-    } else {
-      projection = this.dataProjection;
-    }
-
-    return (
-      /** @type {import("../proj/Projection.js").default} */
-      projection
-    );
-  };
-  /**
-   * Encode a feature as a GeoJSON Feature object.
-   *
-   * @param {import("../Feature.js").default} feature Feature.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {GeoJSONFeature} Object.
-   * @api
-   */
-
-
-  GeoJSON.prototype.writeFeatureObject = function (feature, opt_options) {
-    opt_options = this.adaptOptions(opt_options);
-    /** @type {GeoJSONFeature} */
-
-    var object = {
-      'type': 'Feature',
-      geometry: null,
-      properties: null
-    };
-    var id = feature.getId();
-
-    if (id !== undefined) {
-      object.id = id;
-    }
-
-    if (!feature.hasProperties()) {
-      return object;
-    }
-
-    var properties = feature.getProperties();
-    var geometry = feature.getGeometry();
-
-    if (geometry) {
-      object.geometry = writeGeometry(geometry, opt_options);
-      delete properties[feature.getGeometryName()];
-    }
-
-    if (!(0, _obj.isEmpty)(properties)) {
-      object.properties = properties;
-    }
-
-    return object;
-  };
-  /**
-   * Encode an array of features as a GeoJSON object.
-   *
-   * @param {Array<import("../Feature.js").default>} features Features.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {GeoJSONFeatureCollection} GeoJSON Object.
-   * @api
-   */
-
-
-  GeoJSON.prototype.writeFeaturesObject = function (features, opt_options) {
-    opt_options = this.adaptOptions(opt_options);
-    var objects = [];
-
-    for (var i = 0, ii = features.length; i < ii; ++i) {
-      objects.push(this.writeFeatureObject(features[i], opt_options));
-    }
-
-    return {
-      type: 'FeatureCollection',
-      features: objects
-    };
-  };
-  /**
-   * Encode a geometry as a GeoJSON object.
-   *
-   * @param {import("../geom/Geometry.js").default} geometry Geometry.
-   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
-   * @return {GeoJSONGeometry|GeoJSONGeometryCollection} Object.
-   * @api
-   */
-
-
-  GeoJSON.prototype.writeGeometryObject = function (geometry, opt_options) {
-    return writeGeometry(geometry, this.adaptOptions(opt_options));
-  };
-
-  return GeoJSON;
-}(_JSONFeature.default);
-/**
- * @param {GeoJSONGeometry|GeoJSONGeometryCollection} object Object.
- * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
- * @return {import("../geom/Geometry.js").default} Geometry.
- */
-
-
-function readGeometry(object, opt_options) {
-  if (!object) {
-    return null;
-  }
-  /**
-   * @type {import("../geom/Geometry.js").default}
-   */
-
-
-  var geometry;
-
-  switch (object['type']) {
-    case _GeometryType.default.POINT:
-      {
-        geometry = readPointGeometry(
-        /** @type {GeoJSONPoint} */
-        object);
-        break;
-      }
-
-    case _GeometryType.default.LINE_STRING:
-      {
-        geometry = readLineStringGeometry(
-        /** @type {GeoJSONLineString} */
-        object);
-        break;
-      }
-
-    case _GeometryType.default.POLYGON:
-      {
-        geometry = readPolygonGeometry(
-        /** @type {GeoJSONPolygon} */
-        object);
-        break;
-      }
-
-    case _GeometryType.default.MULTI_POINT:
-      {
-        geometry = readMultiPointGeometry(
-        /** @type {GeoJSONMultiPoint} */
-        object);
-        break;
-      }
-
-    case _GeometryType.default.MULTI_LINE_STRING:
-      {
-        geometry = readMultiLineStringGeometry(
-        /** @type {GeoJSONMultiLineString} */
-        object);
-        break;
-      }
-
-    case _GeometryType.default.MULTI_POLYGON:
-      {
-        geometry = readMultiPolygonGeometry(
-        /** @type {GeoJSONMultiPolygon} */
-        object);
-        break;
-      }
-
-    case _GeometryType.default.GEOMETRY_COLLECTION:
-      {
-        geometry = readGeometryCollectionGeometry(
-        /** @type {GeoJSONGeometryCollection} */
-        object);
-        break;
-      }
-
-    default:
-      {
-        throw new Error('Unsupported GeoJSON type: ' + object.type);
-      }
-  }
-
-  return (0, _Feature2.transformGeometryWithOptions)(geometry, false, opt_options);
-}
-/**
- * @param {GeoJSONGeometryCollection} object Object.
- * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
- * @return {GeometryCollection} Geometry collection.
- */
-
-
-function readGeometryCollectionGeometry(object, opt_options) {
-  var geometries = object['geometries'].map(
-  /**
-   * @param {GeoJSONGeometry} geometry Geometry.
-   * @return {import("../geom/Geometry.js").default} geometry Geometry.
-   */
-  function (geometry) {
-    return readGeometry(geometry, opt_options);
-  });
-  return new _GeometryCollection.default(geometries);
-}
-/**
- * @param {GeoJSONPoint} object Object.
- * @return {Point} Point.
- */
-
-
-function readPointGeometry(object) {
-  return new _Point.default(object['coordinates']);
-}
-/**
- * @param {GeoJSONLineString} object Object.
- * @return {LineString} LineString.
- */
-
-
-function readLineStringGeometry(object) {
-  return new _LineString.default(object['coordinates']);
-}
-/**
- * @param {GeoJSONMultiLineString} object Object.
- * @return {MultiLineString} MultiLineString.
- */
-
-
-function readMultiLineStringGeometry(object) {
-  return new _MultiLineString.default(object['coordinates']);
-}
-/**
- * @param {GeoJSONMultiPoint} object Object.
- * @return {MultiPoint} MultiPoint.
- */
-
-
-function readMultiPointGeometry(object) {
-  return new _MultiPoint.default(object['coordinates']);
-}
-/**
- * @param {GeoJSONMultiPolygon} object Object.
- * @return {MultiPolygon} MultiPolygon.
- */
-
-
-function readMultiPolygonGeometry(object) {
-  return new _MultiPolygon.default(object['coordinates']);
-}
-/**
- * @param {GeoJSONPolygon} object Object.
- * @return {Polygon} Polygon.
- */
-
-
-function readPolygonGeometry(object) {
-  return new _Polygon.default(object['coordinates']);
-}
-/**
- * @param {import("../geom/Geometry.js").default} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writeGeometry(geometry, opt_options) {
-  geometry = (0, _Feature2.transformGeometryWithOptions)(geometry, true, opt_options);
-  var type = geometry.getType();
-  /** @type {GeoJSONGeometry} */
-
-  var geoJSON;
-
-  switch (type) {
-    case _GeometryType.default.POINT:
-      {
-        geoJSON = writePointGeometry(
-        /** @type {Point} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.LINE_STRING:
-      {
-        geoJSON = writeLineStringGeometry(
-        /** @type {LineString} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.POLYGON:
-      {
-        geoJSON = writePolygonGeometry(
-        /** @type {Polygon} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.MULTI_POINT:
-      {
-        geoJSON = writeMultiPointGeometry(
-        /** @type {MultiPoint} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.MULTI_LINE_STRING:
-      {
-        geoJSON = writeMultiLineStringGeometry(
-        /** @type {MultiLineString} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.MULTI_POLYGON:
-      {
-        geoJSON = writeMultiPolygonGeometry(
-        /** @type {MultiPolygon} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.GEOMETRY_COLLECTION:
-      {
-        geoJSON = writeGeometryCollectionGeometry(
-        /** @type {GeometryCollection} */
-        geometry, opt_options);
-        break;
-      }
-
-    case _GeometryType.default.CIRCLE:
-      {
-        geoJSON = {
-          type: 'GeometryCollection',
-          geometries: []
-        };
-        break;
-      }
-
-    default:
-      {
-        throw new Error('Unsupported geometry type: ' + type);
-      }
-  }
-
-  return geoJSON;
-}
-/**
- * @param {GeometryCollection} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometryCollection} GeoJSON geometry collection.
- */
-
-
-function writeGeometryCollectionGeometry(geometry, opt_options) {
-  var geometries = geometry.getGeometriesArray().map(function (geometry) {
-    var options = (0, _obj.assign)({}, opt_options);
-    delete options.featureProjection;
-    return writeGeometry(geometry, options);
-  });
-  return {
-    type: 'GeometryCollection',
-    geometries: geometries
-  };
-}
-/**
- * @param {LineString} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writeLineStringGeometry(geometry, opt_options) {
-  return {
-    type: 'LineString',
-    coordinates: geometry.getCoordinates()
-  };
-}
-/**
- * @param {MultiLineString} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writeMultiLineStringGeometry(geometry, opt_options) {
-  return {
-    type: 'MultiLineString',
-    coordinates: geometry.getCoordinates()
-  };
-}
-/**
- * @param {MultiPoint} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writeMultiPointGeometry(geometry, opt_options) {
-  return {
-    type: 'MultiPoint',
-    coordinates: geometry.getCoordinates()
-  };
-}
-/**
- * @param {MultiPolygon} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writeMultiPolygonGeometry(geometry, opt_options) {
-  var right;
-
-  if (opt_options) {
-    right = opt_options.rightHanded;
-  }
-
-  return {
-    type: 'MultiPolygon',
-    coordinates: geometry.getCoordinates(right)
-  };
-}
-/**
- * @param {Point} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writePointGeometry(geometry, opt_options) {
-  return {
-    type: 'Point',
-    coordinates: geometry.getCoordinates()
-  };
-}
-/**
- * @param {Polygon} geometry Geometry.
- * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
- * @return {GeoJSONGeometry} GeoJSON geometry.
- */
-
-
-function writePolygonGeometry(geometry, opt_options) {
-  var right;
-
-  if (opt_options) {
-    right = opt_options.rightHanded;
-  }
-
-  return {
-    type: 'Polygon',
-    coordinates: geometry.getCoordinates(right)
-  };
-}
-
-var _default = GeoJSON;
-exports.default = _default;
-},{"../Feature.js":"node_modules/ol/Feature.js","../geom/GeometryCollection.js":"node_modules/ol/geom/GeometryCollection.js","../geom/GeometryType.js":"node_modules/ol/geom/GeometryType.js","./JSONFeature.js":"node_modules/ol/format/JSONFeature.js","../geom/LineString.js":"node_modules/ol/geom/LineString.js","../geom/MultiLineString.js":"node_modules/ol/geom/MultiLineString.js","../geom/MultiPoint.js":"node_modules/ol/geom/MultiPoint.js","../geom/MultiPolygon.js":"node_modules/ol/geom/MultiPolygon.js","../geom/Point.js":"node_modules/ol/geom/Point.js","../geom/Polygon.js":"node_modules/ol/geom/Polygon.js","../asserts.js":"node_modules/ol/asserts.js","../obj.js":"node_modules/ol/obj.js","../proj.js":"node_modules/ol/proj.js","./Feature.js":"node_modules/ol/format/Feature.js"}],"node_modules/ol/Tile.js":[function(require,module,exports) {
+},{"./renderer/Composite.js":"node_modules/ol/renderer/Composite.js","./PluggableMap.js":"node_modules/ol/PluggableMap.js","./obj.js":"node_modules/ol/obj.js","./control.js":"node_modules/ol/control.js","./interaction.js":"node_modules/ol/interaction.js"}],"node_modules/ol/Tile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54485,7 +52793,59 @@ function defaultTileLoadFunction(imageTile, src) {
 
 var _default = TileImage;
 exports.default = _default;
-},{"../events/EventType.js":"node_modules/ol/events/EventType.js","../ImageTile.js":"node_modules/ol/ImageTile.js","../reproj/Tile.js":"node_modules/ol/reproj/Tile.js","../TileCache.js":"node_modules/ol/TileCache.js","../TileState.js":"node_modules/ol/TileState.js","./UrlTile.js":"node_modules/ol/source/UrlTile.js","../reproj/common.js":"node_modules/ol/reproj/common.js","./common.js":"node_modules/ol/source/common.js","../proj.js":"node_modules/ol/proj.js","../tilecoord.js":"node_modules/ol/tilecoord.js","../tilegrid.js":"node_modules/ol/tilegrid.js","../util.js":"node_modules/ol/util.js"}],"node_modules/ol/source/XYZ.js":[function(require,module,exports) {
+},{"../events/EventType.js":"node_modules/ol/events/EventType.js","../ImageTile.js":"node_modules/ol/ImageTile.js","../reproj/Tile.js":"node_modules/ol/reproj/Tile.js","../TileCache.js":"node_modules/ol/TileCache.js","../TileState.js":"node_modules/ol/TileState.js","./UrlTile.js":"node_modules/ol/source/UrlTile.js","../reproj/common.js":"node_modules/ol/reproj/common.js","./common.js":"node_modules/ol/source/common.js","../proj.js":"node_modules/ol/proj.js","../tilecoord.js":"node_modules/ol/tilecoord.js","../tilegrid.js":"node_modules/ol/tilegrid.js","../util.js":"node_modules/ol/util.js"}],"node_modules/ol/net.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.jsonp = jsonp;
+
+var _util = require("./util.js");
+
+/**
+ * @module ol/net
+ */
+
+/**
+ * Simple JSONP helper. Supports error callbacks and a custom callback param.
+ * The error callback will be called when no JSONP is executed after 10 seconds.
+ *
+ * @param {string} url Request url. A 'callback' query parameter will be
+ *     appended.
+ * @param {Function} callback Callback on success.
+ * @param {function()=} opt_errback Callback on error.
+ * @param {string=} opt_callbackParam Custom query parameter for the JSONP
+ *     callback. Default is 'callback'.
+ */
+function jsonp(url, callback, opt_errback, opt_callbackParam) {
+  var script = document.createElement('script');
+  var key = 'olc_' + (0, _util.getUid)(callback);
+
+  function cleanup() {
+    delete window[key];
+    script.parentNode.removeChild(script);
+  }
+
+  script.async = true;
+  script.src = url + (url.indexOf('?') == -1 ? '?' : '&') + (opt_callbackParam || 'callback') + '=' + key;
+  var timer = setTimeout(function () {
+    cleanup();
+
+    if (opt_errback) {
+      opt_errback();
+    }
+  }, 10000);
+
+  window[key] = function (data) {
+    clearTimeout(timer);
+    cleanup();
+    callback(data);
+  };
+
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+},{"./util.js":"node_modules/ol/util.js"}],"node_modules/ol/source/TileJSON.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54493,15 +52853,28 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _State = _interopRequireDefault(require("./State.js"));
+
 var _TileImage = _interopRequireDefault(require("./TileImage.js"));
 
+var _extent = require("../extent.js");
+
+var _asserts = require("../asserts.js");
+
+var _tileurlfunction = require("../tileurlfunction.js");
+
 var _tilegrid = require("../tilegrid.js");
+
+var _proj = require("../proj.js");
+
+var _net = require("../net.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
- * @module ol/source/XYZ
+ * @module ol/source/TileJSON
  */
+// FIXME check order of async callbacks
 var __extends = void 0 && (void 0).__extends || function () {
   var extendStatics = function (d, b) {
     extendStatics = Object.setPrototypeOf || {
@@ -54525,424 +52898,217 @@ var __extends = void 0 && (void 0).__extends || function () {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
   };
 }();
+/**
+ * See https://mapbox.com/developers/api/.
+ */
+
+
+/**
+ * @typedef {Object} Config
+ * @property {string} [name] The name.
+ * @property {string} [description] The description.
+ * @property {string} [version] The version.
+ * @property {string} [attribution] The attribution.
+ * @property {string} [template] The template.
+ * @property {string} [legend] The legend.
+ * @property {string} [scheme] The scheme.
+ * @property {Array<string>} tiles The tile URL templates.
+ * @property {Array<string>} [grids] Optional grids.
+ * @property {number} [minzoom] Minimum zoom level.
+ * @property {number} [maxzoom] Maximum zoom level.
+ * @property {Array<number>} [bounds] Optional bounds.
+ * @property {Array<number>} [center] Optional center.
+ */
 
 /**
  * @typedef {Object} Options
  * @property {import("./Source.js").AttributionLike} [attributions] Attributions.
- * @property {boolean} [attributionsCollapsible=true] Attributions are collapsible.
  * @property {number} [cacheSize] Initial tile cache size. Will auto-grow to hold at least the number of tiles in the viewport.
  * @property {null|string} [crossOrigin] The `crossOrigin` attribute for loaded images.  Note that
  * you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
  * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
  * @property {boolean} [imageSmoothing=true] Enable image smoothing.
- * @property {boolean} [opaque=false] Whether the layer is opaque.
- * @property {import("../proj.js").ProjectionLike} [projection='EPSG:3857'] Projection.
+ * @property {boolean} [jsonp=false] Use JSONP with callback to load the TileJSON.
+ * Useful when the server does not support CORS..
  * @property {number} [reprojectionErrorThreshold=0.5] Maximum allowed reprojection error (in pixels).
  * Higher values can increase reprojection performance, but decrease precision.
- * @property {number} [maxZoom=42] Optional max zoom level. Not used if `tileGrid` is provided.
- * @property {number} [minZoom=0] Optional min zoom level. Not used if `tileGrid` is provided.
- * @property {number} [maxResolution] Optional tile grid resolution at level zero. Not used if `tileGrid` is provided.
- * @property {import("../tilegrid/TileGrid.js").default} [tileGrid] Tile grid.
+ * @property {Config} [tileJSON] TileJSON configuration for this source.
+ * If not provided, `url` must be configured.
  * @property {import("../Tile.js").LoadFunction} [tileLoadFunction] Optional function to load a tile given a URL. The default is
  * ```js
  * function(imageTile, src) {
  *   imageTile.getImage().src = src;
  * };
  * ```
- * @property {number} [tilePixelRatio=1] The pixel ratio used by the tile service.
- * For example, if the tile service advertizes 256px by 256px tiles but actually sends 512px
- * by 512px images (for retina/hidpi devices) then `tilePixelRatio`
- * should be set to `2`.
  * @property {number|import("../size.js").Size} [tileSize=[256, 256]] The tile size used by the tile service.
- * Not used if `tileGrid` is provided.
- * @property {import("../Tile.js").UrlFunction} [tileUrlFunction] Optional function to get
- * tile URL given a tile coordinate and the projection.
- * Required if `url` or `urls` are not provided.
- * @property {string} [url] URL template. Must include `{x}`, `{y}` or `{-y}`,
- * and `{z}` placeholders. A `{?-?}` template pattern, for example `subdomain{a-f}.domain.com`,
- * may be used instead of defining each one separately in the `urls` option.
- * @property {Array<string>} [urls] An array of URL templates.
+ * Note: `tileSize` and other non-standard TileJSON properties are currently ignored.
+ * @property {string} [url] URL to the TileJSON file. If not provided, `tileJSON` must be configured.
  * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
- * @property {number} [transition=250] Duration of the opacity transition for rendering.
+ * @property {number} [transition] Duration of the opacity transition for rendering.
  * To disable the opacity transition, pass `transition: 0`.
- * @property {number} [zDirection=0] Indicate which resolution should be used
- * by a renderer if the view resolution does not match any resolution of the tile source.
- * If 0, the nearest resolution will be used. If 1, the nearest lower resolution
- * will be used. If -1, the nearest higher resolution will be used.
  */
 
 /**
  * @classdesc
- * Layer source for tile data with URLs in a set XYZ format that are
- * defined in a URL template. By default, this follows the widely-used
- * Google grid where `x` 0 and `y` 0 are in the top left. Grids like
- * TMS where `x` 0 and `y` 0 are in the bottom left can be used by
- * using the `{-y}` placeholder in the URL template, so long as the
- * source does not have a custom tile grid. In this case
- * a `tileUrlFunction` can be used, such as:
- * ```js
- *  tileUrlFunction: function(coordinate) {
- *    return 'http://mapserver.com/' + coordinate[0] + '/' +
- *      coordinate[1] + '/' + (-coordinate[2] - 1) + '.png';
- *  }
- * ```
+ * Layer source for tile data in TileJSON format.
  * @api
  */
-var XYZ =
+var TileJSON =
 /** @class */
 function (_super) {
-  __extends(XYZ, _super);
+  __extends(TileJSON, _super);
   /**
-   * @param {Options=} opt_options XYZ options.
+   * @param {Options} options TileJSON options.
    */
 
 
-  function XYZ(opt_options) {
-    var _this = this;
-
-    var options = opt_options || {};
-    var projection = options.projection !== undefined ? options.projection : 'EPSG:3857';
-    var tileGrid = options.tileGrid !== undefined ? options.tileGrid : (0, _tilegrid.createXYZ)({
-      extent: (0, _tilegrid.extentFromProjection)(projection),
-      maxResolution: options.maxResolution,
-      maxZoom: options.maxZoom,
-      minZoom: options.minZoom,
-      tileSize: options.tileSize
-    });
-    _this = _super.call(this, {
+  function TileJSON(options) {
+    var _this = _super.call(this, {
       attributions: options.attributions,
       cacheSize: options.cacheSize,
       crossOrigin: options.crossOrigin,
       imageSmoothing: options.imageSmoothing,
-      opaque: options.opaque,
-      projection: projection,
+      projection: (0, _proj.get)('EPSG:3857'),
       reprojectionErrorThreshold: options.reprojectionErrorThreshold,
-      tileGrid: tileGrid,
+      state: _State.default.LOADING,
       tileLoadFunction: options.tileLoadFunction,
-      tilePixelRatio: options.tilePixelRatio,
-      tileUrlFunction: options.tileUrlFunction,
-      url: options.url,
-      urls: options.urls,
       wrapX: options.wrapX !== undefined ? options.wrapX : true,
-      transition: options.transition,
-      attributionsCollapsible: options.attributionsCollapsible,
-      zDirection: options.zDirection
+      transition: options.transition
     }) || this;
+    /**
+     * @type {Config}
+     * @private
+     */
+
+
+    _this.tileJSON_ = null;
+    /**
+     * @type {number|import("../size.js").Size}
+     * @private
+     */
+
+    _this.tileSize_ = options.tileSize;
+
+    if (options.url) {
+      if (options.jsonp) {
+        (0, _net.jsonp)(options.url, _this.handleTileJSONResponse.bind(_this), _this.handleTileJSONError.bind(_this));
+      } else {
+        var client = new XMLHttpRequest();
+        client.addEventListener('load', _this.onXHRLoad_.bind(_this));
+        client.addEventListener('error', _this.onXHRError_.bind(_this));
+        client.open('GET', options.url);
+        client.send();
+      }
+    } else if (options.tileJSON) {
+      _this.handleTileJSONResponse(options.tileJSON);
+    } else {
+      (0, _asserts.assert)(false, 51); // Either `url` or `tileJSON` options must be provided
+    }
+
     return _this;
   }
+  /**
+   * @private
+   * @param {Event} event The load event.
+   */
 
-  return XYZ;
+
+  TileJSON.prototype.onXHRLoad_ = function (event) {
+    var client =
+    /** @type {XMLHttpRequest} */
+    event.target; // status will be 0 for file:// urls
+
+    if (!client.status || client.status >= 200 && client.status < 300) {
+      var response = void 0;
+
+      try {
+        response =
+        /** @type {TileJSON} */
+        JSON.parse(client.responseText);
+      } catch (err) {
+        this.handleTileJSONError();
+        return;
+      }
+
+      this.handleTileJSONResponse(response);
+    } else {
+      this.handleTileJSONError();
+    }
+  };
+  /**
+   * @private
+   * @param {Event} event The error event.
+   */
+
+
+  TileJSON.prototype.onXHRError_ = function (event) {
+    this.handleTileJSONError();
+  };
+  /**
+   * @return {Config} The tilejson object.
+   * @api
+   */
+
+
+  TileJSON.prototype.getTileJSON = function () {
+    return this.tileJSON_;
+  };
+  /**
+   * @protected
+   * @param {Config} tileJSON Tile JSON.
+   */
+
+
+  TileJSON.prototype.handleTileJSONResponse = function (tileJSON) {
+    var epsg4326Projection = (0, _proj.get)('EPSG:4326');
+    var sourceProjection = this.getProjection();
+    var extent;
+
+    if (tileJSON['bounds'] !== undefined) {
+      var transform = (0, _proj.getTransformFromProjections)(epsg4326Projection, sourceProjection);
+      extent = (0, _extent.applyTransform)(tileJSON['bounds'], transform);
+    }
+
+    var minZoom = tileJSON['minzoom'] || 0;
+    var maxZoom = tileJSON['maxzoom'] || 22;
+    var tileGrid = (0, _tilegrid.createXYZ)({
+      extent: (0, _tilegrid.extentFromProjection)(sourceProjection),
+      maxZoom: maxZoom,
+      minZoom: minZoom,
+      tileSize: this.tileSize_
+    });
+    this.tileGrid = tileGrid;
+    this.tileUrlFunction = (0, _tileurlfunction.createFromTemplates)(tileJSON['tiles'], tileGrid);
+
+    if (tileJSON['attribution'] !== undefined && !this.getAttributions()) {
+      var attributionExtent_1 = extent !== undefined ? extent : epsg4326Projection.getExtent();
+      this.setAttributions(function (frameState) {
+        if ((0, _extent.intersects)(attributionExtent_1, frameState.extent)) {
+          return [tileJSON['attribution']];
+        }
+
+        return null;
+      });
+    }
+
+    this.tileJSON_ = tileJSON;
+    this.setState(_State.default.READY);
+  };
+  /**
+   * @protected
+   */
+
+
+  TileJSON.prototype.handleTileJSONError = function () {
+    this.setState(_State.default.ERROR);
+  };
+
+  return TileJSON;
 }(_TileImage.default);
 
-var _default = XYZ;
+var _default = TileJSON;
 exports.default = _default;
-},{"./TileImage.js":"node_modules/ol/source/TileImage.js","../tilegrid.js":"node_modules/ol/tilegrid.js"}],"node_modules/ol/source/OSM.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.ATTRIBUTION = void 0;
-
-var _XYZ = _interopRequireDefault(require("./XYZ.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @module ol/source/OSM
- */
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-
-/**
- * The attribution containing a link to the OpenStreetMap Copyright and License
- * page.
- * @const
- * @type {string}
- * @api
- */
-var ATTRIBUTION = '&#169; ' + '<a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> ' + 'contributors.';
-/**
- * @typedef {Object} Options
- * @property {import("./Source.js").AttributionLike} [attributions] Attributions.
- * @property {number} [cacheSize] Initial tile cache size. Will auto-grow to hold at least the number of tiles in the viewport.
- * @property {null|string} [crossOrigin='anonymous'] The `crossOrigin` attribute for loaded images.  Note that
- * you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
- * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
- * @property {boolean} [imageSmoothing=true] Enable image smoothing.
- * @property {number} [maxZoom=19] Max zoom.
- * @property {boolean} [opaque=true] Whether the layer is opaque.
- * @property {number} [reprojectionErrorThreshold=0.5] Maximum allowed reprojection error (in pixels).
- * Higher values can increase reprojection performance, but decrease precision.
- * @property {import("../Tile.js").LoadFunction} [tileLoadFunction] Optional function to load a tile given a URL. The default is
- * ```js
- * function(imageTile, src) {
- *   imageTile.getImage().src = src;
- * };
- * ```
- * @property {number} [transition=250] Duration of the opacity transition for rendering.
- * To disable the opacity transition, pass `transition: 0`.
- * @property {string} [url='https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'] URL template.
- * Must include `{x}`, `{y}` or `{-y}`, and `{z}` placeholders.
- * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
- */
-
-/**
- * @classdesc
- * Layer source for the OpenStreetMap tile server.
- * @api
- */
-
-exports.ATTRIBUTION = ATTRIBUTION;
-
-var OSM =
-/** @class */
-function (_super) {
-  __extends(OSM, _super);
-  /**
-   * @param {Options=} [opt_options] Open Street Map options.
-   */
-
-
-  function OSM(opt_options) {
-    var _this = this;
-
-    var options = opt_options || {};
-    var attributions;
-
-    if (options.attributions !== undefined) {
-      attributions = options.attributions;
-    } else {
-      attributions = [ATTRIBUTION];
-    }
-
-    var crossOrigin = options.crossOrigin !== undefined ? options.crossOrigin : 'anonymous';
-    var url = options.url !== undefined ? options.url : 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    _this = _super.call(this, {
-      attributions: attributions,
-      attributionsCollapsible: false,
-      cacheSize: options.cacheSize,
-      crossOrigin: crossOrigin,
-      imageSmoothing: options.imageSmoothing,
-      maxZoom: options.maxZoom !== undefined ? options.maxZoom : 19,
-      opaque: options.opaque !== undefined ? options.opaque : true,
-      reprojectionErrorThreshold: options.reprojectionErrorThreshold,
-      tileLoadFunction: options.tileLoadFunction,
-      transition: options.transition,
-      url: url,
-      wrapX: options.wrapX
-    }) || this;
-    return _this;
-  }
-
-  return OSM;
-}(_XYZ.default);
-
-var _default = OSM;
-exports.default = _default;
-},{"./XYZ.js":"node_modules/ol/source/XYZ.js"}],"node_modules/ol/source/Stamen.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _XYZ = _interopRequireDefault(require("./XYZ.js"));
-
-var _OSM = require("./OSM.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @module ol/source/Stamen
- */
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-
-/**
- * @const
- * @type {Array<string>}
- */
-var ATTRIBUTIONS = ['Map tiles by <a href="https://stamen.com/" target="_blank">Stamen Design</a>, ' + 'under <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY' + ' 3.0</a>.', _OSM.ATTRIBUTION];
-/**
- * @type {Object<string, {extension: string, opaque: boolean}>}
- */
-
-var LayerConfig = {
-  'terrain': {
-    extension: 'jpg',
-    opaque: true
-  },
-  'terrain-background': {
-    extension: 'jpg',
-    opaque: true
-  },
-  'terrain-labels': {
-    extension: 'png',
-    opaque: false
-  },
-  'terrain-lines': {
-    extension: 'png',
-    opaque: false
-  },
-  'toner-background': {
-    extension: 'png',
-    opaque: true
-  },
-  'toner': {
-    extension: 'png',
-    opaque: true
-  },
-  'toner-hybrid': {
-    extension: 'png',
-    opaque: false
-  },
-  'toner-labels': {
-    extension: 'png',
-    opaque: false
-  },
-  'toner-lines': {
-    extension: 'png',
-    opaque: false
-  },
-  'toner-lite': {
-    extension: 'png',
-    opaque: true
-  },
-  'watercolor': {
-    extension: 'jpg',
-    opaque: true
-  }
-};
-/**
- * @type {Object<string, {minZoom: number, maxZoom: number}>}
- */
-
-var ProviderConfig = {
-  'terrain': {
-    minZoom: 0,
-    maxZoom: 18
-  },
-  'toner': {
-    minZoom: 0,
-    maxZoom: 20
-  },
-  'watercolor': {
-    minZoom: 0,
-    maxZoom: 18
-  }
-};
-/**
- * @typedef {Object} Options
- * @property {number} [cacheSize] Initial tile cache size. Will auto-grow to hold at least the number of tiles in the viewport.
- * @property {boolean} [imageSmoothing=true] Enable image smoothing.
- * @property {string} layer Layer name.
- * @property {number} [minZoom] Minimum zoom.
- * @property {number} [maxZoom] Maximum zoom.
- * @property {number} [reprojectionErrorThreshold=0.5] Maximum allowed reprojection error (in pixels).
- * Higher values can increase reprojection performance, but decrease precision.
- * @property {import("../Tile.js").LoadFunction} [tileLoadFunction]
- * Optional function to load a tile given a URL. The default is
- * ```js
- * function(imageTile, src) {
- *   imageTile.getImage().src = src;
- * };
- * ```
- * @property {number} [transition=250] Duration of the opacity transition for rendering.
- * To disable the opacity transition, pass `transition: 0`.
- * @property {string} [url] URL template. Must include `{x}`, `{y}` or `{-y}`, and `{z}` placeholders.
- * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
- */
-
-/**
- * @classdesc
- * Layer source for the Stamen tile server.
- * @api
- */
-
-var Stamen =
-/** @class */
-function (_super) {
-  __extends(Stamen, _super);
-  /**
-   * @param {Options} options Stamen options.
-   */
-
-
-  function Stamen(options) {
-    var _this = this;
-
-    var i = options.layer.indexOf('-');
-    var provider = i == -1 ? options.layer : options.layer.slice(0, i);
-    var providerConfig = ProviderConfig[provider];
-    var layerConfig = LayerConfig[options.layer];
-    var url = options.url !== undefined ? options.url : 'https://stamen-tiles-{a-d}.a.ssl.fastly.net/' + options.layer + '/{z}/{x}/{y}.' + layerConfig.extension;
-    _this = _super.call(this, {
-      attributions: ATTRIBUTIONS,
-      cacheSize: options.cacheSize,
-      crossOrigin: 'anonymous',
-      imageSmoothing: options.imageSmoothing,
-      maxZoom: options.maxZoom != undefined ? options.maxZoom : providerConfig.maxZoom,
-      minZoom: options.minZoom != undefined ? options.minZoom : providerConfig.minZoom,
-      opaque: layerConfig.opaque,
-      reprojectionErrorThreshold: options.reprojectionErrorThreshold,
-      tileLoadFunction: options.tileLoadFunction,
-      transition: options.transition,
-      url: url,
-      wrapX: options.wrapX
-    }) || this;
-    return _this;
-  }
-
-  return Stamen;
-}(_XYZ.default);
-
-var _default = Stamen;
-exports.default = _default;
-},{"./XYZ.js":"node_modules/ol/source/XYZ.js","./OSM.js":"node_modules/ol/source/OSM.js"}],"node_modules/ol/render.js":[function(require,module,exports) {
+},{"./State.js":"node_modules/ol/source/State.js","./TileImage.js":"node_modules/ol/source/TileImage.js","../extent.js":"node_modules/ol/extent.js","../asserts.js":"node_modules/ol/asserts.js","../tileurlfunction.js":"node_modules/ol/tileurlfunction.js","../tilegrid.js":"node_modules/ol/tilegrid.js","../proj.js":"node_modules/ol/proj.js","../net.js":"node_modules/ol/net.js"}],"node_modules/ol/render.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59876,7 +58042,315 @@ function (_super) {
 
 var _default = ImageLayer;
 exports.default = _default;
-},{"./BaseImage.js":"node_modules/ol/layer/BaseImage.js","../renderer/canvas/ImageLayer.js":"node_modules/ol/renderer/canvas/ImageLayer.js"}],"node_modules/ieee754/index.js":[function(require,module,exports) {
+},{"./BaseImage.js":"node_modules/ol/layer/BaseImage.js","../renderer/canvas/ImageLayer.js":"node_modules/ol/renderer/canvas/ImageLayer.js"}],"node_modules/ol/format/Feature.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.transformGeometryWithOptions = transformGeometryWithOptions;
+exports.transformExtentWithOptions = transformExtentWithOptions;
+exports.default = void 0;
+
+var _Units = _interopRequireDefault(require("../proj/Units.js"));
+
+var _util = require("../util.js");
+
+var _obj = require("../obj.js");
+
+var _proj = require("../proj.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @module ol/format/Feature
+ */
+
+/**
+ * @typedef {Object} ReadOptions
+ * @property {import("../proj.js").ProjectionLike} [dataProjection] Projection of the data we are reading.
+ * If not provided, the projection will be derived from the data (where possible) or
+ * the `dataProjection` of the format is assigned (where set). If the projection
+ * can not be derived from the data and if no `dataProjection` is set for a format,
+ * the features will not be reprojected.
+ * @property {import("../extent.js").Extent} [extent] Tile extent in map units of the tile being read.
+ * This is only required when reading data with tile pixels as geometry units. When configured,
+ * a `dataProjection` with `TILE_PIXELS` as `units` and the tile's pixel extent as `extent` needs to be
+ * provided.
+ * @property {import("../proj.js").ProjectionLike} [featureProjection] Projection of the feature geometries
+ * created by the format reader. If not provided, features will be returned in the
+ * `dataProjection`.
+ */
+
+/**
+ * @typedef {Object} WriteOptions
+ * @property {import("../proj.js").ProjectionLike} [dataProjection] Projection of the data we are writing.
+ * If not provided, the `dataProjection` of the format is assigned (where set).
+ * If no `dataProjection` is set for a format, the features will be returned
+ * in the `featureProjection`.
+ * @property {import("../proj.js").ProjectionLike} [featureProjection] Projection of the feature geometries
+ * that will be serialized by the format writer. If not provided, geometries are assumed
+ * to be in the `dataProjection` if that is set; in other words, they are not transformed.
+ * @property {boolean} [rightHanded] When writing geometries, follow the right-hand
+ * rule for linear ring orientation.  This means that polygons will have counter-clockwise
+ * exterior rings and clockwise interior rings.  By default, coordinates are serialized
+ * as they are provided at construction.  If `true`, the right-hand rule will
+ * be applied.  If `false`, the left-hand rule will be applied (clockwise for
+ * exterior and counter-clockwise for interior rings).  Note that not all
+ * formats support this.  The GeoJSON format does use this property when writing
+ * geometries.
+ * @property {number} [decimals] Maximum number of decimal places for coordinates.
+ * Coordinates are stored internally as floats, but floating-point arithmetic can create
+ * coordinates with a large number of decimal places, not generally wanted on output.
+ * Set a number here to round coordinates. Can also be used to ensure that
+ * coordinates read in can be written back out with the same number of decimals.
+ * Default is no rounding.
+ */
+
+/**
+ * @classdesc
+ * Abstract base class; normally only used for creating subclasses and not
+ * instantiated in apps.
+ * Base class for feature formats.
+ * {@link module:ol/format/Feature~FeatureFormat} subclasses provide the ability to decode and encode
+ * {@link module:ol/Feature~Feature} objects from a variety of commonly used geospatial
+ * file formats.  See the documentation for each format for more details.
+ *
+ * @abstract
+ * @api
+ */
+var FeatureFormat =
+/** @class */
+function () {
+  function FeatureFormat() {
+    /**
+     * @protected
+     * @type {import("../proj/Projection.js").default}
+     */
+    this.dataProjection = null;
+    /**
+     * @protected
+     * @type {import("../proj/Projection.js").default}
+     */
+
+    this.defaultFeatureProjection = null;
+  }
+  /**
+   * Adds the data projection to the read options.
+   * @param {Document|Element|Object|string} source Source.
+   * @param {ReadOptions=} opt_options Options.
+   * @return {ReadOptions|undefined} Options.
+   * @protected
+   */
+
+
+  FeatureFormat.prototype.getReadOptions = function (source, opt_options) {
+    var options;
+
+    if (opt_options) {
+      var dataProjection = opt_options.dataProjection ? (0, _proj.get)(opt_options.dataProjection) : this.readProjection(source);
+
+      if (opt_options.extent && dataProjection && dataProjection.getUnits() === _Units.default.TILE_PIXELS) {
+        dataProjection = (0, _proj.get)(dataProjection);
+        dataProjection.setWorldExtent(opt_options.extent);
+      }
+
+      options = {
+        dataProjection: dataProjection,
+        featureProjection: opt_options.featureProjection
+      };
+    }
+
+    return this.adaptOptions(options);
+  };
+  /**
+   * Sets the `dataProjection` on the options, if no `dataProjection`
+   * is set.
+   * @param {WriteOptions|ReadOptions|undefined} options
+   *     Options.
+   * @protected
+   * @return {WriteOptions|ReadOptions|undefined}
+   *     Updated options.
+   */
+
+
+  FeatureFormat.prototype.adaptOptions = function (options) {
+    return (0, _obj.assign)({
+      dataProjection: this.dataProjection,
+      featureProjection: this.defaultFeatureProjection
+    }, options);
+  };
+  /**
+   * @abstract
+   * @return {import("./FormatType.js").default} Format.
+   */
+
+
+  FeatureFormat.prototype.getType = function () {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Read a single feature from a source.
+   *
+   * @abstract
+   * @param {Document|Element|Object|string} source Source.
+   * @param {ReadOptions=} opt_options Read options.
+   * @return {import("../Feature.js").FeatureLike} Feature.
+   */
+
+
+  FeatureFormat.prototype.readFeature = function (source, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Read all features from a source.
+   *
+   * @abstract
+   * @param {Document|Element|ArrayBuffer|Object|string} source Source.
+   * @param {ReadOptions=} opt_options Read options.
+   * @return {Array<import("../Feature.js").FeatureLike>} Features.
+   */
+
+
+  FeatureFormat.prototype.readFeatures = function (source, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Read a single geometry from a source.
+   *
+   * @abstract
+   * @param {Document|Element|Object|string} source Source.
+   * @param {ReadOptions=} opt_options Read options.
+   * @return {import("../geom/Geometry.js").default} Geometry.
+   */
+
+
+  FeatureFormat.prototype.readGeometry = function (source, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Read the projection from a source.
+   *
+   * @abstract
+   * @param {Document|Element|Object|string} source Source.
+   * @return {import("../proj/Projection.js").default} Projection.
+   */
+
+
+  FeatureFormat.prototype.readProjection = function (source) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Encode a feature in this format.
+   *
+   * @abstract
+   * @param {import("../Feature.js").default} feature Feature.
+   * @param {WriteOptions=} opt_options Write options.
+   * @return {string} Result.
+   */
+
+
+  FeatureFormat.prototype.writeFeature = function (feature, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Encode an array of features in this format.
+   *
+   * @abstract
+   * @param {Array<import("../Feature.js").default>} features Features.
+   * @param {WriteOptions=} opt_options Write options.
+   * @return {string} Result.
+   */
+
+
+  FeatureFormat.prototype.writeFeatures = function (features, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Write a single geometry in this format.
+   *
+   * @abstract
+   * @param {import("../geom/Geometry.js").default} geometry Geometry.
+   * @param {WriteOptions=} opt_options Write options.
+   * @return {string} Result.
+   */
+
+
+  FeatureFormat.prototype.writeGeometry = function (geometry, opt_options) {
+    return (0, _util.abstract)();
+  };
+
+  return FeatureFormat;
+}();
+
+var _default = FeatureFormat;
+/**
+ * @param {import("../geom/Geometry.js").default} geometry Geometry.
+ * @param {boolean} write Set to true for writing, false for reading.
+ * @param {(WriteOptions|ReadOptions)=} opt_options Options.
+ * @return {import("../geom/Geometry.js").default} Transformed geometry.
+ */
+
+exports.default = _default;
+
+function transformGeometryWithOptions(geometry, write, opt_options) {
+  var featureProjection = opt_options ? (0, _proj.get)(opt_options.featureProjection) : null;
+  var dataProjection = opt_options ? (0, _proj.get)(opt_options.dataProjection) : null;
+  var transformed;
+
+  if (featureProjection && dataProjection && !(0, _proj.equivalent)(featureProjection, dataProjection)) {
+    transformed = (write ? geometry.clone() : geometry).transform(write ? featureProjection : dataProjection, write ? dataProjection : featureProjection);
+  } else {
+    transformed = geometry;
+  }
+
+  if (write && opt_options &&
+  /** @type {WriteOptions} */
+  opt_options.decimals !== undefined) {
+    var power_1 = Math.pow(10,
+    /** @type {WriteOptions} */
+    opt_options.decimals); // if decimals option on write, round each coordinate appropriately
+
+    /**
+     * @param {Array<number>} coordinates Coordinates.
+     * @return {Array<number>} Transformed coordinates.
+     */
+
+    var transform = function (coordinates) {
+      for (var i = 0, ii = coordinates.length; i < ii; ++i) {
+        coordinates[i] = Math.round(coordinates[i] * power_1) / power_1;
+      }
+
+      return coordinates;
+    };
+
+    if (transformed === geometry) {
+      transformed = geometry.clone();
+    }
+
+    transformed.applyTransform(transform);
+  }
+
+  return transformed;
+}
+/**
+ * @param {import("../extent.js").Extent} extent Extent.
+ * @param {ReadOptions=} opt_options Read options.
+ * @return {import("../extent.js").Extent} Transformed extent.
+ */
+
+
+function transformExtentWithOptions(extent, opt_options) {
+  var featureProjection = opt_options ? (0, _proj.get)(opt_options.featureProjection) : null;
+  var dataProjection = opt_options ? (0, _proj.get)(opt_options.dataProjection) : null;
+
+  if (featureProjection && dataProjection && !(0, _proj.equivalent)(featureProjection, dataProjection)) {
+    return (0, _proj.transformExtent)(extent, dataProjection, featureProjection);
+  } else {
+    return extent;
+  }
+}
+},{"../proj/Units.js":"node_modules/ol/proj/Units.js","../util.js":"node_modules/ol/util.js","../obj.js":"node_modules/ol/obj.js","../proj.js":"node_modules/ol/proj.js"}],"node_modules/ieee754/index.js":[function(require,module,exports) {
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
@@ -66261,6 +64735,10 @@ var $root = {
     type: "terrain",
     doc: "A global modifier that elevates layers and markers based on a DEM data source."
   },
+  fog: {
+    type: "fog",
+    doc: "A global effect that fades layers and markers based on their distance to the camera. The fog can be used to approximate the effect of atmosphere on distant objects and enhance the depth perception of the map when used with terrain or 3D features."
+  },
   sources: {
     required: true,
     type: "sources",
@@ -67019,13 +65497,16 @@ var layout_line = {
         android: "2.0.1",
         ios: "2.0.0",
         macos: "0.1.0"
+      },
+      "data-driven styling": {
+        js: "2.3.0"
       }
     },
     expression: {
       interpolated: false,
-      parameters: ["zoom"]
+      parameters: ["zoom", "feature"]
     },
-    "property-type": "data-constant"
+    "property-type": "data-driven"
   },
   "line-join": {
     type: "enum",
@@ -67857,13 +66338,16 @@ var layout_symbol = {
         android: "2.0.1",
         ios: "2.0.0",
         macos: "0.1.0"
+      },
+      "data-driven styling": {
+        js: "2.3.0"
       }
     },
     expression: {
       interpolated: true,
-      parameters: ["zoom"]
+      parameters: ["zoom", "feature"]
     },
-    "property-type": "data-constant"
+    "property-type": "data-driven"
   },
   "text-letter-spacing": {
     type: "number",
@@ -68573,7 +67057,7 @@ var expression_name = {
       }
     },
     match: {
-      doc: "Selects the output whose label value matches the input value, or the fallback value if no match is found. The input can be any expression (e.g. `[\"get\", \"building_type\"]`). Each label must be either:\n - a single literal value; or\n - an array of literal values, whose values must be all strings or all numbers (e.g. `[100, 101]` or `[\"c\", \"b\"]`). The input matches if any of the values in the array matches, similar to the `\"in\"` operator.\nEach label must be unique. If the input type does not match the type of the labels, the result will be the fallback value.",
+      doc: "Selects the output for which the label value matches the input value, or the fallback value if no match is found. The input can be any expression (for example, `[\"get\", \"building_type\"]`). Each label must be unique, and must be either:\n - a single literal value; or\n - an array of literal values, the values of which must be all strings or all numbers (for example `[100, 101]` or `[\"c\", \"b\"]`).\n\nThe input matches if any of the values in the array matches using strict equality, similar to the `\"in\"` operator.\nIf the input type does not match the type of the labels, the result will be the fallback value.",
       group: "Decision",
       "sdk-support": {
         "basic functionality": {
@@ -69513,6 +67997,63 @@ var expression_name = {
     }
   }
 };
+var fog = {
+  range: {
+    type: "array",
+    "default": [0.5, 10],
+    minimum: -20,
+    maximum: 20,
+    length: 2,
+    value: "number",
+    "property-type": "data-constant",
+    transition: true,
+    expression: {
+      interpolated: true,
+      parameters: ["zoom"]
+    },
+    doc: "The start and end distance range in which fog fades from fully transparent to fully opaque. The distance to the point at the center of the map is defined as zero, so that negative range values are closer to the camera, and positive values are farther away.",
+    example: [0.5, 10],
+    "sdk-support": {
+      "basic functionality": {
+        js: "2.3.0"
+      }
+    }
+  },
+  color: {
+    type: "color",
+    "property-type": "data-constant",
+    "default": "#ffffff",
+    expression: {
+      interpolated: true,
+      parameters: ["zoom"]
+    },
+    transition: true,
+    doc: "The color of the fog. Using opacity is recommended only for smoothly transitioning fog on/off as anything less than 100% opacity results in more tiles loaded and drawn.",
+    "sdk-support": {
+      "basic functionality": {
+        js: "2.3.0"
+      }
+    }
+  },
+  "horizon-blend": {
+    type: "number",
+    "property-type": "data-constant",
+    "default": 0.1,
+    minimum: 0,
+    maximum: 1,
+    expression: {
+      interpolated: true,
+      parameters: ["zoom"]
+    },
+    transition: true,
+    doc: "Horizon blend applies a smooth fade from the color of the fog to the color of the sky. A value of zero leaves a sharp transition from fog to sky. Increasing the value blends the color of fog into increasingly high angles of the sky.",
+    "sdk-support": {
+      "basic functionality": {
+        js: "2.3.0"
+      }
+    }
+  }
+};
 var light = {
   anchor: {
     type: "enum",
@@ -70042,13 +68583,15 @@ var paint_line = {
         ios: "2.0.0",
         macos: "0.1.0"
       },
-      "data-driven styling": {}
+      "data-driven styling": {
+        js: "2.3.0"
+      }
     },
     expression: {
       interpolated: false,
-      parameters: ["zoom"]
+      parameters: ["zoom", "feature"]
     },
-    "property-type": "cross-faded"
+    "property-type": "cross-faded-data-driven"
   },
   "line-pattern": {
     type: "resolvedImage",
@@ -71561,6 +70104,7 @@ var v8 = {
   function_stop: function_stop,
   expression: expression,
   expression_name: expression_name,
+  fog: fog,
   light: light,
   terrain: terrain,
   paint: paint,
@@ -78361,7 +76905,8 @@ const operations = {
   setGlyphs: 'setGlyphs',
   setTransition: 'setTransition',
   setLight: 'setLight',
-  setTerrain: 'setTerrain'
+  setTerrain: 'setTerrain',
+  setFog: 'setFog'
 };
 
 function addSource(sourceId, after, commands) {
@@ -78656,6 +77201,13 @@ function diffStyles(before, after) {
       commands.push({
         command: operations.setLight,
         args: [after.light]
+      });
+    }
+
+    if (!deepEqual(before.fog, after.fog)) {
+      commands.push({
+        command: operations.setFog,
+        args: [after.fog]
       });
     }
 
@@ -79748,6 +78300,52 @@ function validateTerrain(options) {
   return errors;
 }
 
+function validateFog(options) {
+  const fog = options.value;
+  const style = options.style;
+  const styleSpec = options.styleSpec;
+  const fogSpec = styleSpec.fog;
+  let errors = [];
+  const rootType = getType(fog);
+
+  if (fog === undefined) {
+    return errors;
+  } else if (rootType !== 'object') {
+    errors = errors.concat([new ValidationError('fog', fog, `object expected, ${rootType} found`)]);
+    return errors;
+  }
+
+  if (fog.range && !isExpression(deepUnbundle(fog.range)) && fog.range[0] >= fog.range[1]) {
+    errors = errors.concat([new ValidationError('fog', fog, 'fog.range[0] can\'t be greater than or equal to fog.range[1]')]);
+  }
+
+  for (const key in fog) {
+    const transitionMatch = key.match(/^(.*)-transition$/);
+
+    if (transitionMatch && fogSpec[transitionMatch[1]] && fogSpec[transitionMatch[1]].transition) {
+      errors = errors.concat(validate({
+        key,
+        value: fog[key],
+        valueSpec: styleSpec.transition,
+        style,
+        styleSpec
+      }));
+    } else if (fogSpec[key]) {
+      errors = errors.concat(validate({
+        key,
+        value: fog[key],
+        valueSpec: fogSpec[key],
+        style,
+        styleSpec
+      }));
+    } else {
+      errors = errors.concat([new ValidationError(key, fog[key], `unknown property "${key}"`)]);
+    }
+  }
+
+  return errors;
+}
+
 function validateFormatted(options) {
   if (validateString(options).length === 0) {
     return [];
@@ -79782,6 +78380,7 @@ const VALIDATORS = {
   'source': validateSource,
   'light': validateLight,
   'terrain': validateTerrain,
+  'fog': validateFog,
   'string': validateString,
   'formatted': validateFormatted,
   'resolvedImage': validateImage
@@ -79856,6 +78455,7 @@ function validateStyleMin(style, styleSpec = v8) {
 validateStyleMin.source = wrapCleanErrors(validateSource);
 validateStyleMin.light = wrapCleanErrors(validateLight);
 validateStyleMin.terrain = wrapCleanErrors(validateTerrain);
+validateStyleMin.fog = wrapCleanErrors(validateFog);
 validateStyleMin.layer = wrapCleanErrors(validateLayer);
 validateStyleMin.filter = wrapCleanErrors(validateFilter);
 validateStyleMin.paintProperty = wrapCleanErrors(validatePaintProperty);
@@ -82054,7 +80654,1391 @@ function _default(olLayer, glStyle, source, resolutions, spriteData, spriteImage
 
 }).call(this);
 
-},{}],"node_modules/ol/layer/BaseTile.js":[function(require,module,exports) {
+},{}],"node_modules/ol/geom/GeometryCollection.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _EventType = _interopRequireDefault(require("../events/EventType.js"));
+
+var _Geometry = _interopRequireDefault(require("./Geometry.js"));
+
+var _GeometryType = _interopRequireDefault(require("./GeometryType.js"));
+
+var _extent = require("../extent.js");
+
+var _events = require("../events.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+/**
+ * @module ol/geom/GeometryCollection
+ */
+
+
+/**
+ * @classdesc
+ * An array of {@link module:ol/geom/Geometry} objects.
+ *
+ * @api
+ */
+var GeometryCollection =
+/** @class */
+function (_super) {
+  __extends(GeometryCollection, _super);
+  /**
+   * @param {Array<Geometry>=} opt_geometries Geometries.
+   */
+
+
+  function GeometryCollection(opt_geometries) {
+    var _this = _super.call(this) || this;
+    /**
+     * @private
+     * @type {Array<Geometry>}
+     */
+
+
+    _this.geometries_ = opt_geometries ? opt_geometries : null;
+    /**
+     * @type {Array<import("../events.js").EventsKey>}
+     */
+
+    _this.changeEventsKeys_ = [];
+
+    _this.listenGeometriesChange_();
+
+    return _this;
+  }
+  /**
+   * @private
+   */
+
+
+  GeometryCollection.prototype.unlistenGeometriesChange_ = function () {
+    this.changeEventsKeys_.forEach(_events.unlistenByKey);
+    this.changeEventsKeys_.length = 0;
+  };
+  /**
+   * @private
+   */
+
+
+  GeometryCollection.prototype.listenGeometriesChange_ = function () {
+    if (!this.geometries_) {
+      return;
+    }
+
+    for (var i = 0, ii = this.geometries_.length; i < ii; ++i) {
+      this.changeEventsKeys_.push((0, _events.listen)(this.geometries_[i], _EventType.default.CHANGE, this.changed, this));
+    }
+  };
+  /**
+   * Make a complete copy of the geometry.
+   * @return {!GeometryCollection} Clone.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.clone = function () {
+    var geometryCollection = new GeometryCollection(null);
+    geometryCollection.setGeometries(this.geometries_);
+    geometryCollection.applyProperties(this);
+    return geometryCollection;
+  };
+  /**
+   * @param {number} x X.
+   * @param {number} y Y.
+   * @param {import("../coordinate.js").Coordinate} closestPoint Closest point.
+   * @param {number} minSquaredDistance Minimum squared distance.
+   * @return {number} Minimum squared distance.
+   */
+
+
+  GeometryCollection.prototype.closestPointXY = function (x, y, closestPoint, minSquaredDistance) {
+    if (minSquaredDistance < (0, _extent.closestSquaredDistanceXY)(this.getExtent(), x, y)) {
+      return minSquaredDistance;
+    }
+
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      minSquaredDistance = geometries[i].closestPointXY(x, y, closestPoint, minSquaredDistance);
+    }
+
+    return minSquaredDistance;
+  };
+  /**
+   * @param {number} x X.
+   * @param {number} y Y.
+   * @return {boolean} Contains (x, y).
+   */
+
+
+  GeometryCollection.prototype.containsXY = function (x, y) {
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      if (geometries[i].containsXY(x, y)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+  /**
+   * @param {import("../extent.js").Extent} extent Extent.
+   * @protected
+   * @return {import("../extent.js").Extent} extent Extent.
+   */
+
+
+  GeometryCollection.prototype.computeExtent = function (extent) {
+    (0, _extent.createOrUpdateEmpty)(extent);
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      (0, _extent.extend)(extent, geometries[i].getExtent());
+    }
+
+    return extent;
+  };
+  /**
+   * Return the geometries that make up this geometry collection.
+   * @return {Array<Geometry>} Geometries.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.getGeometries = function () {
+    return cloneGeometries(this.geometries_);
+  };
+  /**
+   * @return {Array<Geometry>} Geometries.
+   */
+
+
+  GeometryCollection.prototype.getGeometriesArray = function () {
+    return this.geometries_;
+  };
+  /**
+   * @return {Array<Geometry>} Geometries.
+   */
+
+
+  GeometryCollection.prototype.getGeometriesArrayRecursive = function () {
+    /** @type {Array<Geometry>} */
+    var geometriesArray = [];
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      if (geometries[i].getType() === this.getType()) {
+        geometriesArray = geometriesArray.concat(
+        /** @type {GeometryCollection} */
+        geometries[i].getGeometriesArrayRecursive());
+      } else {
+        geometriesArray.push(geometries[i]);
+      }
+    }
+
+    return geometriesArray;
+  };
+  /**
+   * Create a simplified version of this geometry using the Douglas Peucker algorithm.
+   * @param {number} squaredTolerance Squared tolerance.
+   * @return {GeometryCollection} Simplified GeometryCollection.
+   */
+
+
+  GeometryCollection.prototype.getSimplifiedGeometry = function (squaredTolerance) {
+    if (this.simplifiedGeometryRevision !== this.getRevision()) {
+      this.simplifiedGeometryMaxMinSquaredTolerance = 0;
+      this.simplifiedGeometryRevision = this.getRevision();
+    }
+
+    if (squaredTolerance < 0 || this.simplifiedGeometryMaxMinSquaredTolerance !== 0 && squaredTolerance < this.simplifiedGeometryMaxMinSquaredTolerance) {
+      return this;
+    }
+
+    var simplifiedGeometries = [];
+    var geometries = this.geometries_;
+    var simplified = false;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      var geometry = geometries[i];
+      var simplifiedGeometry = geometry.getSimplifiedGeometry(squaredTolerance);
+      simplifiedGeometries.push(simplifiedGeometry);
+
+      if (simplifiedGeometry !== geometry) {
+        simplified = true;
+      }
+    }
+
+    if (simplified) {
+      var simplifiedGeometryCollection = new GeometryCollection(null);
+      simplifiedGeometryCollection.setGeometriesArray(simplifiedGeometries);
+      return simplifiedGeometryCollection;
+    } else {
+      this.simplifiedGeometryMaxMinSquaredTolerance = squaredTolerance;
+      return this;
+    }
+  };
+  /**
+   * Get the type of this geometry.
+   * @return {import("./GeometryType.js").default} Geometry type.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.getType = function () {
+    return _GeometryType.default.GEOMETRY_COLLECTION;
+  };
+  /**
+   * Test if the geometry and the passed extent intersect.
+   * @param {import("../extent.js").Extent} extent Extent.
+   * @return {boolean} `true` if the geometry and the extent intersect.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.intersectsExtent = function (extent) {
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      if (geometries[i].intersectsExtent(extent)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+  /**
+   * @return {boolean} Is empty.
+   */
+
+
+  GeometryCollection.prototype.isEmpty = function () {
+    return this.geometries_.length === 0;
+  };
+  /**
+   * Rotate the geometry around a given coordinate. This modifies the geometry
+   * coordinates in place.
+   * @param {number} angle Rotation angle in radians.
+   * @param {import("../coordinate.js").Coordinate} anchor The rotation center.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.rotate = function (angle, anchor) {
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      geometries[i].rotate(angle, anchor);
+    }
+
+    this.changed();
+  };
+  /**
+   * Scale the geometry (with an optional origin).  This modifies the geometry
+   * coordinates in place.
+   * @abstract
+   * @param {number} sx The scaling factor in the x-direction.
+   * @param {number=} opt_sy The scaling factor in the y-direction (defaults to sx).
+   * @param {import("../coordinate.js").Coordinate=} opt_anchor The scale origin (defaults to the center
+   *     of the geometry extent).
+   * @api
+   */
+
+
+  GeometryCollection.prototype.scale = function (sx, opt_sy, opt_anchor) {
+    var anchor = opt_anchor;
+
+    if (!anchor) {
+      anchor = (0, _extent.getCenter)(this.getExtent());
+    }
+
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      geometries[i].scale(sx, opt_sy, anchor);
+    }
+
+    this.changed();
+  };
+  /**
+   * Set the geometries that make up this geometry collection.
+   * @param {Array<Geometry>} geometries Geometries.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.setGeometries = function (geometries) {
+    this.setGeometriesArray(cloneGeometries(geometries));
+  };
+  /**
+   * @param {Array<Geometry>} geometries Geometries.
+   */
+
+
+  GeometryCollection.prototype.setGeometriesArray = function (geometries) {
+    this.unlistenGeometriesChange_();
+    this.geometries_ = geometries;
+    this.listenGeometriesChange_();
+    this.changed();
+  };
+  /**
+   * Apply a transform function to the coordinates of the geometry.
+   * The geometry is modified in place.
+   * If you do not want the geometry modified in place, first `clone()` it and
+   * then use this function on the clone.
+   * @param {import("../proj.js").TransformFunction} transformFn Transform function.
+   * Called with a flat array of geometry coordinates.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.applyTransform = function (transformFn) {
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      geometries[i].applyTransform(transformFn);
+    }
+
+    this.changed();
+  };
+  /**
+   * Translate the geometry.  This modifies the geometry coordinates in place.  If
+   * instead you want a new geometry, first `clone()` this geometry.
+   * @param {number} deltaX Delta X.
+   * @param {number} deltaY Delta Y.
+   * @api
+   */
+
+
+  GeometryCollection.prototype.translate = function (deltaX, deltaY) {
+    var geometries = this.geometries_;
+
+    for (var i = 0, ii = geometries.length; i < ii; ++i) {
+      geometries[i].translate(deltaX, deltaY);
+    }
+
+    this.changed();
+  };
+  /**
+   * Clean up.
+   */
+
+
+  GeometryCollection.prototype.disposeInternal = function () {
+    this.unlistenGeometriesChange_();
+
+    _super.prototype.disposeInternal.call(this);
+  };
+
+  return GeometryCollection;
+}(_Geometry.default);
+/**
+ * @param {Array<Geometry>} geometries Geometries.
+ * @return {Array<Geometry>} Cloned geometries.
+ */
+
+
+function cloneGeometries(geometries) {
+  var clonedGeometries = [];
+
+  for (var i = 0, ii = geometries.length; i < ii; ++i) {
+    clonedGeometries.push(geometries[i].clone());
+  }
+
+  return clonedGeometries;
+}
+
+var _default = GeometryCollection;
+exports.default = _default;
+},{"../events/EventType.js":"node_modules/ol/events/EventType.js","./Geometry.js":"node_modules/ol/geom/Geometry.js","./GeometryType.js":"node_modules/ol/geom/GeometryType.js","../extent.js":"node_modules/ol/extent.js","../events.js":"node_modules/ol/events.js"}],"node_modules/ol/format/JSONFeature.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Feature = _interopRequireDefault(require("./Feature.js"));
+
+var _FormatType = _interopRequireDefault(require("./FormatType.js"));
+
+var _util = require("../util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+/**
+ * @module ol/format/JSONFeature
+ */
+
+
+/**
+ * @classdesc
+ * Abstract base class; normally only used for creating subclasses and not
+ * instantiated in apps.
+ * Base class for JSON feature formats.
+ *
+ * @abstract
+ */
+var JSONFeature =
+/** @class */
+function (_super) {
+  __extends(JSONFeature, _super);
+
+  function JSONFeature() {
+    return _super.call(this) || this;
+  }
+  /**
+   * @return {import("./FormatType.js").default} Format.
+   */
+
+
+  JSONFeature.prototype.getType = function () {
+    return _FormatType.default.JSON;
+  };
+  /**
+   * Read a feature.  Only works for a single feature. Use `readFeatures` to
+   * read a feature collection.
+   *
+   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @return {import("../Feature.js").default} Feature.
+   * @api
+   */
+
+
+  JSONFeature.prototype.readFeature = function (source, opt_options) {
+    return this.readFeatureFromObject(getObject(source), this.getReadOptions(source, opt_options));
+  };
+  /**
+   * Read all features.  Works with both a single feature and a feature
+   * collection.
+   *
+   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @return {Array<import("../Feature.js").default>} Features.
+   * @api
+   */
+
+
+  JSONFeature.prototype.readFeatures = function (source, opt_options) {
+    return this.readFeaturesFromObject(getObject(source), this.getReadOptions(source, opt_options));
+  };
+  /**
+   * @abstract
+   * @param {Object} object Object.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @protected
+   * @return {import("../Feature.js").default} Feature.
+   */
+
+
+  JSONFeature.prototype.readFeatureFromObject = function (object, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * @abstract
+   * @param {Object} object Object.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @protected
+   * @return {Array<import("../Feature.js").default>} Features.
+   */
+
+
+  JSONFeature.prototype.readFeaturesFromObject = function (object, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Read a geometry.
+   *
+   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @return {import("../geom/Geometry.js").default} Geometry.
+   * @api
+   */
+
+
+  JSONFeature.prototype.readGeometry = function (source, opt_options) {
+    return this.readGeometryFromObject(getObject(source), this.getReadOptions(source, opt_options));
+  };
+  /**
+   * @abstract
+   * @param {Object} object Object.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @protected
+   * @return {import("../geom/Geometry.js").default} Geometry.
+   */
+
+
+  JSONFeature.prototype.readGeometryFromObject = function (object, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Read the projection.
+   *
+   * @param {ArrayBuffer|Document|Element|Object|string} source Source.
+   * @return {import("../proj/Projection.js").default} Projection.
+   * @api
+   */
+
+
+  JSONFeature.prototype.readProjection = function (source) {
+    return this.readProjectionFromObject(getObject(source));
+  };
+  /**
+   * @abstract
+   * @param {Object} object Object.
+   * @protected
+   * @return {import("../proj/Projection.js").default} Projection.
+   */
+
+
+  JSONFeature.prototype.readProjectionFromObject = function (object) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Encode a feature as string.
+   *
+   * @param {import("../Feature.js").default} feature Feature.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {string} Encoded feature.
+   * @api
+   */
+
+
+  JSONFeature.prototype.writeFeature = function (feature, opt_options) {
+    return JSON.stringify(this.writeFeatureObject(feature, opt_options));
+  };
+  /**
+   * @abstract
+   * @param {import("../Feature.js").default} feature Feature.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {Object} Object.
+   */
+
+
+  JSONFeature.prototype.writeFeatureObject = function (feature, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Encode an array of features as string.
+   *
+   * @param {Array<import("../Feature.js").default>} features Features.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {string} Encoded features.
+   * @api
+   */
+
+
+  JSONFeature.prototype.writeFeatures = function (features, opt_options) {
+    return JSON.stringify(this.writeFeaturesObject(features, opt_options));
+  };
+  /**
+   * @abstract
+   * @param {Array<import("../Feature.js").default>} features Features.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {Object} Object.
+   */
+
+
+  JSONFeature.prototype.writeFeaturesObject = function (features, opt_options) {
+    return (0, _util.abstract)();
+  };
+  /**
+   * Encode a geometry as string.
+   *
+   * @param {import("../geom/Geometry.js").default} geometry Geometry.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {string} Encoded geometry.
+   * @api
+   */
+
+
+  JSONFeature.prototype.writeGeometry = function (geometry, opt_options) {
+    return JSON.stringify(this.writeGeometryObject(geometry, opt_options));
+  };
+  /**
+   * @abstract
+   * @param {import("../geom/Geometry.js").default} geometry Geometry.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {Object} Object.
+   */
+
+
+  JSONFeature.prototype.writeGeometryObject = function (geometry, opt_options) {
+    return (0, _util.abstract)();
+  };
+
+  return JSONFeature;
+}(_Feature.default);
+/**
+ * @param {Document|Element|Object|string} source Source.
+ * @return {Object} Object.
+ */
+
+
+function getObject(source) {
+  if (typeof source === 'string') {
+    var object = JSON.parse(source);
+    return object ?
+    /** @type {Object} */
+    object : null;
+  } else if (source !== null) {
+    return source;
+  } else {
+    return null;
+  }
+}
+
+var _default = JSONFeature;
+exports.default = _default;
+},{"./Feature.js":"node_modules/ol/format/Feature.js","./FormatType.js":"node_modules/ol/format/FormatType.js","../util.js":"node_modules/ol/util.js"}],"node_modules/ol/format/GeoJSON.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Feature = _interopRequireDefault(require("../Feature.js"));
+
+var _GeometryCollection = _interopRequireDefault(require("../geom/GeometryCollection.js"));
+
+var _GeometryType = _interopRequireDefault(require("../geom/GeometryType.js"));
+
+var _JSONFeature = _interopRequireDefault(require("./JSONFeature.js"));
+
+var _LineString = _interopRequireDefault(require("../geom/LineString.js"));
+
+var _MultiLineString = _interopRequireDefault(require("../geom/MultiLineString.js"));
+
+var _MultiPoint = _interopRequireDefault(require("../geom/MultiPoint.js"));
+
+var _MultiPolygon = _interopRequireDefault(require("../geom/MultiPolygon.js"));
+
+var _Point = _interopRequireDefault(require("../geom/Point.js"));
+
+var _Polygon = _interopRequireDefault(require("../geom/Polygon.js"));
+
+var _asserts = require("../asserts.js");
+
+var _obj = require("../obj.js");
+
+var _proj = require("../proj.js");
+
+var _Feature2 = require("./Feature.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @module ol/format/GeoJSON
+ */
+var __extends = void 0 && (void 0).__extends || function () {
+  var extendStatics = function (d, b) {
+    extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
+    };
+
+    return extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+/**
+ * @typedef {import("geojson").GeoJSON} GeoJSONObject
+ * @typedef {import("geojson").Feature} GeoJSONFeature
+ * @typedef {import("geojson").FeatureCollection} GeoJSONFeatureCollection
+ * @typedef {import("geojson").Geometry} GeoJSONGeometry
+ * @typedef {import("geojson").Point} GeoJSONPoint
+ * @typedef {import("geojson").LineString} GeoJSONLineString
+ * @typedef {import("geojson").Polygon} GeoJSONPolygon
+ * @typedef {import("geojson").MultiPoint} GeoJSONMultiPoint
+ * @typedef {import("geojson").MultiLineString} GeoJSONMultiLineString
+ * @typedef {import("geojson").MultiPolygon} GeoJSONMultiPolygon
+ * @typedef {import("geojson").GeometryCollection} GeoJSONGeometryCollection
+ */
+
+/**
+ * @typedef {Object} Options
+ * @property {import("../proj.js").ProjectionLike} [dataProjection='EPSG:4326'] Default data projection.
+ * @property {import("../proj.js").ProjectionLike} [featureProjection] Projection for features read or
+ * written by the format.  Options passed to read or write methods will take precedence.
+ * @property {string} [geometryName] Geometry name to use when creating features.
+ * @property {boolean} [extractGeometryName=false] Certain GeoJSON providers include
+ * the geometry_name field in the feature GeoJSON. If set to `true` the GeoJSON reader
+ * will look for that field to set the geometry name. If both this field is set to `true`
+ * and a `geometryName` is provided, the `geometryName` will take precedence.
+ */
+
+/**
+ * @classdesc
+ * Feature format for reading and writing data in the GeoJSON format.
+ *
+ * @api
+ */
+var GeoJSON =
+/** @class */
+function (_super) {
+  __extends(GeoJSON, _super);
+  /**
+   * @param {Options=} opt_options Options.
+   */
+
+
+  function GeoJSON(opt_options) {
+    var _this = this;
+
+    var options = opt_options ? opt_options : {};
+    _this = _super.call(this) || this;
+    /**
+     * @type {import("../proj/Projection.js").default}
+     */
+
+    _this.dataProjection = (0, _proj.get)(options.dataProjection ? options.dataProjection : 'EPSG:4326');
+
+    if (options.featureProjection) {
+      _this.defaultFeatureProjection = (0, _proj.get)(options.featureProjection);
+    }
+    /**
+     * Name of the geometry attribute for features.
+     * @type {string|undefined}
+     * @private
+     */
+
+
+    _this.geometryName_ = options.geometryName;
+    /**
+     * Look for the geometry name in the feature GeoJSON
+     * @type {boolean|undefined}
+     * @private
+     */
+
+    _this.extractGeometryName_ = options.extractGeometryName;
+    return _this;
+  }
+  /**
+   * @param {Object} object Object.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @protected
+   * @return {import("../Feature.js").default} Feature.
+   */
+
+
+  GeoJSON.prototype.readFeatureFromObject = function (object, opt_options) {
+    /**
+     * @type {GeoJSONFeature}
+     */
+    var geoJSONFeature = null;
+
+    if (object['type'] === 'Feature') {
+      geoJSONFeature =
+      /** @type {GeoJSONFeature} */
+      object;
+    } else {
+      geoJSONFeature = {
+        'type': 'Feature',
+        'geometry':
+        /** @type {GeoJSONGeometry} */
+        object,
+        'properties': null
+      };
+    }
+
+    var geometry = readGeometry(geoJSONFeature['geometry'], opt_options);
+    var feature = new _Feature.default();
+
+    if (this.geometryName_) {
+      feature.setGeometryName(this.geometryName_);
+    } else if (this.extractGeometryName_ && 'geometry_name' in geoJSONFeature !== undefined) {
+      feature.setGeometryName(geoJSONFeature['geometry_name']);
+    }
+
+    feature.setGeometry(geometry);
+
+    if ('id' in geoJSONFeature) {
+      feature.setId(geoJSONFeature['id']);
+    }
+
+    if (geoJSONFeature['properties']) {
+      feature.setProperties(geoJSONFeature['properties'], true);
+    }
+
+    return feature;
+  };
+  /**
+   * @param {Object} object Object.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @protected
+   * @return {Array<Feature>} Features.
+   */
+
+
+  GeoJSON.prototype.readFeaturesFromObject = function (object, opt_options) {
+    var geoJSONObject =
+    /** @type {GeoJSONObject} */
+    object;
+    /** @type {Array<import("../Feature.js").default>} */
+
+    var features = null;
+
+    if (geoJSONObject['type'] === 'FeatureCollection') {
+      var geoJSONFeatureCollection =
+      /** @type {GeoJSONFeatureCollection} */
+      object;
+      features = [];
+      var geoJSONFeatures = geoJSONFeatureCollection['features'];
+
+      for (var i = 0, ii = geoJSONFeatures.length; i < ii; ++i) {
+        features.push(this.readFeatureFromObject(geoJSONFeatures[i], opt_options));
+      }
+    } else {
+      features = [this.readFeatureFromObject(object, opt_options)];
+    }
+
+    return features;
+  };
+  /**
+   * @param {GeoJSONGeometry} object Object.
+   * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+   * @protected
+   * @return {import("../geom/Geometry.js").default} Geometry.
+   */
+
+
+  GeoJSON.prototype.readGeometryFromObject = function (object, opt_options) {
+    return readGeometry(object, opt_options);
+  };
+  /**
+   * @param {Object} object Object.
+   * @protected
+   * @return {import("../proj/Projection.js").default} Projection.
+   */
+
+
+  GeoJSON.prototype.readProjectionFromObject = function (object) {
+    var crs = object['crs'];
+    var projection;
+
+    if (crs) {
+      if (crs['type'] == 'name') {
+        projection = (0, _proj.get)(crs['properties']['name']);
+      } else if (crs['type'] === 'EPSG') {
+        projection = (0, _proj.get)('EPSG:' + crs['properties']['code']);
+      } else {
+        (0, _asserts.assert)(false, 36); // Unknown SRS type
+      }
+    } else {
+      projection = this.dataProjection;
+    }
+
+    return (
+      /** @type {import("../proj/Projection.js").default} */
+      projection
+    );
+  };
+  /**
+   * Encode a feature as a GeoJSON Feature object.
+   *
+   * @param {import("../Feature.js").default} feature Feature.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {GeoJSONFeature} Object.
+   * @api
+   */
+
+
+  GeoJSON.prototype.writeFeatureObject = function (feature, opt_options) {
+    opt_options = this.adaptOptions(opt_options);
+    /** @type {GeoJSONFeature} */
+
+    var object = {
+      'type': 'Feature',
+      geometry: null,
+      properties: null
+    };
+    var id = feature.getId();
+
+    if (id !== undefined) {
+      object.id = id;
+    }
+
+    if (!feature.hasProperties()) {
+      return object;
+    }
+
+    var properties = feature.getProperties();
+    var geometry = feature.getGeometry();
+
+    if (geometry) {
+      object.geometry = writeGeometry(geometry, opt_options);
+      delete properties[feature.getGeometryName()];
+    }
+
+    if (!(0, _obj.isEmpty)(properties)) {
+      object.properties = properties;
+    }
+
+    return object;
+  };
+  /**
+   * Encode an array of features as a GeoJSON object.
+   *
+   * @param {Array<import("../Feature.js").default>} features Features.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {GeoJSONFeatureCollection} GeoJSON Object.
+   * @api
+   */
+
+
+  GeoJSON.prototype.writeFeaturesObject = function (features, opt_options) {
+    opt_options = this.adaptOptions(opt_options);
+    var objects = [];
+
+    for (var i = 0, ii = features.length; i < ii; ++i) {
+      objects.push(this.writeFeatureObject(features[i], opt_options));
+    }
+
+    return {
+      type: 'FeatureCollection',
+      features: objects
+    };
+  };
+  /**
+   * Encode a geometry as a GeoJSON object.
+   *
+   * @param {import("../geom/Geometry.js").default} geometry Geometry.
+   * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+   * @return {GeoJSONGeometry|GeoJSONGeometryCollection} Object.
+   * @api
+   */
+
+
+  GeoJSON.prototype.writeGeometryObject = function (geometry, opt_options) {
+    return writeGeometry(geometry, this.adaptOptions(opt_options));
+  };
+
+  return GeoJSON;
+}(_JSONFeature.default);
+/**
+ * @param {GeoJSONGeometry|GeoJSONGeometryCollection} object Object.
+ * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+ * @return {import("../geom/Geometry.js").default} Geometry.
+ */
+
+
+function readGeometry(object, opt_options) {
+  if (!object) {
+    return null;
+  }
+  /**
+   * @type {import("../geom/Geometry.js").default}
+   */
+
+
+  var geometry;
+
+  switch (object['type']) {
+    case _GeometryType.default.POINT:
+      {
+        geometry = readPointGeometry(
+        /** @type {GeoJSONPoint} */
+        object);
+        break;
+      }
+
+    case _GeometryType.default.LINE_STRING:
+      {
+        geometry = readLineStringGeometry(
+        /** @type {GeoJSONLineString} */
+        object);
+        break;
+      }
+
+    case _GeometryType.default.POLYGON:
+      {
+        geometry = readPolygonGeometry(
+        /** @type {GeoJSONPolygon} */
+        object);
+        break;
+      }
+
+    case _GeometryType.default.MULTI_POINT:
+      {
+        geometry = readMultiPointGeometry(
+        /** @type {GeoJSONMultiPoint} */
+        object);
+        break;
+      }
+
+    case _GeometryType.default.MULTI_LINE_STRING:
+      {
+        geometry = readMultiLineStringGeometry(
+        /** @type {GeoJSONMultiLineString} */
+        object);
+        break;
+      }
+
+    case _GeometryType.default.MULTI_POLYGON:
+      {
+        geometry = readMultiPolygonGeometry(
+        /** @type {GeoJSONMultiPolygon} */
+        object);
+        break;
+      }
+
+    case _GeometryType.default.GEOMETRY_COLLECTION:
+      {
+        geometry = readGeometryCollectionGeometry(
+        /** @type {GeoJSONGeometryCollection} */
+        object);
+        break;
+      }
+
+    default:
+      {
+        throw new Error('Unsupported GeoJSON type: ' + object.type);
+      }
+  }
+
+  return (0, _Feature2.transformGeometryWithOptions)(geometry, false, opt_options);
+}
+/**
+ * @param {GeoJSONGeometryCollection} object Object.
+ * @param {import("./Feature.js").ReadOptions=} opt_options Read options.
+ * @return {GeometryCollection} Geometry collection.
+ */
+
+
+function readGeometryCollectionGeometry(object, opt_options) {
+  var geometries = object['geometries'].map(
+  /**
+   * @param {GeoJSONGeometry} geometry Geometry.
+   * @return {import("../geom/Geometry.js").default} geometry Geometry.
+   */
+  function (geometry) {
+    return readGeometry(geometry, opt_options);
+  });
+  return new _GeometryCollection.default(geometries);
+}
+/**
+ * @param {GeoJSONPoint} object Object.
+ * @return {Point} Point.
+ */
+
+
+function readPointGeometry(object) {
+  return new _Point.default(object['coordinates']);
+}
+/**
+ * @param {GeoJSONLineString} object Object.
+ * @return {LineString} LineString.
+ */
+
+
+function readLineStringGeometry(object) {
+  return new _LineString.default(object['coordinates']);
+}
+/**
+ * @param {GeoJSONMultiLineString} object Object.
+ * @return {MultiLineString} MultiLineString.
+ */
+
+
+function readMultiLineStringGeometry(object) {
+  return new _MultiLineString.default(object['coordinates']);
+}
+/**
+ * @param {GeoJSONMultiPoint} object Object.
+ * @return {MultiPoint} MultiPoint.
+ */
+
+
+function readMultiPointGeometry(object) {
+  return new _MultiPoint.default(object['coordinates']);
+}
+/**
+ * @param {GeoJSONMultiPolygon} object Object.
+ * @return {MultiPolygon} MultiPolygon.
+ */
+
+
+function readMultiPolygonGeometry(object) {
+  return new _MultiPolygon.default(object['coordinates']);
+}
+/**
+ * @param {GeoJSONPolygon} object Object.
+ * @return {Polygon} Polygon.
+ */
+
+
+function readPolygonGeometry(object) {
+  return new _Polygon.default(object['coordinates']);
+}
+/**
+ * @param {import("../geom/Geometry.js").default} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writeGeometry(geometry, opt_options) {
+  geometry = (0, _Feature2.transformGeometryWithOptions)(geometry, true, opt_options);
+  var type = geometry.getType();
+  /** @type {GeoJSONGeometry} */
+
+  var geoJSON;
+
+  switch (type) {
+    case _GeometryType.default.POINT:
+      {
+        geoJSON = writePointGeometry(
+        /** @type {Point} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.LINE_STRING:
+      {
+        geoJSON = writeLineStringGeometry(
+        /** @type {LineString} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.POLYGON:
+      {
+        geoJSON = writePolygonGeometry(
+        /** @type {Polygon} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.MULTI_POINT:
+      {
+        geoJSON = writeMultiPointGeometry(
+        /** @type {MultiPoint} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.MULTI_LINE_STRING:
+      {
+        geoJSON = writeMultiLineStringGeometry(
+        /** @type {MultiLineString} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.MULTI_POLYGON:
+      {
+        geoJSON = writeMultiPolygonGeometry(
+        /** @type {MultiPolygon} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.GEOMETRY_COLLECTION:
+      {
+        geoJSON = writeGeometryCollectionGeometry(
+        /** @type {GeometryCollection} */
+        geometry, opt_options);
+        break;
+      }
+
+    case _GeometryType.default.CIRCLE:
+      {
+        geoJSON = {
+          type: 'GeometryCollection',
+          geometries: []
+        };
+        break;
+      }
+
+    default:
+      {
+        throw new Error('Unsupported geometry type: ' + type);
+      }
+  }
+
+  return geoJSON;
+}
+/**
+ * @param {GeometryCollection} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometryCollection} GeoJSON geometry collection.
+ */
+
+
+function writeGeometryCollectionGeometry(geometry, opt_options) {
+  var geometries = geometry.getGeometriesArray().map(function (geometry) {
+    var options = (0, _obj.assign)({}, opt_options);
+    delete options.featureProjection;
+    return writeGeometry(geometry, options);
+  });
+  return {
+    type: 'GeometryCollection',
+    geometries: geometries
+  };
+}
+/**
+ * @param {LineString} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writeLineStringGeometry(geometry, opt_options) {
+  return {
+    type: 'LineString',
+    coordinates: geometry.getCoordinates()
+  };
+}
+/**
+ * @param {MultiLineString} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writeMultiLineStringGeometry(geometry, opt_options) {
+  return {
+    type: 'MultiLineString',
+    coordinates: geometry.getCoordinates()
+  };
+}
+/**
+ * @param {MultiPoint} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writeMultiPointGeometry(geometry, opt_options) {
+  return {
+    type: 'MultiPoint',
+    coordinates: geometry.getCoordinates()
+  };
+}
+/**
+ * @param {MultiPolygon} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writeMultiPolygonGeometry(geometry, opt_options) {
+  var right;
+
+  if (opt_options) {
+    right = opt_options.rightHanded;
+  }
+
+  return {
+    type: 'MultiPolygon',
+    coordinates: geometry.getCoordinates(right)
+  };
+}
+/**
+ * @param {Point} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writePointGeometry(geometry, opt_options) {
+  return {
+    type: 'Point',
+    coordinates: geometry.getCoordinates()
+  };
+}
+/**
+ * @param {Polygon} geometry Geometry.
+ * @param {import("./Feature.js").WriteOptions=} opt_options Write options.
+ * @return {GeoJSONGeometry} GeoJSON geometry.
+ */
+
+
+function writePolygonGeometry(geometry, opt_options) {
+  var right;
+
+  if (opt_options) {
+    right = opt_options.rightHanded;
+  }
+
+  return {
+    type: 'Polygon',
+    coordinates: geometry.getCoordinates(right)
+  };
+}
+
+var _default = GeoJSON;
+exports.default = _default;
+},{"../Feature.js":"node_modules/ol/Feature.js","../geom/GeometryCollection.js":"node_modules/ol/geom/GeometryCollection.js","../geom/GeometryType.js":"node_modules/ol/geom/GeometryType.js","./JSONFeature.js":"node_modules/ol/format/JSONFeature.js","../geom/LineString.js":"node_modules/ol/geom/LineString.js","../geom/MultiLineString.js":"node_modules/ol/geom/MultiLineString.js","../geom/MultiPoint.js":"node_modules/ol/geom/MultiPoint.js","../geom/MultiPolygon.js":"node_modules/ol/geom/MultiPolygon.js","../geom/Point.js":"node_modules/ol/geom/Point.js","../geom/Polygon.js":"node_modules/ol/geom/Polygon.js","../asserts.js":"node_modules/ol/asserts.js","../obj.js":"node_modules/ol/obj.js","../proj.js":"node_modules/ol/proj.js","./Feature.js":"node_modules/ol/format/Feature.js"}],"node_modules/ol/layer/BaseTile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -82298,322 +82282,7 @@ function (_super) {
 
 var _default = TileLayer;
 exports.default = _default;
-},{"./BaseTile.js":"node_modules/ol/layer/BaseTile.js","../renderer/canvas/TileLayer.js":"node_modules/ol/renderer/canvas/TileLayer.js"}],"node_modules/ol/net.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.jsonp = jsonp;
-
-var _util = require("./util.js");
-
-/**
- * @module ol/net
- */
-
-/**
- * Simple JSONP helper. Supports error callbacks and a custom callback param.
- * The error callback will be called when no JSONP is executed after 10 seconds.
- *
- * @param {string} url Request url. A 'callback' query parameter will be
- *     appended.
- * @param {Function} callback Callback on success.
- * @param {function()=} opt_errback Callback on error.
- * @param {string=} opt_callbackParam Custom query parameter for the JSONP
- *     callback. Default is 'callback'.
- */
-function jsonp(url, callback, opt_errback, opt_callbackParam) {
-  var script = document.createElement('script');
-  var key = 'olc_' + (0, _util.getUid)(callback);
-
-  function cleanup() {
-    delete window[key];
-    script.parentNode.removeChild(script);
-  }
-
-  script.async = true;
-  script.src = url + (url.indexOf('?') == -1 ? '?' : '&') + (opt_callbackParam || 'callback') + '=' + key;
-  var timer = setTimeout(function () {
-    cleanup();
-
-    if (opt_errback) {
-      opt_errback();
-    }
-  }, 10000);
-
-  window[key] = function (data) {
-    clearTimeout(timer);
-    cleanup();
-    callback(data);
-  };
-
-  document.getElementsByTagName('head')[0].appendChild(script);
-}
-},{"./util.js":"node_modules/ol/util.js"}],"node_modules/ol/source/TileJSON.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _State = _interopRequireDefault(require("./State.js"));
-
-var _TileImage = _interopRequireDefault(require("./TileImage.js"));
-
-var _extent = require("../extent.js");
-
-var _asserts = require("../asserts.js");
-
-var _tileurlfunction = require("../tileurlfunction.js");
-
-var _tilegrid = require("../tilegrid.js");
-
-var _proj = require("../proj.js");
-
-var _net = require("../net.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/**
- * @module ol/source/TileJSON
- */
-// FIXME check order of async callbacks
-var __extends = void 0 && (void 0).__extends || function () {
-  var extendStatics = function (d, b) {
-    extendStatics = Object.setPrototypeOf || {
-      __proto__: []
-    } instanceof Array && function (d, b) {
-      d.__proto__ = b;
-    } || function (d, b) {
-      for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p];
-    };
-
-    return extendStatics(d, b);
-  };
-
-  return function (d, b) {
-    extendStatics(d, b);
-
-    function __() {
-      this.constructor = d;
-    }
-
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-  };
-}();
-/**
- * See https://mapbox.com/developers/api/.
- */
-
-
-/**
- * @typedef {Object} Config
- * @property {string} [name] The name.
- * @property {string} [description] The description.
- * @property {string} [version] The version.
- * @property {string} [attribution] The attribution.
- * @property {string} [template] The template.
- * @property {string} [legend] The legend.
- * @property {string} [scheme] The scheme.
- * @property {Array<string>} tiles The tile URL templates.
- * @property {Array<string>} [grids] Optional grids.
- * @property {number} [minzoom] Minimum zoom level.
- * @property {number} [maxzoom] Maximum zoom level.
- * @property {Array<number>} [bounds] Optional bounds.
- * @property {Array<number>} [center] Optional center.
- */
-
-/**
- * @typedef {Object} Options
- * @property {import("./Source.js").AttributionLike} [attributions] Attributions.
- * @property {number} [cacheSize] Initial tile cache size. Will auto-grow to hold at least the number of tiles in the viewport.
- * @property {null|string} [crossOrigin] The `crossOrigin` attribute for loaded images.  Note that
- * you must provide a `crossOrigin` value if you want to access pixel data with the Canvas renderer.
- * See https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image for more detail.
- * @property {boolean} [imageSmoothing=true] Enable image smoothing.
- * @property {boolean} [jsonp=false] Use JSONP with callback to load the TileJSON.
- * Useful when the server does not support CORS..
- * @property {number} [reprojectionErrorThreshold=0.5] Maximum allowed reprojection error (in pixels).
- * Higher values can increase reprojection performance, but decrease precision.
- * @property {Config} [tileJSON] TileJSON configuration for this source.
- * If not provided, `url` must be configured.
- * @property {import("../Tile.js").LoadFunction} [tileLoadFunction] Optional function to load a tile given a URL. The default is
- * ```js
- * function(imageTile, src) {
- *   imageTile.getImage().src = src;
- * };
- * ```
- * @property {number|import("../size.js").Size} [tileSize=[256, 256]] The tile size used by the tile service.
- * Note: `tileSize` and other non-standard TileJSON properties are currently ignored.
- * @property {string} [url] URL to the TileJSON file. If not provided, `tileJSON` must be configured.
- * @property {boolean} [wrapX=true] Whether to wrap the world horizontally.
- * @property {number} [transition] Duration of the opacity transition for rendering.
- * To disable the opacity transition, pass `transition: 0`.
- */
-
-/**
- * @classdesc
- * Layer source for tile data in TileJSON format.
- * @api
- */
-var TileJSON =
-/** @class */
-function (_super) {
-  __extends(TileJSON, _super);
-  /**
-   * @param {Options} options TileJSON options.
-   */
-
-
-  function TileJSON(options) {
-    var _this = _super.call(this, {
-      attributions: options.attributions,
-      cacheSize: options.cacheSize,
-      crossOrigin: options.crossOrigin,
-      imageSmoothing: options.imageSmoothing,
-      projection: (0, _proj.get)('EPSG:3857'),
-      reprojectionErrorThreshold: options.reprojectionErrorThreshold,
-      state: _State.default.LOADING,
-      tileLoadFunction: options.tileLoadFunction,
-      wrapX: options.wrapX !== undefined ? options.wrapX : true,
-      transition: options.transition
-    }) || this;
-    /**
-     * @type {Config}
-     * @private
-     */
-
-
-    _this.tileJSON_ = null;
-    /**
-     * @type {number|import("../size.js").Size}
-     * @private
-     */
-
-    _this.tileSize_ = options.tileSize;
-
-    if (options.url) {
-      if (options.jsonp) {
-        (0, _net.jsonp)(options.url, _this.handleTileJSONResponse.bind(_this), _this.handleTileJSONError.bind(_this));
-      } else {
-        var client = new XMLHttpRequest();
-        client.addEventListener('load', _this.onXHRLoad_.bind(_this));
-        client.addEventListener('error', _this.onXHRError_.bind(_this));
-        client.open('GET', options.url);
-        client.send();
-      }
-    } else if (options.tileJSON) {
-      _this.handleTileJSONResponse(options.tileJSON);
-    } else {
-      (0, _asserts.assert)(false, 51); // Either `url` or `tileJSON` options must be provided
-    }
-
-    return _this;
-  }
-  /**
-   * @private
-   * @param {Event} event The load event.
-   */
-
-
-  TileJSON.prototype.onXHRLoad_ = function (event) {
-    var client =
-    /** @type {XMLHttpRequest} */
-    event.target; // status will be 0 for file:// urls
-
-    if (!client.status || client.status >= 200 && client.status < 300) {
-      var response = void 0;
-
-      try {
-        response =
-        /** @type {TileJSON} */
-        JSON.parse(client.responseText);
-      } catch (err) {
-        this.handleTileJSONError();
-        return;
-      }
-
-      this.handleTileJSONResponse(response);
-    } else {
-      this.handleTileJSONError();
-    }
-  };
-  /**
-   * @private
-   * @param {Event} event The error event.
-   */
-
-
-  TileJSON.prototype.onXHRError_ = function (event) {
-    this.handleTileJSONError();
-  };
-  /**
-   * @return {Config} The tilejson object.
-   * @api
-   */
-
-
-  TileJSON.prototype.getTileJSON = function () {
-    return this.tileJSON_;
-  };
-  /**
-   * @protected
-   * @param {Config} tileJSON Tile JSON.
-   */
-
-
-  TileJSON.prototype.handleTileJSONResponse = function (tileJSON) {
-    var epsg4326Projection = (0, _proj.get)('EPSG:4326');
-    var sourceProjection = this.getProjection();
-    var extent;
-
-    if (tileJSON['bounds'] !== undefined) {
-      var transform = (0, _proj.getTransformFromProjections)(epsg4326Projection, sourceProjection);
-      extent = (0, _extent.applyTransform)(tileJSON['bounds'], transform);
-    }
-
-    var minZoom = tileJSON['minzoom'] || 0;
-    var maxZoom = tileJSON['maxzoom'] || 22;
-    var tileGrid = (0, _tilegrid.createXYZ)({
-      extent: (0, _tilegrid.extentFromProjection)(sourceProjection),
-      maxZoom: maxZoom,
-      minZoom: minZoom,
-      tileSize: this.tileSize_
-    });
-    this.tileGrid = tileGrid;
-    this.tileUrlFunction = (0, _tileurlfunction.createFromTemplates)(tileJSON['tiles'], tileGrid);
-
-    if (tileJSON['attribution'] !== undefined && !this.getAttributions()) {
-      var attributionExtent_1 = extent !== undefined ? extent : epsg4326Projection.getExtent();
-      this.setAttributions(function (frameState) {
-        if ((0, _extent.intersects)(attributionExtent_1, frameState.extent)) {
-          return [tileJSON['attribution']];
-        }
-
-        return null;
-      });
-    }
-
-    this.tileJSON_ = tileJSON;
-    this.setState(_State.default.READY);
-  };
-  /**
-   * @protected
-   */
-
-
-  TileJSON.prototype.handleTileJSONError = function () {
-    this.setState(_State.default.ERROR);
-  };
-
-  return TileJSON;
-}(_TileImage.default);
-
-var _default = TileJSON;
-exports.default = _default;
-},{"./State.js":"node_modules/ol/source/State.js","./TileImage.js":"node_modules/ol/source/TileImage.js","../extent.js":"node_modules/ol/extent.js","../asserts.js":"node_modules/ol/asserts.js","../tileurlfunction.js":"node_modules/ol/tileurlfunction.js","../tilegrid.js":"node_modules/ol/tilegrid.js","../proj.js":"node_modules/ol/proj.js","../net.js":"node_modules/ol/net.js"}],"node_modules/ol-mapbox-style/dist/index.js":[function(require,module,exports) {
+},{"./BaseTile.js":"node_modules/ol/layer/BaseTile.js","../renderer/canvas/TileLayer.js":"node_modules/ol/renderer/canvas/TileLayer.js"}],"node_modules/ol-mapbox-style/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -86085,74 +85754,100 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 require("ol/ol.css");
 
+var _Feature = _interopRequireDefault(require("ol/Feature"));
+
 var _Map = _interopRequireDefault(require("ol/Map"));
+
+var _Overlay = _interopRequireDefault(require("ol/Overlay"));
+
+var _Point = _interopRequireDefault(require("ol/geom/Point"));
+
+var _TileJSON = _interopRequireDefault(require("ol/source/TileJSON"));
+
+var _Vector = _interopRequireDefault(require("ol/source/Vector"));
 
 var _View = _interopRequireDefault(require("ol/View"));
 
 var _style = require("ol/style");
 
-var _GeoJSON = _interopRequireDefault(require("ol/format/GeoJSON"));
-
-var _Stamen = _interopRequireDefault(require("ol/source/Stamen"));
-
-var _proj = require("ol/proj");
-
 var _layer = require("ol/layer");
-
-var _Feature = _interopRequireDefault(require("ol/Feature"));
-
-var _Vector = _interopRequireDefault(require("ol/source/Vector"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function init() {
-  var iconStyle = [new _style.Style({
-    image: new _style.Icon({
-      anchor: [0.5, 0.5],
-      scale: 0.05,
-      src: "./imagens/icon.png"
-    })
-  })];
+var iconFeature = new _Feature.default({
+  geometry: new _Point.default([-8, 40]),
+  name: "Null Island",
+  population: 4000,
+  rainfall: 500
+});
+var iconStyle = new _style.Style({
+  image: new _style.Icon({
+    // anchor: [1, 46],
+    anchorXUnits: "fraction",
+    anchorYUnits: "pixels",
+    src: "data/icon.png"
+  })
+});
+iconFeature.setStyle(iconStyle);
+var vectorSource = new _Vector.default({
+  features: [iconFeature]
+});
+var vectorLayer = new _layer.Vector({
+  source: vectorSource
+});
+var rasterLayer = new _layer.Tile({
+  source: new _TileJSON.default({
+    url: "https://a.tiles.mapbox.com/v3/aj.1x1-degrees.json?secure=1",
+    crossOrigin: ""
+  })
+});
+var map = new _Map.default({
+  layers: [rasterLayer, vectorLayer],
+  target: document.getElementById("map"),
+  view: new _View.default({
+    center: [0, 0],
+    zoom: 2
+  })
+});
+var element = document.getElementById("popup");
+var popup = new _Overlay.default({
+  element: element,
+  positioning: "bottom-center",
+  stopEvent: false,
+  offset: [0, -50]
+});
+map.addOverlay(popup); // display popup on click
 
-  function estilos(feature, resolution) {
-    if (feature.get("TIPOLOGIA") === "Piscina") {
-      return iconStyle;
-    } else if (feature.get("TIPOLOGIA") === "Campo de Futebol") {
-      return iconStyle;
-    } else {
-      return iconStyle;
-    }
+map.on("click", function (evt) {
+  var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
+    return feature;
+  });
+
+  if (feature) {
+    var coordinates = feature.getGeometry().getCoordinates();
+    popup.setPosition(coordinates);
+    $(element).popover({
+      placement: "top",
+      html: true,
+      content: feature.get("name")
+    });
+    $(element).popover("show");
+  } else {
+    $(element).popover("dispose");
+  }
+}); // change mouse cursor when over marker
+
+map.on("pointermove", function (e) {
+  if (e.dragging) {
+    $(element).popover("dispose");
+    return;
   }
 
-  var entidades = new _layer.Vector({
-    title: "Titulo teste",
-    source: new _Vector.default({
-      url: "./dados/entidades.geojson",
-      format: new _GeoJSON.default()
-    }),
-    style: estilos
-  });
-  map = new _Map.default({
-    target: "map",
-    layers: [new _layer.Tile({
-      source: new _Stamen.default({
-        layer: "watercolor"
-      })
-    }), new _layer.Tile({
-      source: new _Stamen.default({
-        layer: "terrain-labels"
-      })
-    })],
-    view: new _View.default({
-      center: (0, _proj.fromLonLat)([-8.6189, 40.5954]),
-      zoom: 4
-    })
-  });
-  map.addLayer(entidades);
-}
-
-window.onload = init;
-},{"ol/ol.css":"node_modules/ol/ol.css","ol/Map":"node_modules/ol/Map.js","ol/View":"node_modules/ol/View.js","ol/style":"node_modules/ol/style.js","ol/format/GeoJSON":"node_modules/ol/format/GeoJSON.js","ol/source/Stamen":"node_modules/ol/source/Stamen.js","ol/proj":"node_modules/ol/proj.js","ol/layer":"node_modules/ol/layer.js","ol/Feature":"node_modules/ol/Feature.js","ol/source/Vector":"node_modules/ol/source/Vector.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  var pixel = map.getEventPixel(e.originalEvent);
+  var hit = map.hasFeatureAtPixel(pixel);
+  map.getTarget().style.cursor = hit ? "pointer" : "";
+});
+},{"ol/ol.css":"node_modules/ol/ol.css","ol/Feature":"node_modules/ol/Feature.js","ol/Map":"node_modules/ol/Map.js","ol/Overlay":"node_modules/ol/Overlay.js","ol/geom/Point":"node_modules/ol/geom/Point.js","ol/source/TileJSON":"node_modules/ol/source/TileJSON.js","ol/source/Vector":"node_modules/ol/source/Vector.js","ol/View":"node_modules/ol/View.js","ol/style":"node_modules/ol/style.js","ol/layer":"node_modules/ol/layer.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -86180,7 +85875,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52871" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55083" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,18 +1,14 @@
 {
-  "main": "index.html",
-  "name": "modify-icon",
+  "name": "icon",
   "dependencies": {
-    "ol": "6.5.0"
+    "ol": "^6.5.0"
   },
   "devDependencies": {
-    "parcel": "^2.0.0-beta.1"
+    "parcel": "^2.0.0-beta.1",
+    "parcel-bundler": "^1.12.5"
   },
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build --public-url . index.html"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/codesandbox-app/static-template.git"
   }
 }
