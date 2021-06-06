@@ -10,6 +10,9 @@ import { Icon, Style } from "ol/style";
 
 import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 
+var minhaIcon = new Image();
+minhaIcon.src = require("./imagens/icon.png");
+
 var iconFeature = new Feature({
   geometry: new Point([-8, 40]),
   name: "Null Island",
@@ -19,10 +22,10 @@ var iconFeature = new Feature({
 
 var iconStyle = new Style({
   image: new Icon({
-    // anchor: [1, 46],
+    //anchor: [1, 46],
     anchorXUnits: "fraction",
     anchorYUnits: "pixels",
-    src: "data/icon.png",
+    src: "./imagens/icon.png",
   }),
 });
 
